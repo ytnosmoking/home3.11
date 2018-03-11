@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>test git123456</div>
+    <div>test vscode</div>
     <router-link to="/index"> index</router-link>
     <router-link to="/dashboard">dashboard</router-link>
     <transition mode="out-in"
