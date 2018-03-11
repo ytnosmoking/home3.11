@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div>test git</div>
     <router-link to="/index"> index</router-link>
     <router-link to="/dashboard">dashboard</router-link>
     <transition mode="out-in"
