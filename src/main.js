@@ -3,7 +3,24 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// css
 import 'animate.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'// progress bar style
+NProgress.configure({ showSpinner: false })// NProgress Configuration
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+ next()
+})
+router.afterEach(()=>{
+  NProgress.done()
+})
+
+
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
