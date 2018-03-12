@@ -1,7 +1,7 @@
 <template>
   <!-- <div> -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="main-header">
-      <el-breadcrumb-item :to="{ path: '/index/user' }" :class="{active:  this.headPath.indexOf('index')!=-1}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: 'user' }" :class="{active:  this.headPath.indexOf('index')!=-1}">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/dashboard'}" :class="{active:  this.headPath.indexOf('dashboard')!=-1}">DashBoard</el-breadcrumb-item>
       <el-breadcrumb-item>活动列表</el-breadcrumb-item>
       <el-breadcrumb-item>活动详情</el-breadcrumb-item>
@@ -23,7 +23,7 @@
       }
     },
     mounted() {
-      
+
     }
   }
 </script>

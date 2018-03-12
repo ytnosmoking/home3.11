@@ -13,7 +13,7 @@ import 'nprogress/nprogress.css'// progress bar style
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 router.beforeEach((to, from, next) => {
   NProgress.start()
- next()
+  next()
 })
 router.afterEach(()=>{
   NProgress.done()

@@ -10,6 +10,7 @@
         text-color="#fff"
         active-text-color="#ffd04b"
         :router="forRouter" >
+
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
@@ -28,19 +29,17 @@
             <el-menu-item index="1-4-1">选项1</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <!-- <router-link to="/index" tag="li"> -->
-          <el-menu-item index="2" route="/index">
-             
-            <i class="el-icon-menu"></i>
-            <span>index</span>
-          </el-menu-item>
-        <!-- </router-link>  -->
-        <!-- <router-link to="/dashboard" tag="li"> -->
-          <el-menu-item index="3" route="/dashboard">
-            <i class="el-icon-document"></i>
-            <span>DashBoard</span>
-          </el-menu-item>
-        <!-- </router-link>  -->
+
+        <el-menu-item index="2" route="/index">
+          <i class="el-icon-menu"></i>
+          <span>index</span>
+        </el-menu-item>
+
+        <el-menu-item index="3" route="/dashboard">
+          <i class="el-icon-document"></i>
+          <span>DashBoard</span>
+        </el-menu-item>
+
         <el-menu-item index="4">
           <i class="el-icon-setting"></i>
           <span slot="title">导航四</span>
