@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>test vscode</div>
+    <div>test vscode company</div>
     <router-link to="/index"> index</router-link>
     <router-link to="/dashboard">dashboard</router-link>
     <transition mode="out-in"
