@@ -44,11 +44,7 @@
 <script>
   import Hamburger from '@/components/Hamburger'
   export default {
-<<<<<<< HEAD
     name: 'navbar',
-=======
-    name: 'headMain',
->>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
     components: {
       Hamburger
     },
@@ -60,11 +56,7 @@
     watch:{
       $route (to, from) {
         console.log(to)
-<<<<<<< HEAD
         // this.headPath =to.path
-=======
-        this.headPath =to.path
->>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
       }
     },
     mounted() {

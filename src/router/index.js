@@ -23,8 +23,8 @@ export const defaultRouter =  [
     component: _import_com('LayOut/LayOut'),
     redirect:"/layout/layout",
     children:[{
+      name: 'layout.index',
       path: 'layout',
-      name: 'layout.user',
       component: _import_views('index')
     }]
   }, {
