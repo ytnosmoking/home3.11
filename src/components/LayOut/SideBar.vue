@@ -3,7 +3,11 @@
     <el-menu
       mode="vertical"
       :default-active="$route.path"
+<<<<<<< HEAD
       :collapse="isCollapse"
+=======
+      :collapse="isCollapse"
+>>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
       @open="handleOpen"
       @close="handleClose"
       background-color="#545c64"
@@ -63,7 +67,11 @@
 <script>
   import ScrollBar from '@/components/ScrollBar'
   export default {
+<<<<<<< HEAD
     name: 'sidebar',
+=======
+    name: 'navleft',
+>>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
     components: {
       ScrollBar
     },
@@ -75,6 +83,7 @@
     computed:{
       isCollapse() {
         return false
+<<<<<<< HEAD
       },
       getRouter () {
         console.log(this.$store.state)
@@ -87,15 +96,22 @@
     mounted(){
       console.log(this.getRouter)
     },
+=======
+      }
+    },
+>>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+<<<<<<< HEAD
       },
       getRouters() {
         this.$store.commit('getRouters')
+=======
+>>>>>>> bf2adbf1ff57ce93743073cfcb0d7654d80fcfe2
       }
     }
   }
