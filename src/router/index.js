@@ -11,33 +11,36 @@ const _import_views = file => () => import('@/views/'+file+'.vue');
 
 Vue.use(Router)
 
+export const defaultRouter =  [
+  {
+    path: '',
+    redirect: 'layout'
+    // name: 'layout',
+    // component: _import_com('LayOut/LayOut')
+  }, {
+    path: '/layout',
+    name: 'layout',
+    component: _import_com('LayOut/LayOut'),
+    redirect:"/layout/layout",
+    children:[{
+      path: 'layout',
+      name: 'layout.user',
+      component: _import_views('index')
+    }]
+  }, {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: _import_com('LayOut/LayOut'),
+    redirect: '/dashboard/dashboard',
+    children: [{
+      name: 'dashboard.index',
+      path: 'dashboard',
+      component: _import_views('DashBoard')
+    }]
+  }
+]
+
+
 export default new Router({
-  routes: [
-    {
-      path: '',
-      // redirect: '/index'
-      name: 'layout',
-      component: _import_com('LayOut/LayOut')
-    }, {
-      path: '/index',
-      name: 'index',
-      component: _import_com('LayOut/LayOut'),
-      redirect:"/index/user",
-      children:[{
-        path: 'user',
-        name: 'index.user',
-        component: _import_views('index')
-      }]
-    }, {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: _import_com('LayOut/LayOut'),
-      redirect: '/dashboard/user',
-      children: [{
-        name: 'dashboard.user',
-        path: 'user',
-        component: _import_views('DashBoard')
-      }]
-    }
-  ]
+  routes:defaultRouter
 })

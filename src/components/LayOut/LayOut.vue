@@ -1,22 +1,32 @@
 <template>
+  <div class="app-wrapper">
+    <side-bar class="sidebar-container"></side-bar>
+    <div class="main-container">
+      <nav-bar></nav-bar>
+      <app-main></app-main>
+    </div>
+  </div>
 
-    <el-container class="oneContainer">
+
+
+    <!-- <el-container class="oneContainer">
       <el-aside width="200px" style="background-color:#545c64">
          <nav-left class="navLeft"></nav-left>
       </el-aside>
       <el-container>
-        <el-header>
-          <head-main></head-main>
-        </el-header>
+       
+          <nav-bar></nav-bar>
+          <br>
+       
         <el-main>
           <transition mode="out-in"
-          enter-active-class="animated zoomInRight"
-          leave-active-class="animated zoomOutRight">
+          enter-active-class="animated bounceInUp"
+          leave-active-class="animated bounceOutUp">
             <router-view/>
           </transition>
         </el-main>
       </el-container>
-    </el-container>
+    </el-container> -->
 
     <!-- <nav-left class="navLeft"></nav-left>
     <transition mode="out-in"
@@ -27,13 +37,15 @@
 
 </template>
 <script>
-import NavLeft from '@/components/LayOut/NavLeft'
-import HeadMain from '@/components/LayOut/HeadMain'
+import SideBar from '@/components/LayOut/SideBar'
+import NavBar from '@/components/LayOut/NavBar'
+import AppMain from '@/components/LayOut/AppMain'
   export default {
     name: 'layout',
     components:{
-      NavLeft,
-      HeadMain
+      SideBar,
+      NavBar,
+      AppMain
     },
     data() {
       return {
@@ -42,10 +54,42 @@ import HeadMain from '@/components/LayOut/HeadMain'
     }
   }
 </script>
-<style>
-  .oneContainer {
+<style >
+#app .sidebar-container {
+    /* transition: width 0.28s; */
+    width: 180px!important;
     height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    
+    
   }
+  .sidebar-container a {
+      display: inline-block;
+      width: 100%;
+    }
+  .sidebar-container  .svg-icon {
+      margin-right: 16px;
+    }
+  .sidebar-container .el-menu {
+      border: none;
+      width: 100%;
+    }
+  .app-wrapper {
+	  
+	  position: relative;
+	  height: 100%;
+	  width: 100%;
+	}
+  #app .main-container {
+    min-height: 100%;
+    /* -webkit-transition: margin-left 0.28s;
+    transition: margin-left 0.28s; */
+    margin-left: 180px;
+}
  
 </style>
 

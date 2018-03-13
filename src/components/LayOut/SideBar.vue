@@ -1,0 +1,102 @@
+<template>
+  <scroll-bar>
+    <el-menu
+      mode="vertical"
+      :default-active="$route.path"
+      :collapse="isCollapse"
+      @open="handleOpen"
+      @close="handleClose"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      :router="forRouter"
+      >
+
+      <!-- <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+        <el-menu-item-group>
+          <template slot="title">分组一</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu> -->
+
+      <el-menu-item  v-for="(item, k) in getRouter"
+      :key="k"
+      :index="item.path"
+      :route="item.path"
+      :class="{'is-active':$route.path.indexOf(item.path)!==-1}"
+      v-show="item.path">
+        <i class="el-icon-menu"></i>
+        <span>{{item.name}}</span>
+      </el-menu-item>
+
+
+      <!-- <el-menu-item :index="$route.path" route="/layout">
+        <i class="el-icon-menu"></i>
+        <span>LayOut</span>
+      </el-menu-item> -->
+
+      <!-- <el-menu-item :index="$route.path" route="/dashboard">
+        <i class="el-icon-document"></i>
+        <span>DashBoard</span>
+      </el-menu-item> -->
+
+
+      <!-- <el-menu-item index="4">
+        <i class="el-icon-setting"></i>
+        <span slot="title">导航四</span>
+      </el-menu-item> -->
+    </el-menu>
+  </scroll-bar>
+</template>
+<script>
+  import ScrollBar from '@/components/ScrollBar'
+  export default {
+    name: 'sidebar',
+    components: {
+      ScrollBar
+    },
+    data() {
+      return {
+        forRouter: true
+      }
+    },
+    computed:{
+      isCollapse() {
+        return false
+      },
+      getRouter () {
+        console.log(this.$store.state)
+        return this.$store.state.userRouter
+      }
+    },
+    created() {
+      this.getRouters()
+    },
+    mounted(){
+      console.log(this.getRouter)
+    },
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      getRouters() {
+        this.$store.commit('getRouters')
+      }
+    }
+  }
+</script>

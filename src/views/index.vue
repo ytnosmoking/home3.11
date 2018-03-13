@@ -12,9 +12,9 @@
       }
     },
     mounted(){
-      console.log(1)
-      console.log(this.$route)
-      console.log(2)
+      // console.log(1)
+      // console.log(this.$route)
+      // console.log(2)
       // this.dispatch()
     }
   }
