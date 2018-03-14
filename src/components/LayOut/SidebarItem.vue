@@ -1,10 +1,12 @@
 <template>
   <div>
-    <template v-for="(item, k) in routes" v-if="item.children">
-      <router-link v-if="item.children.length===1 && !item.children[0].children" :to="item.path+'/'+item.children[0].path" :key="item.children[0].name">  
-        <el-menu-item  
+    <template v-for="item in routes" v-if="item.children">
+      <router-link
+       v-if="item.children.length===1 && !item.children[0].children"
+        :to="item.path+'/'+item.children[0].path" :key="item.children[0].name">
+        <el-menu-item
         :index="item.path+'/'+item.children[0].path"
-        :class="{'is-active':$route.path.indexOf(item.path)!==-1}">
+        >
           <!-- <i class="el-icon-menu"></i> -->
           <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon" :icon-class="item.children[0].meta.icon"></svg-icon>
           <span>{{item.children[0].name}}</span>
@@ -40,13 +42,22 @@
     name: 'sidebar-item',
     props: {
       routes:{
-        type: Array
+        type: Array,
+        default:[]
       }
     },
     data() {
       return {
 
       }
+    },
+    methods:{
+
     }
   }
 </script>
+<style>
+  .el-menu-item.is-active {
+    background-color: aqua!important;
+  }
+</style>
