@@ -30,17 +30,8 @@
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
       </el-submenu> -->
-
-      <el-menu-item  v-for="(item, k) in getRouter"
-      :key="k"
-      :index="item.path"
-      :route="item.path"
-      :class="{'is-active':$route.path.indexOf(item.path)!==-1}"
-      v-show="item.path">
-        <i class="el-icon-menu"></i>
-        <span>{{item.name}}</span>
-      </el-menu-item>
-
+      <sidebar-item :routes = "getRouter"></sidebar-item>
+     
 
       <!-- <el-menu-item :index="$route.path" route="/layout">
         <i class="el-icon-menu"></i>
@@ -62,10 +53,12 @@
 </template>
 <script>
   import ScrollBar from '@/components/ScrollBar'
+  import SidebarItem from '@/components/LayOut/SidebarItem'
   export default {
     name: 'sidebar',
     components: {
-      ScrollBar
+      ScrollBar,
+      SidebarItem
     },
     data() {
       return {

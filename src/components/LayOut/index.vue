@@ -55,6 +55,13 @@ import AppMain from '@/components/LayOut/AppMain'
   }
 </script>
 <style >
+#app .el-submenu  .el-menu-item {
+    min-width: 180px !important;
+    background-color: #1f2d3d !important;
+}
+#app .el-submenu .el-menu-item:hover {
+    background-color: #3d4d5f  !important;
+}
 #app .sidebar-container {
     /* transition: width 0.28s; */
     width: 180px!important;
@@ -64,8 +71,6 @@ import AppMain from '@/components/LayOut/AppMain'
     bottom: 0;
     left: 0;
     z-index: 1001;
-    
-    
   }
   .sidebar-container a {
       display: inline-block;

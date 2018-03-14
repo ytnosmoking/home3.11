@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import {store} from './store'
+// icons
+
+import './icons'
 // css
 import 'animate.css'
 import ElementUI from 'element-ui'
