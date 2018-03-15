@@ -10,7 +10,22 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/book': {
+        target: 'https://api.douban.com/v2/book',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/book': ''
+        }
+      },
+      '/movie': {
+        target: 'https://api.douban.com/v2/movie',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/movie': ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

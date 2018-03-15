@@ -3,9 +3,10 @@
     <template v-for="item in routes" v-if="item.children">
       <router-link
        v-if="item.children.length===1 && !item.children[0].children"
-        :to="item.path+'/'+item.children[0].path" :key="item.children[0].name">
+        :to="item.path+'/'+item.children[0].path" :key="item.children[0].name" >
         <el-menu-item
         :index="item.path+'/'+item.children[0].path"
+        @click="getInfo(item.children[0].name)"
         >
           <!-- <i class="el-icon-menu"></i> -->
           <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon" :icon-class="item.children[0].meta.icon"></svg-icon>
@@ -52,12 +53,26 @@
       }
     },
     methods:{
-
+      getInfo(params) {
+        // alert(1)
+        if(params ==="图书"){
+          this.$http.post('/book/1003078').then( res => {
+            
+            console.log(res.data)
+          })
+        }else if(params=="电影") {
+         this.$http.post('/movie/top250').then(res=>{
+           console.log(res.data)
+         })
+        }else {
+          return 
+        }
+      }
     }
   }
 </script>
 <style>
   .el-menu-item.is-active {
-    background-color: aqua!important;
+    background-color: #921414!important;
   }
 </style>

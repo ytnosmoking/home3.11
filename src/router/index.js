@@ -91,6 +91,40 @@ export const defaultRouter =  [
       path: 'index',
       component: _import_views('Fun')
     }]
+  },
+  {
+    path: '/movie',
+    
+    
+    component: _import_com('LayOut'),
+    // redirect: '/dashboard/dashboard',
+    redirect: 'noredirect',
+    children: [{
+      name: '电影',
+      path: 'movie',
+      component: _import_views('Movie'),
+      meta:{
+        title: 'movie',
+        icon: 'movie'
+      },
+    }]
+  },
+  {
+    path: '/book',
+    
+    
+    component: _import_com('LayOut'),
+    // redirect: '/dashboard/dashboard',
+    redirect: 'noredirect',
+    children: [{
+      name: '图书',
+      path: 'book',
+      component: _import_views('Book'),
+      meta:{
+        title: 'book',
+        icon: 'book'
+      },
+    }]
   }
 ]
 
