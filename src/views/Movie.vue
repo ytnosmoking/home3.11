@@ -44,7 +44,7 @@
           console.log('catch--1')
           // resolve()
           console.log('catch===1')
-          reject()
+          // reject()
         }).catch(v=>{
 
           console.log('catch===2')
