@@ -58,11 +58,11 @@
         if(params ==="图书"){
           this.$http.post('/book/1003078').then( res => {
             
-            console.log(res.data)
+            // console.log(res.data)
           })
         }else if(params=="电影") {
          this.$http.post('/movie/top250').then(res=>{
-           console.log(res.data)
+          //  console.log(res.data)
          })
         }else {
           return 
