@@ -5,12 +5,14 @@
     </h2>
     <span>{{info.count}}</span>
      <el-button type="success" @click="forNext()">成功按钮</el-button>
+
+     <el-button type="warning" @click="getBook()"> book</el-button>
   </div>
 </template>
 <script>
-    function makeAnoise(params) {
-      alert(params)
-    }
+    // function makeAnoise(params) {
+    //   alert(params)
+    // }
 
   export default {
     name: 'movie',
@@ -27,13 +29,13 @@
           console.log('start====1')
           
         }).then(res=> {
-          reject()
+          // reject()
           console.log('then====1')
 
         }).then(res=> {
         
           console.log('then ===2')
-           resolve()
+          //  resolve()
           
         }).then(res=> {
 
@@ -52,15 +54,16 @@
           console.log('then-===4')
         })
       },
-      getInfo() {
-        this.$http.post('/movie/top250')
-        .then(res=>{
-          console.log(res.data)
-          this.info = this.info = {"count": 'movie'}
-        })
-      },
+      // getInfo() {
+      //   this.$http.post('/movie/top250')
+      //   .then(res=>{
+      //     console.log(res.data)
+      //     this.info = this.info = {"count": 'movie'}
+      //   })
+      // },
       getBook() {
-         this.$http.post('/book/1003078').then(res=>{
+        console.log(process.env)
+         this.$http.post(process.env.API_HOST+'1003078').then(res=>{
           console.log(res.data)
           this.info = {"count": 'book'}
         })
@@ -77,9 +80,10 @@
       }
     },
     mounted(){
-      
+      console.log(process.env)
     },
     created(){
+      this.getBook()
       // let params = "电影"
       // let vm  = this
       
@@ -91,6 +95,6 @@
       // toNext.next() 
       // toNext.next()
       //  this.getInfo(params)
-    },
+    }
   }
 </script>
