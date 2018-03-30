@@ -4,9 +4,10 @@
       this is MovieView
     </h2>
     <span>{{info.count}}</span>
+    <br>
      <el-button type="success" @click="forNext()">成功按钮</el-button>
 
-     <el-button type="warning" @click="getBook()"> book</el-button>
+     <el-button type="warning" @click="getNext()"> book</el-button>
   </div>
 </template>
 <script>
@@ -25,9 +26,9 @@
       forNext() {
         return new Promise((resolve, reject) => {
 
-          resolve()
+          // resolve()
           console.log('start====1')
-          
+          reject()
         }).then(res=> {
           // reject()
           console.log('then====1')
@@ -43,9 +44,10 @@
           console.log('then===3')
           resolve()
         }).catch(v=> {
-          console.log('catch--1')
+          console.log('catch---1')
           // resolve()
-          console.log('catch===1')
+         
+          // reject()
           // reject()
         }).catch(v=>{
 
@@ -54,13 +56,13 @@
           console.log('then-===4')
         })
       },
-      // getInfo() {
-      //   this.$http.post('/movie/top250')
-      //   .then(res=>{
-      //     console.log(res.data)
-      //     this.info = this.info = {"count": 'movie'}
-      //   })
-      // },
+      getInfo() {
+        this.$http.post('/movie/top250')
+        .then(res=>{
+          console.log(res.data)
+          this.info = this.info = {"count": 'movie'}
+        })
+      },
       getBook() {
         console.log(process.env)
          this.$http.post(process.env.API_HOST+'1003078').then(res=>{
@@ -70,6 +72,7 @@
       },
       getyield (){
         var vm = this
+        // alert('vm')
          const getYield = function* (){
           alert(1)
           let res1 = yield vm.getInfo()
@@ -77,13 +80,23 @@
           let res2 = yield vm.getBook()
         }
         return getYield()
+      },
+      *gen () {
+        yield 'hello';
+        yield 'world';
+        // yield this.gen().next()
+      },
+      getNext() {
+        // this.up.next()  
+        console.log(this.up.next())
       }
     },
     mounted(){
-      console.log(process.env)
+      
+
     },
     created(){
-      this.getBook()
+      this.up = this.gen()
       // let params = "电影"
       // let vm  = this
       
