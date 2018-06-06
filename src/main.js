@@ -3,9 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {store} from './store'
-import axios from 'axios'
-Vue.prototype.$http = axios
+import store from './store'
+import {
+  getItem
+} from '@/utils/auth'
 
 
 // icons
@@ -16,13 +17,21 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'// progress bar style
-NProgress.configure({ showSpinner: false })// NProgress Configuration
+import 'nprogress/nprogress.css' // progress bar style
+NProgress.configure({
+  showSpinner: false
+}) // NProgress Configuration
 router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
+  // if (getItem('token')) {
+    NProgress.start()
+    next()
+  // } else {
+    // next('/login')
+    // NProgress.start()
+  // }
+
 })
-router.afterEach(()=>{
+router.afterEach(() => {
   NProgress.done()
 })
 
@@ -36,6 +45,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })

@@ -24,6 +24,13 @@ module.exports = {
         pathRewrite: {
           '^/movie': ''
         }
+      },
+      '/test': {
+        target: 'http://test.fqweb.pms.efanghang.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/test': ''
+        }
       }
     },
 

@@ -1,16 +1,7 @@
 <template>
   <scroll-bar>
-    <el-menu
-      mode="vertical"
-      :default-active="$route.path"
-      :collapse="isCollapse"
-      @open="handleOpen"
-      @close="handleClose"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      :router="forRouter"
-      >
+    <el-menu mode="vertical" 
+    :default-active="$route.path" :collapse="isCollapse" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="forRouter">
 
       <!-- <el-submenu index="1">
         <template slot="title">
@@ -30,8 +21,7 @@
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
       </el-submenu> -->
-      <sidebar-item :routes = "getRouter"></sidebar-item>
-     
+      <sidebar-item :routes="getRouter"></sidebar-item>
 
       <!-- <el-menu-item :index="$route.path" route="/layout">
         <i class="el-icon-menu"></i>
@@ -43,7 +33,6 @@
         <span>DashBoard</span>
       </el-menu-item> -->
 
-
       <!-- <el-menu-item index="4">
         <i class="el-icon-setting"></i>
         <span slot="title">导航四</span>
@@ -52,44 +41,44 @@
   </scroll-bar>
 </template>
 <script>
-  import ScrollBar from '@/components/ScrollBar'
-  import SidebarItem from '@/components/LayOut/SidebarItem'
-  export default {
-    name: 'sidebar',
-    components: {
-      ScrollBar,
-      SidebarItem
+import ScrollBar from "@/components/ScrollBar";
+import SidebarItem from "@/components/LayOut/SidebarItem";
+export default {
+  name: "sidebar",
+  components: {
+    ScrollBar,
+    SidebarItem
+  },
+  data() {
+    return {
+      forRouter: true
+    };
+  },
+  computed: {
+    isCollapse() {
+      return false;
     },
-    data() {
-      return {
-        forRouter: true
-      }
+    getRouter() {
+      console.log(this.$store.state);
+      return this.$store.state.routes.userRouter;
+    }
+  },
+  created() {
+    this.getRouters();
+  },
+  mounted() {
+    console.log(this.getRouter);
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
     },
-    computed:{
-      isCollapse() {
-        return false
-      },
-      getRouter () {
-        console.log(this.$store.state)
-        return this.$store.state.userRouter
-      }
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     },
-    created() {
-      this.getRouters()
-    },
-    mounted(){
-      console.log(this.getRouter)
-    },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      getRouters() {
-        this.$store.commit('getRouters')
-      }
+    getRouters() {
+      this.$store.commit("getRouters");
     }
   }
+};
 </script>
