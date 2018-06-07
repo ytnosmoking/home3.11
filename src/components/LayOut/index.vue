@@ -2,7 +2,7 @@
   <div class="app-wrapper">
     <side-bar class="sidebar-container"></side-bar>
     <div class="main-container">
-      <nav-bar></nav-bar>
+      <nav-bar ></nav-bar>
       <app-main></app-main>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
   }
 };
 </script>
-<style >
+<style>
 #app .el-submenu .el-menu-item {
   min-width: 100px !important;
 }
@@ -78,10 +78,15 @@ export default {
   height: 100%;
   width: 100%;
 }
+
 #app .main-container {
   min-height: 100%;
 
   margin-left: 100px;
+}
+#app .app-main {
+  background-color: #ccc;
+  display: block;
 }
 </style>
 

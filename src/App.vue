@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition mode="out-in"
+   enter-active-class="animated fadeInLeft"
+    leave-active-class="animated fadeOutRight">
+      <router-view></router-view>
+    </transition>
     <!-- <div>test vscode company</div>
     <router-link to="/index"> index</router-link>
     <router-link to="/dashboard">dashboard</router-link>

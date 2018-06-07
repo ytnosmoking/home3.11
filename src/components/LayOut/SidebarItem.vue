@@ -1,40 +1,18 @@
 <template>
-  <div>
-    <template v-for="item in routes" v-if="item.children">
-      <router-link
-        v-if="item.children.length===1 && !item.children[0].children"
-        :to="item.path+'/'+item.children[0].path" 
-        :key="item.children[0].name" tag="li"
-        active-class="active">
-        <el-menu-item :index="item.path+'/'+item.children[0].path" @click="getInfo(item.children[0].name)">
-          <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon" :icon-class="item.children[0].meta.icon"></svg-icon>
-          <span>{{item.children[0].name}}</span>
-        </el-menu-item>
+  <ul>
+    <template v-for=" (item,key) in routes">
+      <router-link 
+        v-if="item.meta" 
+        :to="item.path" 
+        :key="key" 
+        tag="li" 
+        :ref="item" 
+        @click.native="saveRoutes(item.path,key)">
+        <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
+        <span>{{item.name}}</span>
       </router-link>
-
-      <el-submenu v-else :index="item.name||item.path" :key="item.name">
-        <template slot="title">
-          <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
-          <!-- <i v-if="item.meta&&item.meta.icon" class="el-icon-location"></i> -->
-          <span>{{item.meta.icon}}</span>
-        </template>
-
-        <template v-for="child in item.children" v-if="!child.hidden">
-          <sidebar-item v-if="child.children&&child.children.length>0" :routes="[child]" :key="child.path"></sidebar-item>
-
-          <router-link v-else :to="item.path+'/'+child.path" :key="child.name" tag="li" active-class="active">
-            <el-menu-item :index="item.path+'/'+child.path">
-              <!-- <i v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></i> -->
-              <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
-              <span v-if="child.meta&&child.meta.title">{{child.meta.title}}</span>
-            </el-menu-item>
-          </router-link>
-        </template>
-
-      </el-submenu>
     </template>
-
-  </div>
+  </ul>
 </template>
 <script>
 export default {
@@ -42,13 +20,18 @@ export default {
   props: {
     routes: {
       type: Array,
-      default(){
-        return []
+      default() {
+        return [];
       }
     }
   },
   data() {
-    return {};
+    return {
+      isShow: false
+    };
+  },
+  mounted() {
+    console.log(this.routes);
   },
   methods: {
     getInfo(params) {
@@ -64,27 +47,53 @@ export default {
       } else {
         return;
       }
+    },
+    showChild(ref) {},
+    hideChild() {},
+    saveRoutes(params,index) {
+      // alert(1)
+      console.log(index)
+      console.log(params)
+      if(this.routes[index].path ==params) {
+        console.log(this.routes[index].children)
+        this.$store.commit('SAVE_CHILD_ROUTES', this.routes[index].children)
+      }
     }
   }
 };
 </script>
 <style scoped>
-.el-menu .el-menu--inline {
-  background-color: rgba(0, 0, 0, 0)!important;
+li {
+  height: 50px;
+  padding-left: 20px;
+  font-size: 14px;
+  list-style: none;
+  line-height: 50px;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
 }
-.el-submenu .el-menu-item {
-  padding: 0!important;
+li:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
-.el-submenu.is-opened {
-  background-color: #1f323c ;
+li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  background-color: #02CAB0;
+  height: 0;
+  transition: all 0.3s ease;
 }
-.el-menu-item.is-active {
-  background-color: #1f323c !important;
+li:hover::before {
+  height: 100%;
 }
-.el-menu-item:hover {
-  background-color: #1f323c ;
+.router-link-active {
+  background: rgba(0, 0, 0, 0.7);
 }
-.active {
-  background-color: gold;
+li.router-link-active::before {
+  height: 100%;
 }
 </style>

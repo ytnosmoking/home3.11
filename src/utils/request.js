@@ -10,9 +10,25 @@ const service = axios.create({
   timeout: 5000  // request timeout
 })
 
+import {
+  Loading
+} from 'element-ui'
+
+let loadingService
+
 //  请求拦截
 service.interceptors.request.use(config=> {
+  loadingService = Loading.service({
+    lock: true,
+    text: 'Loading',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
   if(store.getters.getToken&&store.getters.getGcid&&store.getters.getUserId) {
+    config.headers['token'] = store.getters.getToken
+    config.headers['gcid'] = store.getters.getGcid
+    config.headers['userid'] = store.getters.getUserId
+  }else if(getItem('token')&&getItem('gcid')&&getItem('userid')){
     config.headers['token'] = getItem('token')
     config.headers['gcid'] = getItem('gcid')
     config.headers['userid'] = getItem('userid')
@@ -26,13 +42,16 @@ service.interceptors.request.use(config=> {
 // 返回数据拦截
 
 service.interceptors.response.use(response=> {
-  return response
+  loadingService.close()
+  console.log(response)
+  return response.data
 }, error => {
+  loadingService.close()
   console.log('error='+ error)
   Message({
     message: error.message,
     type: 'error',
-    duration: 5*1000
+    duration: 3*1000
   })
   return Promise.reject(error)
 })

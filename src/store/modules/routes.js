@@ -2,14 +2,16 @@ import { defaultRouter } from "@/router";
 
 export default {
   state: {
-    userRouter: []
+    userRouter: [],
+    childRoutes : []
   },
-  getters: {
-    
-  },
+  
   mutations: {
     getRouters: state => {
       state.userRouter = defaultRouter
+    },
+    SAVE_CHILD_ROUTES: (state, childRoutes) => {
+      state.childRoutes = childRoutes
     }
   }
 }

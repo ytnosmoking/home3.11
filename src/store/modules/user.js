@@ -7,13 +7,20 @@ import {
 
 const user = {
   state: {
-
-  },
-  getters: {
-
+    token: '',
+    gcid: '',
+    userid: ''
   },
   mutations: {
-
+    SET_TOKEN(state, token) {
+      state.token = token
+    },
+    SET_GCID(state, gcid) {
+      state.gcid = gcid
+    },
+    SET_USERID(state, userid) {
+      state.userid = userid
+    }
   },
   actions: {
     LoginByUsername({
@@ -22,14 +29,19 @@ const user = {
       // const username = userinfo.name.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(userinfo).then(res => {
-          let data = res.data.result
-          setItem("gcid", userinfo.gcid); //gcid
-          // setItem("token", userinfo.); //gcid
-          setItem("chaoJiName", userinfo.accountName); //管理员账号
-          setItem("JJuserOperateTime", new Date().getTime()); //当前登录时间
-          setItem("currentJJRUser",data);
-          console.log(data)
-          resolve()
+          console.log(res)
+          if (res.status.code == 200) {
+            let data = res.result
+            setItem("gcid", userinfo.gcid); //gcid
+            setItem("chaoJiName", userinfo.accountName); //管理员账号
+            setItem("JJuserOperateTime", new Date().getTime()); //当前登录时间
+            setItem("currentJJRUser", JSON.stringify(data));
+            setItem('token', data.token)
+            commit('SET_GCID', userinfo.gcid)
+            commit('SET_TOKEN', data.token)
+            commit('SET_USERID', data.id)
+          }
+          resolve(res)
         }).catch(error => {
           console.log(error)
         })

@@ -90,6 +90,7 @@
   </div>
 </template>
 <script>
+import { Message } from "element-ui";
 export default {
   name: "login",
   data() {
@@ -164,18 +165,31 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-           this.$store
+          this.$store
             .dispatch("LoginByUsername", this.ruleForm)
-            .then(() => {
-              alert(1)
-              this.$router.push("/");
+            .then(res => {
+              // console.log(res);
+              if (res.status.code == 200) {
+                this.$router.push("/layout");
+              } else {
+                Message({
+                  message: res.status.msg,
+                  type: "error",
+                  duration: 3 * 1000
+                });
+              }
             })
-            .catch((err) => {
-              console.log(err)
+            .catch(err => {
+              console.log(err);
+              Message({
+                message: "网络开了一会小差~~~",
+                type: "error",
+                duration: 3 * 1000
+              });
             });
         } else {
-          console.log('error submit')
-          return false
+          console.log("error submit");
+          return false;
         }
       });
     }

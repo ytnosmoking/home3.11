@@ -27,3 +27,8 @@
     } 
   }
 </script>
+<style scoped>
+  .app-main {
+    background: #ccc;
+  }
+</style>

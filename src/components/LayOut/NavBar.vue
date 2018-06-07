@@ -1,81 +1,91 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
-    <hamburger></hamburger>
+  <div class="navBar">
+    <hamburger class="hamburger"></hamburger>
 
-    <!-- <breadcrumb class="breadcrumb-container"></breadcrumb> -->
+    <router-link v-if="item.name" v-for="(item, k) in getChildRoutes" :key="k" tag="span" :to="item.path">
+      {{item.name}}
+    </router-link>
 
-    <!-- <div class="right-menu">
-      <error-log class="errLog-container right-menu-item"></error-log>
-
-      <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
-        <screenfull class="screenfull right-menu-item"></screenfull>
-      </el-tooltip>
-
-      <lang-select class="international right-menu-item"></lang-select>
-
-      <el-tooltip effect="dark" :content="$t('navbar.theme')" placement="bottom">
-        <theme-picker class="theme-switch right-menu-item"></theme-picker>
-      </el-tooltip>
-
-      <el-dropdown class="avatar-container right-menu-item" trigger="click">
-        <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-          <i class="el-icon-caret-bottom"></i>
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              {{$t('navbar.dashboard')}}
-            </el-dropdown-item>
-          </router-link>
-          <a target='_blank' href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>
-              {{$t('navbar.github')}}
-            </el-dropdown-item>
-          </a>
-          <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div> -->
-  </el-menu>
+  </div>
 </template>
 <script>
-  import Hamburger from '@/components/Hamburger'
-  export default {
-    name: 'navbar',
-    components: {
-      Hamburger
-    },
-    data() {
-      return {
-        headPath:''
+import { setItem, getItem } from '@/utils/auth'
+import Hamburger from "@/components/Hamburger";
+export default {
+  name: "navbar",
+  components: {
+    Hamburger
+  },
+  data() {
+    return {
+      headPath: "",
+      // getChildRoutes:[]
+    };
+  },
+  computed: {
+    getChildRoutes() {
+      // alert(1)
+      var localRoutes = this.$store.getters.getChildRoutes;
+      if(localRoutes) {
+        setItem('navRoute', JSON.stringify(localRoutes))
+      }else {
+        localRoutes = JSON.parse(getItem('navRoute'))
       }
-    },
-    watch:{
-      $route (to, from) {
-        console.log(to)
-        // this.headPath =to.path
-      }
-    },
-    mounted() {
-
+      return localRoutes;
     }
+  },
+  watch: {
+   
+  },
+  mounted() {
+    // this.getChildRoutes()
   }
+};
 </script>
-<style scope>
-  .main-header {
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-  .navbar {
-    height: 50px;
-    line-height: 50px;
-    border-radius: 0px !important;
-  }
-  .active {
-    font-size: 20px;
-  }
+<style scoped>
+.navBar {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 20px;
+}
+.active {
+  font-size: 20px;
+}
+.hamburger {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+span {
+  display: inline-block;
+  height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 5px;
+}
+span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  background-color: #02cab0;
+  z-index: 2;
+  height: 3px;
+
+  transition: all 0.3s ease;
+}
+
+span.router-link-active {
+  color: #02cab0;
+}
+span:hover::before {
+  width: 100%;
+}
+span.router-link-active::before {
+  width: 100%;
+}
 </style>
