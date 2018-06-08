@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      forRouter: true
+      // forRouter: true
     };
   },
   computed: {
@@ -29,7 +29,7 @@ export default {
     }
   },
   created() {
-    this.getRouters();
+    this.getRouters()
   },
   mounted() {
     console.log(this.getRouter);

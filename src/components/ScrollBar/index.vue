@@ -12,7 +12,7 @@
     name: 'ScrollBar',
     data() {
       return {
-        top: 0
+        top: 10
       }
     },
     methods: {
@@ -45,7 +45,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    padding-top: 50px;
+    padding-top: 60px;
     background-color: #263E4A;
   }
   .scroll-container .scroll-wrapper {

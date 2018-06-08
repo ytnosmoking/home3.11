@@ -22,14 +22,18 @@ export default {
       // getChildRoutes:[]
     };
   },
+  created(){
+  
+    
+  },
   computed: {
     getChildRoutes() {
-      // alert(1)
       var localRoutes = this.$store.getters.getChildRoutes;
-      if(localRoutes) {
-        setItem('navRoute', JSON.stringify(localRoutes))
+      console.log(localRoutes)
+      if(localRoutes.length!=0) {
+        setItem('navRoutes', JSON.stringify(localRoutes))
       }else {
-        localRoutes = JSON.parse(getItem('navRoute'))
+        localRoutes = JSON.parse(getItem('navRoutes'))
       }
       return localRoutes;
     }
@@ -44,9 +48,9 @@ export default {
 </script>
 <style scoped>
 .navBar {
-  height: 50px;
-  line-height: 50px;
-  padding-left: 20px;
+  height: 60px;
+  line-height: 58px;
+  padding-left: 15px;
 }
 .active {
   font-size: 20px;
@@ -59,12 +63,13 @@ export default {
 span {
   display: inline-block;
   height: 100%;
-  padding: 0 10px;
+  font-size: 14px;
+  padding: 0 15px;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 }
 span::before {
   content: "";
@@ -74,7 +79,7 @@ span::before {
   width: 0;
   background-color: #02cab0;
   z-index: 2;
-  height: 3px;
+  height: 2px;
 
   transition: all 0.3s ease;
 }
