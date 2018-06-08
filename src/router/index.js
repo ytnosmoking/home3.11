@@ -46,11 +46,11 @@ export const defaultRouter = [{
       icon: 'dashboard'
     },
     children: [{
-      path: '/dashboardrentUser',
+      path: '/dashboard/rentUser',
       component: _import_views('DashBoard'),
       name: '租客'
     }, {
-      path: '/dashboardhouseUser',
+      path: '/dashboard/houseUser',
       component: _import_views('DashBoard'),
       name: '业主'
     }]

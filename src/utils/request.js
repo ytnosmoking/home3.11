@@ -5,8 +5,10 @@ import {
 import store from '@/store'
 import { getItem } from '@/utils/auth'
 
+let BASE_URL = process.env.NODE_ENV ==="production"? "http://test.fqweb.pms.efanghang.com":"/test"
+
 const service = axios.create({
-  baseURL: '/test',
+  baseURL: BASE_URL,
   timeout: 5000  // request timeout
 })
 
