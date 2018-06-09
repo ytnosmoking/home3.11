@@ -1,34 +1,58 @@
 <template>
- <section class="app-main" style="min-height: 100%">
-    <transition 
-    name="fade" 
-    mode="out-in" 
-    enter-active-class="animated fadeInRight" 
-    leave-active-class="animated fadeOutRight">
-      <keep-alive :include="cachedViews">
+  <section class="app-main" style="min-height: 100%">
+    <transition name="fade" mode="out-in" enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
+      <!-- <keep-alive :include="cachedViews"> -->
+      <keep-alive >
         <router-view></router-view>
       </keep-alive>
     </transition>
+    <component v-bind:is="commonCom" :class="{zoomIn: commonShow,zoomOut:!commonShow}"  class="common animated"></component>
+    <!-- <component v-bind:is="commonCom" :class="{zoomIn: commonShow}" v-show="commonShow" class="common animated zoomIn"></component> -->
+    
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'app-main',
-    data() {
-      return {
 
-      }
+import AddDaiban from '@/components/Common/AddDaiban'
+import HouseIn from '@/components/Common/HouseIn'
+export default {
+  name: "app-main",
+  data() {
+    return {
+      isShow: false,
+      oldCom:""
+    }
+  },
+  components:{
+    AddDaiban,
+    HouseIn
+  },
+  computed: {
+    cachedViews() {},
+    commonCom() {
+      return this.$store.getters.commonCom;
     },
-    computed: {
-      cachedViews() {
-        
-      }
-    } 
+    commonShow() {
+      // alert(1)
+      console.log(this.$store.getters.commonShow)
+      return this.$store.getters.commonShow;
+    }
   }
+};
 </script>
 <style scoped>
-  .app-main {
-    background: #ccc;
-  }
+.app-main {
+  background: #ccc;
+}
+.common {
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transform-origin: center center;
+  background-color: gold;
+}
 </style>

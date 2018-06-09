@@ -58,7 +58,7 @@ export default {
 .hamburger {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0;
 }
 span {
   display: inline-block;

@@ -90,6 +90,7 @@
   </div>
 </template>
 <script>
+import {setItem} from '@/utils/auth'
 import { Message } from "element-ui";
 export default {
   name: "login",
@@ -171,6 +172,7 @@ export default {
               // console.log(res);
               if (res.status.code == 200) {
                 this.$router.push("/layout");
+               setItem('navRoutes',JSON.stringify([{"path":"/layout/index","name":"代办"},{"path":"/layout/datas","name":"数据"}]))
               } else {
                 Message({
                   message: res.status.msg,

@@ -39,6 +39,7 @@ export default {
   },
   mounted() {
     console.log(this.routes);
+    // this.$store.commit("SAVE_CHILD_ROUTES", this.routes[0].children)
   },
   methods: {
     showChild(item, ref) {
