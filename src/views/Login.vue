@@ -44,7 +44,7 @@
               <el-button class="user-submit determine" type="primary" @click="submitForm('ruleForm')">登录</el-button>
             </el-form>
           </div>
-          <!--           
+          <!--
             <input id="anQuanMa" class="user-aqm-input" tabindex="1" type="text" placeholder="安全码" mustField="请输入安全码" value="" onkeyup="checkVerify('int',10)" />
             <input id="userName" class="user-user-input" tabindex="2" type="text" autocomplete="off" placeholder="用户名" mustField="请输入登录名" value="" onkeyup="checkVerify('string',30)" />
             <input type="text" style="height: 0; border: 0; margin: 0;" />
@@ -375,7 +375,7 @@ export default {
 .login-user .qrCode-ewm {
   margin: 55px 115px 35px;
   float: left;
-  display: inline-block;
+  /* display: inline-block; */
 }
 .login-user .qrCode-place {
   /*width:400px;*/

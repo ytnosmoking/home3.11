@@ -8,14 +8,14 @@
     </transition>
     <component v-bind:is="commonCom" :class="{zoomIn: commonShow,zoomOut:!commonShow}"  class="common animated"></component>
     <!-- <component v-bind:is="commonCom" :class="{zoomIn: commonShow}" v-show="commonShow" class="common animated zoomIn"></component> -->
-    
+
   </section>
 </template>
 
 <script>
 
-import AddDaiban from '@/components/Common/AddDaiban'
-import HouseIn from '@/components/Common/HouseIn'
+import AddDaiban from '@/views/Common/AddDaiban'
+import HouseIn from '@/views/Common/HouseIn'
 export default {
   name: "app-main",
   data() {
@@ -52,7 +52,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  transform-origin: center center;
+  transform-origin: left top;
   background-color: gold;
+  z-index: 101;
 }
 </style>

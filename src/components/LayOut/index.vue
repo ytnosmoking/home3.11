@@ -5,39 +5,16 @@
       <nav-bar ></nav-bar>
       <app-main></app-main>
     </div>
+    <div class="mainShadow" v-show="commonShow">
+
+    </div>
   </div>
-
-  <!-- <el-container class="oneContainer">
-      <el-aside width="200px" style="background-color:#545c64">
-         <nav-left class="navLeft"></nav-left>
-      </el-aside>
-      <el-container>
-       
-          <nav-bar></nav-bar>
-          <br>
-       
-        <el-main>
-          <transition mode="out-in"
-          enter-active-class="animated bounceInUp"
-          leave-active-class="animated bounceOutUp">
-            <router-view/>
-          </transition>
-        </el-main>
-      </el-container>
-    </el-container> -->
-
-  <!-- <nav-left class="navLeft"></nav-left>
-    <transition mode="out-in"
-    enter-active-class="animated zoomInLeft"
-    leave-active-class="animated zoomOutRight">
-      <router-view/>
-    </transition> -->
 
 </template>
 <script>
-import SideBar from "@/components/LayOut/SideBar";
-import NavBar from "@/components/LayOut/NavBar";
-import AppMain from "@/components/LayOut/AppMain";
+import SideBar from "./Sidebar/SideBar";
+import NavBar from "./Navbar/NavBar";
+import AppMain from "./AppMain";
 export default {
   name: "layout",
   components: {
@@ -47,6 +24,13 @@ export default {
   },
   data() {
     return {};
+  },
+  computed:{
+     commonShow() {
+      // alert(1)
+      console.log(this.$store.getters.commonShow)
+      return this.$store.getters.commonShow;
+    }
   }
 };
 </script>
@@ -62,7 +46,7 @@ export default {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 99;
 }
 .sidebar-container a {
   display: inline-block;
@@ -87,6 +71,15 @@ export default {
 #app .app-main {
   background-color: #ccc;
   display: block;
+}
+.mainShadow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 100;
 }
 </style>
 
