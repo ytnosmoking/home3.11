@@ -28,6 +28,8 @@ service.interceptors.request.use(config => {
     spinner: 'el-icon-loading',
     background: 'rgba(0, 0, 0, 0.7)'
   })
+  // 让每个请求 带上token
+
   if (store.getters.getToken && store.getters.getGcid && store.getters.getUserId) {
     config.headers['token'] = store.getters.getToken
     config.headers['gcid'] = store.getters.getGcid
