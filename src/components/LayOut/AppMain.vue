@@ -14,8 +14,6 @@
 
 <script>
 
-import AddDaiban from '@/views/Common/AddDaiban'
-import HouseIn from '@/views/Common/HouseIn'
 export default {
   name: "app-main",
   data() {
@@ -25,8 +23,8 @@ export default {
     }
   },
   components:{
-    AddDaiban,
-    HouseIn
+    // AddDaiban,
+    // HouseIn
   },
   computed: {
     cachedViews() {},

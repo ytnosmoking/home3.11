@@ -20,6 +20,11 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // progress bar style
 
 const whiteList = ["/login"]; // 白名单
+// 注册公共组件
+import AddDaiban from '@/views/Common/AddDaiban'
+import HouseIn from '@/views/Common/HouseIn'
+Vue.component('add-daiban',AddDaiban )
+Vue.component('house-in',HouseIn )
 
 NProgress.configure({
   showSpinner: false
