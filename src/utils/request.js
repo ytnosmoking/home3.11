@@ -10,7 +10,8 @@ import {
 let BASE_URL = process.env.NODE_ENV === "production" ? "http://test.fqweb.pms.efanghang.com" : "/test"
 
 const service = axios.create({
-  baseURL: BASE_URL,
+  // baseURL: BASE_URL,
+  baseURL: process.env.BASE_API,
   timeout: 5000 // request timeout
 })
 
@@ -22,6 +23,7 @@ let loadingService
 
 //  请求拦截
 service.interceptors.request.use(config => {
+  
   loadingService = Loading.service({
     lock: true,
     text: 'Loading',
@@ -30,18 +32,12 @@ service.interceptors.request.use(config => {
   })
   // 让每个请求 带上token
 
-  if (store.getters.getToken && store.getters.getGcid && store.getters.getUserId) {
-    config.headers['token'] = store.getters.getToken
-    config.headers['gcid'] = store.getters.getGcid
-    config.headers['userid'] = store.getters.getUserId
-  } else if (getItem('token') && getItem('gcid') && getItem('userid')) {
+  if(store.getters.token) {
     config.headers['token'] = getItem('token')
-    config.headers['gcid'] = getItem('gcid')
-    config.headers['userid'] = getItem('userid')
   }
   return config
 }, error => {
-  console.log(error)
+  
   Promise.reject(error)
 })
 
@@ -49,8 +45,9 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(response => {
   loadingService.close()
-  console.log(response)
-  return response.data
+  // 状态拦截 处理 300 500 状态
+  return response
+  
 }, error => {
   loadingService.close()
   console.log('error=' + error)

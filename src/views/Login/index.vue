@@ -1,7 +1,7 @@
 <template>
   <div id="loginCon" class="login-user">
     <div class="logo">
-      <img src="images/logo1.png" alt="">
+      <img src="../../assets/images/logo1.png" alt="">
     </div>
     <!--轮播图-->
     <!-- <div class="block construct" id="lunbo"> -->
@@ -32,14 +32,14 @@
           </div>
           <div id="login" class="user-mmain">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="50px">
-              <el-form-item prop="gcid" class="user-aqm-input">
+              <!-- <el-form-item prop="gcid" class="user-aqm-input">
                 <el-input v-model="ruleForm.gcid" placeholder="安全码"></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item prop="name" class="user-user-input">
-                <el-input v-model="ruleForm.accountName" placeholder="用户名"></el-input>
+                <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
               </el-form-item>
               <el-form-item prop="password" class="user-pwd-input">
-                <el-input v-model="ruleForm.accountPwd" placeholder="密码" type="password" auto-complete="off"></el-input>
+                <el-input v-model="ruleForm.password" placeholder="密码" type="password" auto-complete="off"></el-input>
               </el-form-item>
               <el-button class="user-submit determine" type="primary" @click="submitForm('ruleForm')">登录</el-button>
             </el-form>
@@ -90,19 +90,19 @@
   </div>
 </template>
 <script>
-import {setItem} from '@/utils/auth'
+import { setItem } from "@/utils/auth";
 import { Message } from "element-ui";
 export default {
   name: "login",
   data() {
-    let checkGcid = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("gcid不能为空"));
-      }
-      setTimeout(() => {
-        callback();
-      }, 1000);
-    };
+    // let checkGcid = (rule, value, callback) => {
+    //   if (!value) {
+    //     return callback(new Error("gcid不能为空"));
+    //   }
+    //   setTimeout(() => {
+    //     callback();
+    //   }, 1000);
+    // };
     let checkName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("用户名不能为空"));
@@ -151,14 +151,14 @@ export default {
         }
       ],
       ruleForm: {
-        gcid: "",
-        accountName: "",
-        accountPwd: ""
+        // gcid: "",
+        username: "",
+        password: ""
       },
       rules: {
-        gcid: [{ validator: checkGcid, trigger: "blur" }],
-        accountName: [{ validator: checkName, trigger: "blur" }],
-        accountPwd: [{ validator: checkPassword, trigger: "blur" }]
+        // gcid: [{ validator: checkGcid, trigger: "blur" }],
+        username: [{ validator: checkName, trigger: "blur" }],
+        password: [{ validator: checkPassword, trigger: "blur" }]
       }
     };
   },
@@ -169,13 +169,11 @@ export default {
           this.$store
             .dispatch("LoginByUsername", this.ruleForm)
             .then(res => {
-              // console.log(res);
-              if (res.status.code == 200) {
-                this.$router.push("/layout");
-               setItem('navRoutes',JSON.stringify([{"path":"/layout/index","name":"代办"},{"path":"/layout/datas","name":"数据"}]))
+              if (res.status === 200 && res.data) {
+                this.$router.push({ path: "/layout" });
               } else {
                 Message({
-                  message: res.status.msg,
+                  message: "用户名或密码错误",
                   type: "error",
                   duration: 3 * 1000
                 });
@@ -203,7 +201,7 @@ export default {
   width: 100%;
   height: 100%;
   position: fixed;
-  background: url("../assets/images/login_bg.png") no-repeat bottom;
+  background: url("../../assets/images/login_bg.png") no-repeat bottom;
   background-size: cover;
 }
 .login-user {
@@ -300,26 +298,26 @@ export default {
   margin: 0 auto;
 }
 .user-mmain .user-aqm-input {
-  background: url("../assets/images/login_aqmd.png") no-repeat 70px center;
+  background: url("../../assets/images/login_aqmd.png") no-repeat 70px center;
 }
 .user-mmain .user-user-input {
-  background: url("../assets/images/login_userd.png") no-repeat 70px center;
+  background: url("../../assets/images/login_userd.png") no-repeat 70px center;
 }
 .user-mmain .user-pwd-input {
-  background: url("../assets/images/login_pwdd.png") no-repeat 70px center;
+  background: url("../../assets/images/login_pwdd.png") no-repeat 70px center;
   margin-top: 0;
 }
 .user-mmain input:focus {
   border-color: #464646 !important;
 }
 .user-mmain .user-aqm-input:focus {
-  background-image: url("../assets/images/login_aqmb.png");
+  background-image: url("../../assets/images/login_aqmb.png");
 }
 .user-mmain .user-user-input:focus {
-  background-image: url("../assets/images/login_userb.png");
+  background-image: url("../../assets/images/login_userb.png");
 }
 .user-mmain .user-pwd-input:focus {
-  background-image: url("../assets/images/login_pwdb.png");
+  background-image: url("../../assets/images/login_pwdb.png");
 }
 .user-main .user-mmain input {
   background-size: 16px 18px;
@@ -550,14 +548,14 @@ body {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
 }
 .img-bg.bg1 {
-  background: url("../assets/images/login_slider1.jpg ") no-repeat;
+  background: url("../../assets/images/login_slider1.jpg ") no-repeat;
   box-shadow: 0 0 50px rgba(69, 84, 85, 0.4);
 }
 .img-bg.bg2 {
-  background: url("../assets/images/login_slider2.jpg ") no-repeat;
+  background: url("../../assets/images/login_slider2.jpg ") no-repeat;
 }
 .img-bg.bg3 {
-  background: url("../assets/images/login_slider3.jpg ") no-repeat;
+  background: url("../../assets/images/login_slider3.jpg ") no-repeat;
 }
 .item-text {
   color: #fff;
@@ -635,7 +633,7 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  background-image: url("../assets/images/login_slider1.jpg");
+  background-image: url("../../assets/images/login_slider1.jpg");
 }
 #lunbo_img2 {
   position: absolute;
@@ -644,7 +642,7 @@ body {
   height: 100%;
   width: 100%;
   position: absolute;
-  background-image: url("../assets/images/login_slider2.jpg");
+  background-image: url("../../assets/images/login_slider2.jpg");
 }
 #lunbo_img3 {
   position: absolute;
@@ -653,7 +651,7 @@ body {
   height: 100%;
   width: 100%;
   position: absolute;
-  background-image: url("../assets/images/login_slider3.jpg");
+  background-image: url("../../assets/images/login_slider3.jpg");
 }
 .container {
   position: absolute;

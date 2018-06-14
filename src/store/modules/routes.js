@@ -1,4 +1,4 @@
-import { defaultRouter } from "@/router";
+import { constantRouterMap } from "@/router";
 import { setItem} from '@/utils/auth'
 export default {
   state: {
@@ -8,7 +8,7 @@ export default {
   
   mutations: {
     getRouters: state => {
-      state.userRouter = defaultRouter
+      state.userRouter = constantRouterMap
     },
     SAVE_CHILD_ROUTES: (state, childRoutes) => {
       state.childRoutes = childRoutes

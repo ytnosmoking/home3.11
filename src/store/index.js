@@ -5,6 +5,8 @@ import user from './modules/user'
 import routes from './modules/routes'
 import components from './modules/components'
 // import {actions} from './actions'
+import permission from './modules/permission'
+
 import getters from './getters'
 Vue.use(Vuex)
 
@@ -14,7 +16,8 @@ Vue.use(Vuex)
   modules:{
     user,
     routes,
-    components
+    components,
+    permission
   },
   getters
   // actions

@@ -1,0 +1,52 @@
+<template>
+  <div class="app-wrapper">
+    <div class="drawer-bg">
+      <sidebar class="siderbar-container"></sidebar>
+      <div class="main-container">
+        <navbar></navbar>
+        <tags-view></tags-view>
+        <app-main></app-main>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {Navbar, Sidebar, AppMain, TagsView} from './components'
+export default {
+  name: 'layout',
+  components:{
+    Navbar,
+    Sidebar,
+    AppMain,
+    TagsView
+  },
+  // mixins: [ResizeMixin],
+  computed:{
+    // sidebar() {
+    //   return this.$store.state.app.sidebar
+    // },
+  },
+  methods:{
+
+  }
+}
+</script>
+<style lang="less" scoped>
+  @import "../../styles/mixin.less";
+  .app-wrapper {
+    .clearfix();
+    .relative();
+  }
+  .drawer-bg {
+    background: #000;
+    opacity: .3;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    z-index: 999;
+  }
+</style>
+
+

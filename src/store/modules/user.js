@@ -1,25 +1,35 @@
 import {
-  loginByUsername
+  loginByUsername,
+  getUserInfo
 } from '@/api/login'
 import {
-  setItem
+  setItem,
+  getItem
 } from '@/utils/auth'
 
 const user = {
   state: {
-    token: '',
-    gcid: '',
-    userid: ''
+    token: getItem("token"),
+    roles:[],
+    name: "",
+    avatar: "",
+    introduction: ""
   },
   mutations: {
     SET_TOKEN(state, token) {
       state.token = token
     },
-    SET_GCID(state, gcid) {
-      state.gcid = gcid
+    SET_NAME(state, name) {
+      state.name = name
     },
-    SET_USERID(state, userid) {
-      state.userid = userid
+    SET_AVATAR(state, avatar) {
+      state.avatar = avatar
+    },
+    SET_INTRODUCTION(state, introduction) {
+      state.introduction = introduction
+    },
+    SET_ROLES( state, roles) {
+      state.roles = roles
     }
   },
   actions: {
@@ -28,22 +38,34 @@ const user = {
     }, userinfo) {
       // const username = userinfo.name.trim()
       return new Promise((resolve, reject) => {
-        loginByUsername(userinfo).then(res => {
-          console.log(res)
-          if (res.status.code == 200) {
-            let data = res.result
-            setItem("gcid", userinfo.gcid); //gcid
-            setItem("chaoJiName", userinfo.accountName); //管理员账号
-            setItem("JJuserOperateTime", new Date().getTime()); //当前登录时间
-            setItem("currentJJRUser", JSON.stringify(data));
-            setItem('token', data.token)
-            commit('SET_GCID', userinfo.gcid)
-            commit('SET_TOKEN', data.token)
-            commit('SET_USERID', data.id)
-          }
+        loginByUsername(userinfo.username, userinfo.password).then(res => {
+          const data = res.data
+          commit('SET_TOKEN', data.token)
+          setItem('token', data.token)
           resolve(res)
         }).catch(error => {
           console.log(error)
+        })
+      })
+    },
+    GetUserInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo(state.token).then(response => {
+          if(!response.data) { // mockjs 不支持自定义状态码
+            reject('error')
+          }
+          const data = response.data
+          if(data.roles && data.roles.length>0) {
+            commit('SET_ROLES', data.roles) 
+          }else {
+            reject('getInfo: roles must be a non-null array!')
+          }
+          commit('SET_NAME', data.name)
+          commit('SET_AVATAR', data.avatar)
+          commit('SET_INTRODUCTION', data.introduction)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
         })
       })
     }

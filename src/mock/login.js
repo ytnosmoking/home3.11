@@ -1,16 +1,21 @@
-import Mock from ''
+// import Mock from ''
+import {
+  param2Obj
+} from '@/utils'
+
+
 const userMap = {
   admin: {
     roles: ['admin'],
     token: 'admin',
-    introduce: 'superAdmin',
+    introduction: 'superAdmin',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Super Admin'
   },
   editor: {
     roles: ['editor'],
     token: 'editor',
-    introduce: 'I\'m editor',
+    introduction: 'I\'m editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
   }
@@ -19,6 +24,24 @@ const userMap = {
 
 export default {
   loginByUsername: config => {
-    const { username } = JSON.parse(config.body) 
+    const {
+      username
+    } = JSON.parse(config.body)
+    if (userMap[username]) {
+      return userMap[username]
+    } else {
+      return ''
+    }
+
+  },
+  getUserInfo: config => {
+    const {
+      token
+    } = param2Obj(config.url)
+    if (userMap[token]) {
+      return userMap[token]
+    } else {
+      return false
+    }
   }
 }

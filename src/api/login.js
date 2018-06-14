@@ -1,10 +1,22 @@
 
 import request from '@/utils/request'
 
-export function loginByUsername(data) {
+export function loginByUsername(username, password) {
+  let data = {
+    username,
+    password
+  }
     return request({
-      url:"/v2/jjr_user_login/pc_login_new",
+      url:"/login/login",
       method:"post",
       data
     })
+}
+
+export function getUserInfo(token) {
+  return request({
+    url: "/user/info",
+    method: 'get',
+    params: { token }
+  })
 }
