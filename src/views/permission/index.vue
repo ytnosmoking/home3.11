@@ -1,19 +1,15 @@
 <template>
   <div>
-    this is houseIN
+    this is permission index
   </div>
 </template>
 <script>
 export default {
-  name: 'house-in',
-  data() {
-    return {
-
-    }
-  }
+  name: 'permission-index'
 }
 </script>
 <style>
+
 
 </style>
 

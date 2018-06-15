@@ -1,10 +1,12 @@
 import {
   loginByUsername,
+  logout,
   getUserInfo
 } from '@/api/login'
 import {
   setItem,
-  getItem
+  getItem,
+  removeItem
 } from '@/utils/auth'
 
 const user = {
@@ -42,7 +44,7 @@ const user = {
           const data = res.data
           commit('SET_TOKEN', data.token)
           setItem('token', data.token)
-          resolve(res)
+          resolve()
         }).catch(error => {
           console.log(error)
         })
@@ -68,7 +70,20 @@ const user = {
           reject(error)
         })
       })
-    }
+    },
+    // 登出
+    LogOut({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        logout(state.token).then(() => {
+          commit('SET_TOKEN', '')
+          commit('SET_ROLES', [])
+          removeToken()
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
   }
 }
 

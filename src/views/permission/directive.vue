@@ -1,19 +1,15 @@
 <template>
   <div>
-     tianjia  daiban
+    this is permission directive
   </div>
 </template>
 <script>
 export default {
-  name: 'AddDaiBan',
-  data(){
-    return {
-
-    }
-  }
+  name: 'permission-directive'
 }
 </script>
 <style>
+
 
 </style>
 
