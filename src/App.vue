@@ -23,24 +23,5 @@ export default {
 </script>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  a, a:focus, a:hover {
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-}
-  html,body {
-    height: 100%;
-  }
-  #app {
-    height: 100%;
-    /* overflow: hidden; */
-  }
-  #app rect {
-    fill: #fff;
-    color: #fff;
-  }
+ 
 </style>

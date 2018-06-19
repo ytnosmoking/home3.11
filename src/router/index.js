@@ -6,16 +6,16 @@ Vue.use(Router)
 
 import Layout from '@/views/layout/Layout';
 // ---constantRouterMap
-import Login from '@/views/Login'  // 登陆
-import Dashboard from '@/views/dashboard' // 仪表板
-import Documentation from '@/views/documentation' // 文档
-import Guide from '@/views/guide'  // 指导页
+// import Login from '@/views/Login'  // 登陆
+// import Dashboard from '@/views/dashboard' // 仪表板
+// import Documentation from '@/views/documentation' // 文档
+// import Guide from '@/views/guide'  // 指导页
 
 
 // ---asyncRouterMap
  /* permission */
-import Permission from '@/views/permission'
-import pagePermission from '@/views/permission/page'
+// import Permission from '@/views/permission'
+// import pagePermission from '@/views/permission/page'
 import directivePermission from '@/views/permission/directive'
 /* chart */
 import keyboardChart from '@/views/chart/keyboard'
@@ -27,7 +27,7 @@ import mixChart from '@/views/chart/mix'
 
 export const constantRouterMap = [{
   path: '/login',
-  component: Login,
+  component: () => import('@/views/Login'),
   hidden: true
 }, {
   path: '',
@@ -35,7 +35,7 @@ export const constantRouterMap = [{
   redirect: 'dashboard',
   children: [{
     path: 'dashboard',
-    component: Dashboard,
+    component: () => import('@/views/dashboard'),
     name: 'dashboard',
     meta: {
       title: 'dashboard',
@@ -49,7 +49,7 @@ export const constantRouterMap = [{
   redirect: '/documentation/index',
   children: [{
     path: 'index',
-    component: Documentation,
+    component: () => import('@/views/documentation'),
     name: 'documentation',
     meta: {
       title: 'documentation',
@@ -63,7 +63,7 @@ export const constantRouterMap = [{
   redirect: '/guide/index',
   children: [{
     path: 'index',
-    component: Guide,
+    component: ()=>import('@/views/guide'),
     name: 'guide',
     meta: {
       title: 'guide',
@@ -92,7 +92,7 @@ export const asyncRouterMap = [
     },
     children: [{
       path: 'page',
-      component: pagePermission,
+      component: () => import('@/views/permission/page'),
       name: 'pagePermission',
       meta: {
         title: 'pagePermission',
@@ -100,7 +100,7 @@ export const asyncRouterMap = [
       }
     }, {
       path: 'directive',
-      component: directivePermission,
+      component:()=> import('@/views/permission/directive'),
       name: 'directivePermission',
       meta: {
         title: 'directivePermission'
@@ -119,7 +119,7 @@ export const asyncRouterMap = [
     },
     children: [{
         path: 'keyboard',
-        component: keyboardChart,
+        component: () => import('@/views/chart/keyboard'),
         name: 'keyboardChart',
         meta: {
           title: 'keyboardChart',
@@ -127,7 +127,7 @@ export const asyncRouterMap = [
         }
       }, {
         path: 'line',
-        component: lineChart,
+        component: () => import('@/views/chart/line'),
         name: 'lineChart',
         meta: {
           title: 'lineChart',
@@ -136,7 +136,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'mixchart',
-        component: mixChart,
+        component: () => import('@/views/chart/mix'),
         name: 'mixChart',
         meta: {
           title: 'mixChart',

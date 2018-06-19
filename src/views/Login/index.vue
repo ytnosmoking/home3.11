@@ -169,8 +169,14 @@ export default {
           this.$store
             .dispatch("LoginByUsername", this.ruleForm)
             .then(res => {
+              // console.log(111111)
+              // console.log(res)
+              // console.log(222222)
+              // this.$router.push({ path: '/' })
+              console.log(res)
               if (res.status === 200 && res.data) {
-                this.$router.push({ path: "/layout" });
+                // this.$router.push({ path: "/layout" });
+                this.$router.push({ path: '/' })
               } else {
                 Message({
                   message: "用户名或密码错误",

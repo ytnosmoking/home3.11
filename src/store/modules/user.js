@@ -42,9 +42,11 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(userinfo.username, userinfo.password).then(res => {
           const data = res.data
+          console.log(data)
           commit('SET_TOKEN', data.token)
           setItem('token', data.token)
-          resolve()
+          resolve(res)
+          // resolve()
         }).catch(error => {
           console.log(error)
         })
@@ -77,7 +79,7 @@ const user = {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
-          removeToken()
+          removeItem('token')
           resolve()
         }).catch(error => {
           reject(error)

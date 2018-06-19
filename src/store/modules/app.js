@@ -6,7 +6,7 @@ import {
 const app = {
   state: {
     sidebar: {
-      opened: !+getItem('sidebarStatus'),
+      opened: !!getItem('sidebarStatus'),
       withoutAnimation: false
     },
     device: 'desktop',

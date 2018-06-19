@@ -7,15 +7,15 @@
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
 
-      <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
+      <!-- <el-tooltip effect="dark" :content="('navbar.screenfull')" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
       <lang-select class="international right-menu-item"></lang-select>
 
-      <el-tooltip effect="dark" :content="$t('navbar.theme')" placement="bottom">
+      <el-tooltip effect="dark" :content="('navbar.theme')" placement="bottom">
         <theme-picker class="theme-switch right-menu-item"></theme-picker>
-      </el-tooltip>
+      </el-tooltip> -->
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
@@ -25,16 +25,16 @@
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{$t('navbar.dashboard')}}
+              {{('navbar.dashboard')}}
             </el-dropdown-item>
           </router-link>
           <a target='_blank' href="https://github.com/PanJiaChen/vue-element-admin/">
             <el-dropdown-item>
-              {{$t('navbar.github')}}
+              {{('navbar.github')}}
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
+            <span @click="logout" style="display:block;">{{('navbar.logOut')}}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -47,18 +47,18 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
-import Screenfull from '@/components/Screenfull'
-import LangSelect from '@/components/LangSelect'
-import ThemePicker from '@/components/ThemePicker'
+// import Screenfull from '@/components/Screenfull'
+// import LangSelect from '@/components/LangSelect'
+// import ThemePicker from '@/components/ThemePicker'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
     ErrorLog,
-    Screenfull,
-    LangSelect,
-    ThemePicker
+    // Screenfull,
+    // LangSelect,
+    // ThemePicker
   },
   computed: {
     ...mapGetters([
@@ -85,5 +85,58 @@ export default {
   height: 50px;
   line-height: 50px;
   border-radius: 0px!important;
+  .hamburger-container {
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    padding: 0 10px;
+  }
+  .breadcrumb-container {
+    float: left;
+  }
+  .errlog-container {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .right-menu {
+    float: right;
+    height: 100%;
+    &:focus {
+      outline: none;
+    }
+    .right-menu-item {
+      display: inline-block;
+      margin: 0 8px;
+    }
+    .screenfull {
+      height: 20px;
+    }
+    .international {
+      vertical-align: top;
+    }
+    .theme-switch {
+      vertical-align: 15px;
+    }
+    .avatar-container {
+      height: 50%;
+      margin-right: 30px;
+      .avatar-wrapper {
+        cursor: pointer;
+        margin-top: 5px;
+        position: relative;
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+        .el-icon-caret-bottom {
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 </style>
