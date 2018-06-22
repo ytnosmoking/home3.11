@@ -1,7 +1,7 @@
 <template>
   <div id="loginCon" class="login-user">
     <div class="logo">
-      <img src="images/logo1.png" alt="">
+      <img src="../assets/images/logo1.png" alt="">
     </div>
     <!--轮播图-->
     <!-- <div class="block construct" id="lunbo"> -->
