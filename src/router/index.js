@@ -107,6 +107,83 @@ export const asyncRouterMap = [
       }
     }]
   },
+  {
+    path:'/icon',
+    component: Layout,
+    children:[{
+      path: 'index',
+      component: () => import('@/views/svg-icons/index'),
+      name: 'icons',
+      meta: {
+        title: 'icons',
+        icon: 'icon',
+        noCache: true
+      }
+    }]
+  },
+  // components-demo
+  {
+    path: '/components',
+    component:Layout,
+    redirect:'noredirect',
+    name: 'components-demo',
+    meta: {
+      title: 'components',
+      icon: 'component'
+    },
+    children:[{
+      path: 'tinymce',
+      component: () => import('@/views/components-demo/tinymce'),
+      name: 'tinymce-demo',
+      meta: {
+        title: 'tinymce'
+      }
+    },
+    {
+      path: 'markdown',
+      component: () =>
+            import('@/views/components-demo/markdown'),
+      name: 'markdown-demo',
+      meta: {
+        title: 'markdown'
+      }
+    },
+    {
+      path: 'count-to',
+      component: () =>
+            import('@/views/components-demo/countTo'),
+      name: 'countTo-demo',
+      meta: {
+        title: 'countTo'
+      }
+    },
+    {
+      path: 'mixin',
+      component: () =>
+            import('@/views/components-demo/mixin'),
+      name: 'componentMixin-demo',
+      meta: {
+        title: 'componentMixin'
+      }
+    }
+  ]
+  },
+  // tab
+  {
+    path: '/tab',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => {
+       return import('@/views/tab')
+      },
+      name: 'tab',
+      meta: {
+        title: 'tab',
+        icon: 'tab'
+      }
+    }]
+  },
   //  CHARTS
   {
     path: '/charts',

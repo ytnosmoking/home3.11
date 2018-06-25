@@ -51,9 +51,7 @@ router.beforeEach((to, from, next) => {
           store.dispatch('GenerateRoutes', {
             roles
           }).then(() => {
-            // alert(1)
-            console.log(to)
-            console.log(router)
+            
             router.addRoutes(store.getters.addRouters)
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })

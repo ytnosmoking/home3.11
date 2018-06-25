@@ -8,17 +8,17 @@
 
 <script>
 export default {
-  name:'mallki',
+  name: "mallki",
   props: {
     className: {
       type: String
     },
     text: {
       type: String,
-      default: 'vue-element-admin'
+      default: "vue-element-admin"
     }
   }
-}
+};
 </script>
 
 
@@ -27,15 +27,15 @@ export default {
 .link--mallki {
   font-weight: 800;
   color: #4dd9d5;
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   -webkit-transition: color 0.5s 0.25s;
   transition: color 0.5s 0.25s;
   overflow: hidden;
   position: relative;
-display: inline-block;
-    line-height: 1;
-        outline: none;
-    text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  outline: none;
+  text-decoration: none;
 }
 
 .link--mallki:hover {
@@ -45,7 +45,7 @@ display: inline-block;
 }
 
 .link--mallki::before {
-  content: '';
+  content: "";
   width: 100%;
   height: 6px;
   margin: -3px 0 0 0;
@@ -110,5 +110,4 @@ display: inline-block;
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
-
 </style>

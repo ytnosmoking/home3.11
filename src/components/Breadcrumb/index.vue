@@ -11,7 +11,7 @@
 
 <script>
 // import {  } from '@/utils/i18n'
-
+import {constantRouterMap} from '@/router'
 export default {
   created() {
     this.getBreadcrumb()
@@ -27,8 +27,18 @@ export default {
     }
   },
   methods: {
-    // ,
+   
     getBreadcrumb() {
+      // let fatherPath ='/'+ this.$route.path.split("/")[1]
+      // let routerArr = [...this.$store.getters.addRouters,...constantRouterMap]
+      // // console.log(routerArr)
+      // let filterRouter = routerArr.filter(item => {
+      //   if(item.path ===fatherPath) {
+      //     return true
+      //   }
+      //   return false
+      // })
+      // console.log(filterRouter[0])
       let matched = this.$route.matched.filter(item => item.name)
       const first = matched[0]
       if (first && first.name !== 'dashboard') {
