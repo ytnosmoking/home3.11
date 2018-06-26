@@ -5,7 +5,7 @@
         @keyup.enter.native="handleFilter"
         style="width:200px;"
         class="filter-item"
-        :placeholder="'table.title'"
+        :placeholder="'title'"
         v-model="listQuery.title">
       </el-input>
 
@@ -14,7 +14,7 @@
         style="width:90px"
         class="filter-item"
         v-model="listQuery.importance"
-        :placeholder="'table.importance'">
+        :placeholder="'importance'">
         <el-option 
           v-for="item in importanceOptions"
           :key="item"
@@ -28,7 +28,7 @@
         class="filter-item"
         style="width:130px"
         v-model="listQuery.type"
-        :placeholder="'table.type'">
+        :placeholder="'type'">
         <el-option v-for="item in calendarTypeOptions" 
           :key="item.key"
           :label="item.display_name+'('+item.key+')'"
@@ -55,7 +55,7 @@
         v-waves
         icon="el-icon-search"
         @click="handleFilter">
-        {{'table.search'}}
+        {{'search'}}
       </el-button>
 
       <el-button 
@@ -64,7 +64,7 @@
         @click="handleCreate"
         type="primary"
         icon="el-icon-edit">
-        {{'table.add'}}
+        {{'add'}}
       </el-button>
 
       <el-button
@@ -73,14 +73,14 @@
         :loading="downloadLoading"
         v-waves
         icon="el-icon-download"
-        @click="handleDownload">{{'table.export'}}
+        @click="handleDownload">{{'export'}}
       </el-button>
 
       <el-checkbox 
         class="filter-item"
         style="margin-left:15px"
         @change="tableKey=tableKey+1"
-        v-model="showReviewer">{{'table.reviewer'}}
+        v-model="showReviewer">{{'reviewer'}}
       </el-checkbox>
     </div>
 
@@ -93,59 +93,60 @@
       fit
       highlight-current-row
       style="width:100%">
+      <!-- id  -->
       <el-table-column 
         align="center"
-        :label="'table.id'"
+        :label="'id'"
         width="65">
         <template slot-scope="scope">
           <span>{{scope.row.id}}</span>
         </template>
       </el-table-column>
-
+      <!-- data time -->
       <el-table-column
         width="150px"
         align="center"
-        :label="'table.data'">
+        :label="'data'">
         <template slot-scope="scope">
           <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-
+      <!--  title -->
       <el-table-column
         min-width="150px"
-        :label="'table.title'">
+        :label="'title'">
         <template slot-scope="scope">
           <span 
             class="link-type"
             @click="handleUpdate(scope.row)">
             {{scope.row.title}}
           </span>
-          <el-tag>{{scope.row.tag | typeFilter}}</el-tag>
+          <el-tag>{{scope.row.type | typeFilter}}</el-tag>
         </template>
       </el-table-column>
-
+      <!-- author -->
       <el-table-column
         width="110px"
         align="center"
-        :label="'table.author'">
+        :label="'author'">
         <template slot-scope="scope">
           <span>{{scope.row.author}}</span>
         </template>
       </el-table-column>
-
+      <!-- reviewer -->
       <el-table-column 
         width="110px"
         v-if="showReviewer"
         align="center"
-        :label="'table.reviewer'">
+        :label="'reviewer'">
         <template slot-scope="scope">
           <span style="color:red;">{{scope.row.reviewer}}</span>
         </template>
       </el-table-column>
-
+      <!-- importance -->
       <el-table-column
        width="80px"
-       :label="'table.importance'">
+       :label="'importance'">
         <template slot-scope="scope">
           <svg-icon
             v-for="n in +scope.row.importance"
@@ -154,10 +155,10 @@
             :key="n"></svg-icon>
         </template>
       </el-table-column>
-
+      <!-- readings -->
       <el-table-column
         align="center"
-        :label="'table.readings'"
+        :label="'readings'"
         width="95">
         <template slot-scope="scope">
           <span
@@ -169,19 +170,19 @@
           <span v-else>0</span>
         </template>
       </el-table-column>
-
+      <!-- status -->
       <el-table-column
         class-name="status-col"
-        :label="'table.status'"
+        :label="'status'"
         width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
         </template>
       </el-table-column>
-
+      <!-- actions -->
       <el-table-column
         align="center"
-        :label="'table.actions'"
+        :label="'actions'"
         width="230"
         class-name="small-padding fixed-width">
        <template slot-scope="scope">
@@ -189,27 +190,27 @@
            type="primary"
            size="mini"
            @click="handleUpdate(scope.row)">
-             {{"table.edit"}}
+             {{"edit"}}
            </el-button>
            <el-button
              v-if="scope.row.status!='published'"
              size="mini"
              type="success"
              @click="handleModifyStatus(scope.row, 'published')">
-             {{"table.publish"}}
+             {{"publish"}}
            </el-button>
            <el-button
              v-if="scope.row.status!='draft'"
              size="mini"
              @click="handleModifyStatus(scope.row, 'draft')">
-             {{'table.draft'}}
+             {{'draft'}}
            </el-button>
            <el-button
              v-if="scope.row.status!='deleted'"
              size="mini"
              type="danger"
              @click="handleModifyStatus(scope.row, 'deleted')">
-             {{'table.deleted'}}
+             {{'deleted'}}
            </el-button>
        </template>
       </el-table-column>
