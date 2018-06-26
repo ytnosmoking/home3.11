@@ -184,6 +184,34 @@ export const asyncRouterMap = [
       }
     }]
   },
+  //table
+  {
+    path: '/table',
+    component: Layout,
+    redirect: '/table/complex-table',
+    name: 'table',
+    meta: {
+      title: 'Table',
+      icon: 'table'
+    },
+    children:[{
+      path: 'drag-table',
+      component: () =>
+            import('@/views/table/dragTable'),
+      name: 'dragTable',
+      meta: {
+        title: 'dragTable'
+      }
+    },{
+      path: 'complex-table',
+      component: () =>
+            import('@/views/table/complexTable'),
+      name: 'complexTable',
+      meta: {
+        title: 'complexTable'
+      }
+    }]
+  },
   //  CHARTS
   {
     path: '/charts',

@@ -32,7 +32,7 @@ export default {
     .document-btn {
       float: left;
       margin-left: 50px;
-      vertical-align: middle;
+      // vertical-align: middle;
       display: block;
       cursor: pointer;
       background: black;

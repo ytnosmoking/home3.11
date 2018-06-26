@@ -1,8 +1,7 @@
 <template>
   <el-table :data="list" border fit highlight-current-row style="width: 100%">
 
-    <el-table-column align="center" label="ID" width="65"  v-loading="loading"
-    element-loading-text="请给我点时间！">
+    <el-table-column align="center" label="ID" width="65px" v-loading="loading" element-loading-text="请给我点时间！">
       <template slot-scope="scope">
         <span>{{scope.row.id}}</span>
       </template>
@@ -44,18 +43,19 @@
         <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
       </template>
     </el-table-column>
-
+    
   </el-table>
+
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+import { fetchList } from "@/api/article";
 
 export default {
   props: {
     type: {
       type: String,
-      default: 'CN'
+      default: "CN"
     }
   },
   data() {
@@ -65,34 +65,34 @@ export default {
         page: 1,
         limit: 5,
         type: this.type,
-        sort: '+id'
+        sort: "+id"
       },
       loading: false
-    }
+    };
   },
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
+        published: "success",
+        draft: "info",
+        deleted: "danger"
+      };
+      return statusMap[status];
     }
   },
   created() {
-    this.getList()
+    this.getList();
   },
   methods: {
     getList() {
-      this.loading = true
-      this.$emit('create') // for test
+      this.loading = true;
+      this.$emit("create"); // for test
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.loading = false
-      })
+        this.list = response.data.items;
+        this.loading = false;
+      });
     }
   }
-}
+};
 </script>
 

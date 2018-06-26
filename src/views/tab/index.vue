@@ -7,6 +7,7 @@
       <el-tab-pane v-for="item in tabMapOptions" :label="item.label" :key='item.key' :name="item.key">
         <keep-alive>
           <tab-pane v-if='activeName==item.key' :type='item.key' @create='showCreatedTimes'></tab-pane>
+          <!-- {{item.key}} ==> {{item.label}} -->
         </keep-alive>
       </el-tab-pane>
     </el-tabs>

@@ -22,7 +22,7 @@ for (let i = 0; i < count; i++) {
     'status|1': ['published', 'draft', 'deleted'],
     display_time: '@datetime',
     comment_disabled: true,
-    pageviews: '@integer(300, 5000)',
+    pageviews: '@integer(300, 400)',
     image_uri,
     platforms: ['a-platform']
   }))
@@ -30,6 +30,8 @@ for (let i = 0; i < count; i++) {
 
 export default {
   getList: config => {
+    console.log(param2Obj(config.url))
+    // console.log(List)
     const { importance, type, title, page = 1, limit = 20, sort } = param2Obj(config.url)
 
     let mockList = List.filter(item => {
@@ -38,13 +40,14 @@ export default {
       if (title && item.title.indexOf(title) < 0) return false
       return true
     })
+    // console.log(mockList)
 
     if (sort === '-id') {
       mockList = mockList.reverse()
     }
 
     const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
-
+    // console.log(pageList)
     return {
       total: mockList.length,
       items: pageList
