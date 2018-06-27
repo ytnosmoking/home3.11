@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-
 import Layout from '@/views/layout/Layout';
 // ---constantRouterMap
 // import Login from '@/views/Login'  // 登陆
