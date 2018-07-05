@@ -13,6 +13,7 @@ import './icons'
 // cssc
 import 'animate.css'
 import ElementUI from 'element-ui'
+import 'assets/css/index.less'
 
 import 'element-ui/lib/theme-chalk/index.css'
 

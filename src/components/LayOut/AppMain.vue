@@ -1,12 +1,12 @@
 <template>
-  <section class="app-main" style="min-height: 100%">
+  <section class="app-main">
     <transition name="fade" mode="out-in" enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
       <!-- <keep-alive :include="cachedViews"> -->
       <keep-alive >
         <router-view></router-view>
       </keep-alive>
     </transition>
-    <component v-bind:is="commonCom" :class="{zoomIn: commonShow,zoomOut:!commonShow}"  class="common animated"></component>
+    <!-- <component v-bind:is="commonCom" :class="{zoomIn: commonShow,zoomOut:!commonShow}"  class="common animated"></component> -->
     <!-- <component v-bind:is="commonCom" :class="{zoomIn: commonShow}" v-show="commonShow" class="common animated zoomIn"></component> -->
 
   </section>
@@ -14,8 +14,8 @@
 
 <script>
 
-import AddDaiban from '@/views/Common/AddDaiban'
-import HouseIn from '@/views/Common/HouseIn'
+// import AddDaiban from '@/views/Common/AddDaiban'
+// import HouseIn from '@/views/Common/HouseIn'
 export default {
   name: "app-main",
   data() {
@@ -25,8 +25,8 @@ export default {
     }
   },
   components:{
-    AddDaiban,
-    HouseIn
+    // AddDaiban,
+    // HouseIn
   },
   computed: {
     cachedViews() {},
@@ -43,7 +43,13 @@ export default {
 </script>
 <style scoped>
 .app-main {
-  background: #ccc;
+  background: #f2f6f7;
+  padding: 20px;
+  top: 60px;
+  left: 100px;
+  width: calc(100% - 140px );
+  height: calc(100% - 100px);
+  position: absolute;
 }
 .common {
   position: fixed;

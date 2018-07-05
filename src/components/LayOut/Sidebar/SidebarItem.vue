@@ -8,8 +8,8 @@
         <span>{{item.name}}</span>
       </router-link>
     </template>
-    <sidebar-list :style="childStyle" @mouseleave.native="hideChild()" class="sidevarlist"
-    :routes="childRoutes" v-show="isShow"></sidebar-list>
+    <sidebar-list :style="childStyle" @mouseleave.native="hideChild()" class="sidebarStatic" :class="{sidebarShow:isShow}"
+    :routes="childRoutes" ></sidebar-list>
   </ul>
 </template>
 <script>
@@ -102,10 +102,17 @@ li:hover::before {
 li.router-link-active::before {
   height: 100%;
 }
-.sidebarlist {
-  position: absolute;
-  width: 115px;
+
+.sidebarStatic {
+   position: absolute;
+  width: 0;
   left: 100px;
+  transform-origin: left;
   transition: all .3s ease;
+  overflow: hidden;
+  background-color: #263E4A;
+}
+.sidebarShow {
+ width: 115px;
 }
 </style>

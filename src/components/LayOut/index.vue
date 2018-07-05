@@ -69,7 +69,7 @@ export default {
   margin-left: 100px;
 }
 #app .app-main {
-  background-color: #ccc;
+  /* background-color: #ccc; */
   display: block;
 }
 .mainShadow {

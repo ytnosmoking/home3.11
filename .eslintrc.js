@@ -27,6 +27,7 @@ module.exports = {
     'block-spacing': [2, 'always'],
     'brace-style': [2, '1tbs', { 'allowSingleLine': true }],
     'camelcase': [2, { 'properties': 'always' }],
+    'case-semantic': 0,
     'comma-dangle': [2, 'never'],
     'comma-spacing': [2, { 'before': false, 'after': true }],
     'comma-style': [2, 'last'],

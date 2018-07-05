@@ -1,5 +1,5 @@
 <template>
-  <ul class="sidebarlist">
+  <ul>
     <router-link v-if="item.name" v-for="(item, k) in routes" :key="k" tag="li" 
     :to="item.path"
      @click.native="saveRoutes(item.path,k)">
@@ -41,9 +41,13 @@ li {
   line-height: 46px;
   font-size: 14px;
   color: #b3bbbb;
+  cursor: pointer;
+  transition: all .3s ease;
 }
+
 li:hover {
   color: #fff;
+   background: rgba(0, 0, 0, .7)
 }
 </style>
 
