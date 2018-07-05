@@ -7,9 +7,14 @@ import SvgIcon from '@/components/SvgIcon'
 Vue.component('svg-icon', SvgIcon)
 
 
-const requireAll = requireContext => requireContext.keys().map(requireContext)
+const requireAll = requireContext => {
+  console.log(requireContext.keys())
+  return requireContext.keys().map(requireContext)
+}
 const req = require.context('./svg', false, /\.svg$/)
+// console.log(req)
 
 
 const iconMap = requireAll(req)
+console.log(requireAll(req))
 generateIconsView.generate(iconMap)

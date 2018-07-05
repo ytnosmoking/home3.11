@@ -7,13 +7,16 @@ export default{
       const opts = Object.assign({
         ele: el, // 波纹作用元素
         type: 'hit', // hit点击位置扩散center中心点扩展
-        color: 'rgba(0, 0, 0, 0.15)' // 波纹颜色
+        color: 'rgba(0, 0, 0, .5)' // 波纹颜色
       }, customOpts)
       const target = opts.ele
+      console.log(target)
+      console.log(e)
       if (target) {
         target.style.position = 'relative'
         target.style.overflow = 'hidden'
         const rect = target.getBoundingClientRect()
+        console.log(rect)
         let ripple = target.querySelector('.waves-ripple')
         if (!ripple) {
           ripple = document.createElement('span')
