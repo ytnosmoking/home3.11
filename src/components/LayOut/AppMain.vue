@@ -50,6 +50,7 @@ export default {
   width: calc(100% - 140px );
   height: calc(100% - 100px);
   position: absolute;
+  overflow: auto;
 }
 .common {
   position: fixed;

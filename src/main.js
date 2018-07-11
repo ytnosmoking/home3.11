@@ -10,15 +10,21 @@ import {
 
 // icons
 import './icons'
-// cssc
+// css
 import 'animate.css'
 import ElementUI from 'element-ui'
 import 'assets/css/index.less'
 
 import 'element-ui/lib/theme-chalk/index.css'
 
+// 插件 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // progress bar style
+import Vcalendar from 'v-calendar' //日历
+import 'v-calendar/lib/v-calendar.min.css'
+// import echarts from 'echarts' // echarts 全局使用
+// Vue.prototype.$echarts = echarts 
+Vue.use(Vcalendar)
 
 const whiteList = ["/login"]; // 白名单
 
