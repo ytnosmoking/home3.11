@@ -33,27 +33,28 @@ export const defaultRouter = [{
       component: _import_views('Work/datas'),
       name: '数据'
     }]
-  },
+  
 
-//   }, {
-//     path: '/dashboard',
-//     component: _import_com('layout'),
-//     redirect: '/dashboard/rentUser',
-//     name: '资源',
-//     meta: {
-//       title: 'dashboard',
-//       icon: 'dashboard'
-//     },
-//     children: [{
-//       path: '/dashboard/rentUser',
-//       component: _import_views('DashBoard'),
-//       name: '租客'
-//     }, {
-//       path: '/dashboard/houseUser',
-//       component: _import_views('DashBoard'),
-//       name: '业主'
-//     }]
-//   }, {
+  }, {
+    path: '/source',
+    component: layOut,
+    redirect: '/source/rent',
+    name: '资源',
+    meta: {
+      title: 'source',
+      icon: 'source'
+    },
+    children: [{
+      path: '/source/rent',
+      component: _import_views('Source/rent'),
+      name: '租客'
+    }, {
+      path: '/source/host',
+      component: _import_views('Source/host'),
+      name: '业主'
+    }]
+  }, 
+// {
 //     path: '/work',
 //     component: _import_com('layout'),
 //     redirect: '/work/work1',

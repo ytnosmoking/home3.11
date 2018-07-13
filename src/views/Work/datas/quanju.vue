@@ -283,6 +283,7 @@ export default {
   position: absolute;
   top: 15px;
   left: 300px;
+  transition: all .3s ease;
 }
 .allDatas {
   display: flex;
