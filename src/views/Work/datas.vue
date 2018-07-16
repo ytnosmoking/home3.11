@@ -3,7 +3,7 @@
     <ul class="nav">
       <li v-for="(item, key) in navRoute" :key="key" :class="{active:item.to===com}" @click="changeCom(item.to)">{{item.name}}</li>
     </ul>
-    <transition v-show="false" mode="out-in" enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
+    <transition  mode="out-in" enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
       <component :is="com"></component>
     </transition>
   </div>

@@ -21,7 +21,7 @@
     </div>
     <div v-show="list!=='yuyue'">
 
-      <select-time style="flex:4">
+      <select-time style="flex:5">
         <el-select v-model="value" placeholder="录入时间" class="time" slot="time">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
@@ -32,7 +32,7 @@
 
       <select-price class="price" style="flex:3"></select-price>
 
-      <select-search class="search" style="flex:4"></select-search>
+      <select-search class="search" style="flex:5"></select-search>
 
     </div>
     <div v-show="list==='yuyue'">
@@ -44,7 +44,7 @@
       <select-area class="area" style="flex:3"></select-area>
 
       <select-time class="selectTime" style="flex:6">
-        <span slot="weeks" > &nbsp;&nbsp;查询周期:</span>
+        <span slot="weeks"> &nbsp;&nbsp;查询周期:</span>
       </select-time>
 
       <select-search class="search" style="flex:6"></select-search>
@@ -128,5 +128,4 @@ export default {
     }
   }
 }
-
 </style>

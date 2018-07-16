@@ -4,10 +4,20 @@
     <ul class="nav">
       <li v-for="(item, key) in navRoute" :key="key" :class="{active:item.to===com}" @click="changeCom(item.to)">{{item.name}}</li>
     </ul>
+    <!-- 全部 待受理 已受理 无效 -->
+    <ul class="bookMark" v-show="com==='yuyue'">
+      <li v-for="(item, index) in bookMark" :key="index" :class="{active:item.value == mark}" @click="changeMark(item.value)">{{item.value}}-{{item.number}}</li>
+    </ul>
     <!--  filter  -->
     <select-filter :list="com"></select-filter>
     <!--  table -->
     <select-table class="filterTable"></select-table>
+
+    <section class="pageCounts">
+      <el-pagination background layout="prev, pager, next" :page-size="10" :total="87">
+      </el-pagination>
+    </section>
+
     <!-- <transition mode="out-in" enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
       <select-table class="filterTable"></select-table>
     </transition> -->
@@ -39,6 +49,25 @@ export default {
           name: "预约",
           to: "yuyue"
         }
+      ],
+      mark: "全部",
+      bookMark: [
+        {
+          value: "全部",
+          number: "(134)"
+        },
+        {
+          value: "待受理",
+          number: "(134)"
+        },
+        {
+          value: "已受理",
+          number: "(134)"
+        },
+        {
+          value: "无效",
+          number: "(134)"
+        }
       ]
     };
   },
@@ -49,7 +78,13 @@ export default {
   methods: {
     changeCom(value) {
       this.com = value;
+    },
+    changeMark(value) {
+      this.mark = value;
     }
+  },
+  mounted() {
+    console.log(1111);
   }
 };
 </script>
@@ -73,6 +108,18 @@ export default {
     }
   }
 }
+.bookMark {
+  position: absolute;
+  top: 20px;
+  left: 200px;
+  line-height: 30px;
+  display: flex;
+  font-size: 14px;
+  & > li {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+}
 .active {
   color: #02cab0;
 }
@@ -83,6 +130,14 @@ export default {
   background: #ffffff;
   margin-top: 20px;
 }
+.pageCounts {
+  background-color: #fff;
+  margin-top: 10px;
+  text-align: right;
+  padding: 8px;
+ 
+}
+
 </style>
 
 

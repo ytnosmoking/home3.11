@@ -40,9 +40,7 @@ export default {
       console.log(this.value88);
     }
   },
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
 
@@ -52,16 +50,15 @@ export default {
   border: 1px solid #dcdfe6;
   display: flex;
   justify-content: space-between;
-      align-items: center;
+  align-items: center;
   font-size: 14px;
   .el-input__inner {
     border: none;
   }
 }
+
 .time {
   width: 34%;
-
-  
 }
 .el-date-editor {
   width: 64%;
