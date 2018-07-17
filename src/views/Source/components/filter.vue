@@ -1,6 +1,6 @@
 <template>
   <section class="filter">
-    <div v-show="list!=='yuyue'">
+    <div v-show="list==='sike'|| list==='gongke'">
 
       <select-style class="style"></select-style>
 
@@ -19,7 +19,7 @@
       <select-all class="all"></select-all>
 
     </div>
-    <div v-show="list!=='yuyue'">
+    <div v-show="list==='sike'|| list==='gongke'">
 
       <select-time style="flex:5">
         <el-select v-model="value" placeholder="录入时间" class="time" slot="time">
@@ -30,7 +30,7 @@
 
       <select-rent class="rent" style="flex:2"></select-rent>
 
-      <select-price class="price" style="flex:3"></select-price>
+      <select-price class="price" style="flex:3" price="价格区间" low="最低价格" up="最高价格"></select-price>
 
       <select-search class="search" style="flex:5"></select-search>
 
@@ -48,6 +48,23 @@
       </select-time>
 
       <select-search class="search" style="flex:6"></select-search>
+
+    </div>
+    <div v-show="list ==='sipan'||list ==='gongpan'||list === 'weituo'">
+      <select-part class="part" style="flex:3"></select-part>
+
+      <select-area class="area" style="flex:2"></select-area>
+       <select-price class="price" style="flex:3" price="面积" low="最小" up="最大"></select-price>
+      <select-time style="flex:5">
+        <el-select v-model="value" placeholder="申请时间" class="time" slot="time">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </select-time>
+
+     
+
+      <select-search class="search" style="flex:5"></select-search>
 
     </div>
 

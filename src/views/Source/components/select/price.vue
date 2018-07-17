@@ -1,14 +1,29 @@
 <template>
   <div class="priceRange">
-    <span>价格区间:</span>
-    <input type="text" v-model="value.start" placeholder="最低价格" class="el-input__inner">-
-    <input type="text" v-model="value.end" placeholder="最低价格" class="el-input__inner">
+    <span>{{price}}:</span>
+    <input type="text" v-model="value.start" :placeholder="low" class="el-input__inner">-
+    <input type="text" v-model="value.end" :placeholder="up" class="el-input__inner">
   </div>
 </template>
 
 <script>
 export default {
   name: "",
+  props:{
+    price:{
+      type: String,
+      default: '价格区间'
+    },
+    low:{
+      type: String,
+      default: '最低价格'
+    },
+    up:{
+      type: String,
+      default: '最高价格'
+    }
+
+  },
   data() {
     return {
       value: {

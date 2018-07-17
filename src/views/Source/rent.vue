@@ -11,10 +11,10 @@
     <!--  filter  -->
     <select-filter :list="com"></select-filter>
     <!--  table -->
-    <select-table class="filterTable"></select-table>
+    <select-table class="filterTable" :com="com"></select-table>
 
     <section class="pageCounts">
-      <el-pagination background layout="prev, pager, next" :page-size="10" :total="87">
+      <el-pagination background layout="prev, pager, next" :page-size="10" :total="879">
       </el-pagination>
     </section>
 

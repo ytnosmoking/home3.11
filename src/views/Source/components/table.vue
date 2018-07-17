@@ -3,9 +3,11 @@
     <ul class="head">
       <li v-for="(item, key) in headState" :key="key">{{item}}</li>
     </ul>
-    <ul class="body">
+    <ul class="body" :class="{bodyActive:com==='yuyue'||com ==='weituo'}">
       <li v-for="(liDatas, key) in tableData" :key="key" @click.stop="showRight(liDatas)">
-        <span :class="liDatas.state.type"> {{liDatas.state.value}}</span>
+        <span>
+          <strong :class="liDatas.state.type">{{liDatas.state.value}}</strong>
+        </span>
         <span>
           <p>
             <i class="isType">{{liDatas.user.isType}}</i>
@@ -35,16 +37,34 @@
         </span>
       </li>
     </ul>
-    
-    <div class="showRight" :class="{'active':showState}" @click.stop>
 
-    </div>
+    <show-right :showState="showState"></show-right>
+    <!-- <div class="showRight" :class="{'active':showState}" @click.stop>
+      <div class="slide-head">
+        <span>查看</span>
+        <span @click="showRight">X</span>
+      </div>
+      <div class="slide-nav"></div>
+      <div class="slide-content"></div>
+      <div class="slide-foot"></div>
+    </div> -->
   </section>
 </template>
 
 <script>
+import Bus from "./bus";
+import showRight from "./showRight";
 export default {
   name: "filter-table",
+  props: {
+    com: {
+      type: String,
+      default: "sike"
+    }
+  },
+  components: {
+    showRight
+  },
   data() {
     return {
       currentPage: 1,
@@ -92,8 +112,8 @@ export default {
         },
         {
           state: {
-            type: "normal",
-            value: "正常"
+            type: "wozu",
+            value: "我租"
           },
           user: {
             isType: "重交通",
@@ -132,8 +152,8 @@ export default {
         },
         {
           state: {
-            type: "normal",
-            value: "正常"
+            type: "tazu",
+            value: "他租"
           },
           user: {
             isType: "重交通",
@@ -172,8 +192,8 @@ export default {
         },
         {
           state: {
-            type: "normal",
-            value: "正常"
+            type: "yitui",
+            value: "已退"
           },
           user: {
             isType: "重交通",
@@ -212,8 +232,8 @@ export default {
         },
         {
           state: {
-            type: "normal",
-            value: "正常"
+            type: "wuxiao",
+            value: "无效"
           },
           user: {
             isType: "重交通",
@@ -454,14 +474,19 @@ export default {
     };
   },
   mounted() {
+    console.log(this.com);
     let that = this;
     window.onclick = function(e) {
       that.showState = false;
     };
+    Bus.$on("hideRight", function(e) {
+      that.showState = false;
+    });
   },
   methods: {
     showRight(value) {
       console.log(value);
+      console.log(this.showState);
       this.showState = !this.showState;
     },
     handleSizeChange(val) {
@@ -491,6 +516,7 @@ export default {
   height: 500px;
   overflow: auto;
   background-color: #fff;
+  transition: all 0.3s ease;
   &::-webkit-scrollbar {
     position: absolute;
     right: 0;
@@ -507,6 +533,9 @@ export default {
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
+.bodyActive {
+  height: 560px;
+}
 .body > li {
   height: 70px;
   width: 100%;
@@ -515,11 +544,19 @@ export default {
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  &:hover {
-    background-color: #f3f3f3;
-  }
+
   &:nth-child(odd) {
     background: #f7f7f7;
+    strong:before {
+      border-color: transparent #f7f7f7 transparent transparent;
+    }
+  }
+  &:hover {
+    background-color: #f3f3f3;
+
+    strong:before {
+      border-color: transparent #f3f3f3 transparent transparent;
+    }
   }
   & > span {
     display: flex;
@@ -528,7 +565,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 0 10px;
-    &:nth-child( n+1) {
+    &:nth-child(n + 1) {
       overflow: hidden;
     }
     &:last-child {
@@ -551,7 +588,7 @@ export default {
 .body > li > span {
   font-size: 14px;
   height: 100%;
-  
+
   // overflow: hidden;
   // text-overflow: ellipsis;
   // white-space: nowrap;
@@ -574,21 +611,26 @@ export default {
     flex: 2;
   }
 }
-.showRight {
-  position: fixed;
-  top: 60px;
-  right: 0;
-  height: calc(100% - 120px);
-  overflow: hidden;
-  width: 0;
-  background-color: #1ad3ca;
-  transition: all 0.3s ease;
-  z-index: 3;
-  &.active {
-    width: 40%;
+.body > li strong {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  width: calc(100% - 20px);
+
+  position: relative;
+  padding-left: 20px;
+  box-sizing: border-box;
+
+  &:before {
+    position: absolute;
+    right: 0;
+    top: 0;
+    content: "";
+    border-style: solid;
+    border-width: 15px;
+    border-color: transparent #fff transparent transparent;
   }
 }
-
 .isType {
   background-color: #02cab0;
   color: #fff;
