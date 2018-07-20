@@ -14,13 +14,13 @@
 </template>
 <script>
 import SidebarList from "./SidebarList";
-import { getItem } from "@/utils/auth";
+// import { getItem } from "@/utils/auth";
 export default {
   name: "sidebar-item",
   props: {
     routes: {
       type: Array,
-      default:[]
+      default: []
     }
   },
   components: {
@@ -31,7 +31,7 @@ export default {
       isShow: false,
       childStyle: {},
       childRoutes: [],
-      fatherRoute:''
+      fatherRoute: ""
     };
   },
   computed: {
@@ -44,8 +44,8 @@ export default {
   methods: {
     showChild(item, ref) {
       this.isShow = true;
-      let $dom = this.$refs[ref][0].$el;
-      let chilldTop = (ref - 1) * 40 + "px";
+      // const $dom = this.$refs[ref][0].$el;
+      const chilldTop = (ref - 1) * 40 + "px";
       this.childStyle = { top: chilldTop };
       this.childRoutes = this.routes[ref].children;
     },
@@ -54,7 +54,7 @@ export default {
     },
     //  左侧点击 保存 子路由
     saveRoutes(params, index) {
-      if (this.routes[index].path == params) {
+      if (this.routes[index].path === params) {
         // console.log(this.routes[index].children);
         this.$store.commit("SAVE_CHILD_ROUTES", this.routes[index].children);
       }

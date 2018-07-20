@@ -273,7 +273,7 @@ export default {
   name: "quanju",
   data() {
     return {
-      timePicker:new Date()
+      timePicker: new Date()
     };
   }
 };

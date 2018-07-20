@@ -8,4 +8,4 @@ const getters = {
   commonShow: state => state.components.commonShow
 }
 
-export default getters
+export default getters;

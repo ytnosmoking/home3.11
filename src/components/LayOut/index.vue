@@ -25,8 +25,8 @@ export default {
   data() {
     return {};
   },
-  computed:{
-     commonShow() {
+  computed: {
+    commonShow() {
       // alert(1)
       console.log(this.$store.getters.commonShow)
       return this.$store.getters.commonShow;

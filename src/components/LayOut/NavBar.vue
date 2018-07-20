@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import { setItem, getItem } from '@/utils/auth'
+import { setItem, getItem } from "@/utils/auth"
 import Hamburger from "@/components/Hamburger";
 export default {
   name: "navbar",
@@ -18,28 +18,27 @@ export default {
   },
   data() {
     return {
-      headPath: "",
+      headPath: ""
       // getChildRoutes:[]
     };
   },
-  created(){
-  
-    
+  created() {
+
   },
   computed: {
     getChildRoutes() {
       var localRoutes = this.$store.getters.getChildRoutes;
       console.log(localRoutes)
-      if(localRoutes.length!=0) {
-        setItem('navRoutes', JSON.stringify(localRoutes))
-      }else {
-        localRoutes = JSON.parse(getItem('navRoutes'))
+      if (localRoutes.length !== 0) {
+        setItem("navRoutes", JSON.stringify(localRoutes))
+      } else {
+        localRoutes = JSON.parse(getItem("navRoutes"))
       }
       return localRoutes;
     }
   },
   watch: {
-   
+
   },
   mounted() {
     // this.getChildRoutes()

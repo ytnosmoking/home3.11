@@ -90,35 +90,35 @@
   </div>
 </template>
 <script>
-import {setItem} from '@/utils/auth'
-import { Message } from "element-ui";
+import { setItem } from "@/utils/auth"
+import { Message } from "element-ui"
 export default {
   name: "login",
-  data() {
-    let checkGcid = (rule, value, callback) => {
+  data () {
+    const checkGcid = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("gcid不能为空"));
+        return callback(new Error("gcid不能为空"))
       }
       setTimeout(() => {
-        callback();
-      }, 1000);
-    };
-    let checkName = (rule, value, callback) => {
+        callback()
+      }, 1000)
+    }
+    const checkName = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("用户名不能为空"));
+        return callback(new Error("用户名不能为空"))
       }
       setTimeout(() => {
-        callback();
-      }, 1000);
-    };
-    let checkPassword = (rule, value, callback) => {
+        callback()
+      }, 1000)
+    }
+    const checkPassword = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("密码不能为空"));
+        return callback(new Error("密码不能为空"))
       }
       setTimeout(() => {
-        callback();
-      }, 1000);
-    };
+        callback()
+      }, 1000)
+    }
 
     return {
       lunbo: [
@@ -160,43 +160,49 @@ export default {
         accountName: [{ validator: checkName, trigger: "blur" }],
         accountPwd: [{ validator: checkPassword, trigger: "blur" }]
       }
-    };
+    }
   },
   methods: {
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$store
             .dispatch("LoginByUsername", this.ruleForm)
             .then(res => {
               // console.log(res);
-              if (res.status.code == 200) {
-                this.$router.push("/layout");
-               setItem('navRoutes',JSON.stringify([{"path":"/layout/index","name":"代办"},{"path":"/layout/datas","name":"数据"}]))
+              if (res.status.code === "200") {
+                this.$router.push("/layout")
+                setItem(
+                  "navRoutes",
+                  JSON.stringify([
+                    { path: "/layout/index", name: "代办" },
+                    { path: "/layout/datas", name: "数据" }
+                  ])
+                )
               } else {
                 Message({
                   message: res.status.msg,
                   type: "error",
                   duration: 3 * 1000
-                });
+                })
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err)
               Message({
                 message: "网络开了一会小差~~~",
                 type: "error",
                 duration: 3 * 1000
-              });
-            });
+              })
+            })
         } else {
-          console.log("error submit");
-          return false;
+          console.log("error submit")
+          return false
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 <style>
 .loginbg {

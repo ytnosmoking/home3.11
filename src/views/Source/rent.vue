@@ -8,19 +8,23 @@
     <ul class="bookMark" v-show="com==='yuyue'">
       <li v-for="(item, index) in bookMark" :key="index" :class="{active:item.value == mark}" @click="changeMark(item.value)">{{item.value}}-{{item.number}}</li>
     </ul>
-    <!--  filter  -->
+    <!--  filter select -->
     <select-filter :list="com"></select-filter>
     <!--  table -->
     <select-table class="filterTable" :com="com"></select-table>
 
+    <!--  分页条 -->
     <section class="pageCounts">
-      <el-pagination background layout="prev, pager, next" :page-size="10" :total="879">
+      <el-pagination background :current-page="currentPage"
+        layout="prev, pager, next"
+        :page-size="10" 
+        :total="879" 
+        @current-change="getCurrent" 
+        @prev-click="getPrev" 
+        @next-click="getNext">
       </el-pagination>
     </section>
 
-    <!-- <transition mode="out-in" enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
-      <select-table class="filterTable"></select-table>
-    </transition> -->
   </div>
 </template>
 <script>
@@ -28,13 +32,14 @@
 // import gongke from "./Rent/gongke";
 // import yuyue from "./Rent/yuyue";
 
-import selectFilter from "./components/filter";
-import selectTable from "./components/table";
+import selectFilter from "./rentFilter/filter";
+import selectTable from "./rentFilter/table";
 
 export default {
   name: "rent",
   data() {
     return {
+      currentPage: 1,
       com: "sike",
       navRoute: [
         {
@@ -81,6 +86,23 @@ export default {
     },
     changeMark(value) {
       this.mark = value;
+    },
+    getCurrent(val) {
+      console.log(`${val}页`)
+    },
+    getNext(val) {
+      this.currentPage = val
+      this.getTable()
+      // console.log(`下一 ${val}页`)
+    },
+    getPrev(val) {
+      this.currentPage = val
+      this.getTable()
+      // console.log(`上一 ${val}页`)
+    },
+    getTable() {
+      // this.$store.dispatch({"getTable", this.currentPage})
+      this.$store.dispatch({ type: "sourceRent/getTable", value: this.currentPage })
     }
   },
   mounted() {
@@ -135,9 +157,7 @@ export default {
   margin-top: 10px;
   text-align: right;
   padding: 8px;
- 
 }
-
 </style>
 
 

@@ -70,7 +70,7 @@
   </div>
 </template>
 <script>
-let echarts = require("echarts/lib/echarts");
+const echarts = require("echarts/lib/echarts");
 // 引入柱状图组件
 require("echarts/lib/chart/bar");
 // 引入提示框和title组件
@@ -264,7 +264,7 @@ export default {
   },
   mounted() {
     this.drawLine();
-    let that = this;
+    const that = this;
     window.onresize = function() {
       that.myChart1.resize();
       that.myChart2.resize();

@@ -75,7 +75,7 @@
   </section>
 </template>
 <script>
-let echarts = require("echarts/lib/echarts");
+const echarts = require("echarts/lib/echarts");
 // 引入柱状图组件
 require("echarts/lib/chart/pie");
 // 引入提示框和title组件
@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       charts: "",
-      vacant:[]
+      vacant: []
     };
   },
   mounted() {
@@ -165,7 +165,7 @@ export default {
         }
       }
     ];
-    let options = {
+    const options = {
       title: {},
       tooltip: {
         trigger: "item",

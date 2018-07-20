@@ -441,8 +441,8 @@ export default {
     align-items: center;
     & > div {
       width: 100%;
-      background-color: #fff!important;
-      border:none!important;
+      background-color: #fff !important;
+      border: none !important;
     }
   }
 }

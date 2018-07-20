@@ -1,6 +1,6 @@
 <template>
 <div class="style">
-  <el-select v-model="value1" placeholder="筛选类型">
+  <el-select v-model="value1" placeholder="筛选类型" @change="change">
     <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
     </el-option>
   </el-select>
@@ -28,6 +28,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    change() {
+      console.log(this.value1)
+    }
   }
 };
 </script>
