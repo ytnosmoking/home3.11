@@ -29,7 +29,9 @@ const user = {
   actions: {
     LoginByUsername({
       commit
-    }, userinfo) {
+    }, payload) {
+      let userinfo = payload.value
+      console.log(userinfo)
       // const username = userinfo.name.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(userinfo).then(res => {

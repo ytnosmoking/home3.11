@@ -17,10 +17,10 @@
     <section class="pageCounts">
       <el-pagination background :current-page="currentPage"
         layout="prev, pager, next"
-        :page-size="10" 
-        :total="879" 
-        @current-change="getCurrent" 
-        @prev-click="getPrev" 
+        :page-size="10"
+        :total="879"
+        @current-change="getCurrent"
+        @prev-click="getPrev"
         @next-click="getNext">
       </el-pagination>
     </section>

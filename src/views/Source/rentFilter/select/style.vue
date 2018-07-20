@@ -34,7 +34,12 @@ export default {
   methods: {
     change() {
       console.log(this.value)
-      this.$store.commit({ type: this.styleName, value: this.value })
+      let tableInfo = Object.assign({},{typeName:this.styleName,value:this.value})
+      // this.$store.commit({ type: this.styleName, value: this.value })
+      this.$store.dispatch({type:"sourceRent/getTable", tableInfo })
+      .then( res => {
+        console.log(res)
+      })
       // console.log()
     }
   }
@@ -42,5 +47,5 @@ export default {
 </script>
 
 <style lang='less' scoped>
-  
+
 </style>

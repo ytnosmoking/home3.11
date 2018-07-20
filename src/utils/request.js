@@ -42,7 +42,7 @@ service.interceptors.request.use(config => {
     config.data["gcid"] = getItem("gcid")
     config.data["userid"] = getItem("userid")
   }
-  console.log(config)
+  // console.log(config)
   return config
 }, error => {
   console.log(error)

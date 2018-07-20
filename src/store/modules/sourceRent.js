@@ -13,23 +13,25 @@ export default {
   mutations: {
     peopleType(state, payload) {
       console.log(payload)
-      state.guRenterType = payload.value
+      state.guRenterType = payload
       console.log(state)
     },
     guCustomerSource(state, payload) {
       console.log(payload)
-      state.guCustomerSource = payload.value
+      state.guCustomerSource = payload
       console.log(state)
     },
     guSourceTypeName(state, payload) {
       console.log(payload)
-      state.guSourceTypeName = payload.value
+      state.guSourceTypeName = payload
     }
   },
   actions: {
-    getTable({ commit }, userInfo) {
+    getTable({ commit, state }, tableInfo) {
+      commit(tableInfo.tableInfo.typeName, tableInfo.tableInfo.value)
       return new Promise((resolve, reject) => {
-        console.log(userInfo)
+        console.log(state)
+        console.log(tableInfo)
         // const data = Object.assign({}, { params: {
         //   dateType:	2,
         //   departmentId: "",
@@ -56,13 +58,16 @@ export default {
         //   sortType:	"desc",
         //   userid: getItem("userid")
         // }})
-        console.log(this.state.sourceRent)
         // const data = { params: this.state.sourceRent }
-        console.log(this.state.sourceRent)
         const data = Object.assign({}, { params: this.state.sourceRent }, { userid: getItem("userid") })
         console.log(data)
         getTable(data).then(res => {
-          console.log(res)
+          // console.log(res)
+          if(res.status.code === "200") {
+            resolve(res.result)
+          }
+        }).catch(err => {
+          console.log(err)
         })
       })
     }

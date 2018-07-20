@@ -59,7 +59,6 @@ import selectStyle from "./select/style"; // filter select
 import selectPart from "./select/part";
 import selectArea from "./select/area";
 import selectImportant from "./select/important";
-import selectFrom from "./select/from";
 import selectNormal from "./select/normal";
 import selectAll from "./select/all";
 import selectTime from "./select/time";
@@ -78,7 +77,7 @@ export default {
   data() {
     return {
       style: {
-        name: "sourceRent/peopleType",
+        name: "peopleType",
         placeholder: "筛选类型",
         options: [
           {
@@ -96,7 +95,7 @@ export default {
         ]
       }, // 筛选类型
       origin: {
-        name: "sourceRent/guCustomerSource",
+        name: " guCustomerSource",
         placeholder: "来源类型",
         options: [
           {
@@ -114,7 +113,7 @@ export default {
         ]
       }, // 来源类型
       from: {
-        name: "sourceRent/guCustomerSource",
+        name: " guCustomerSource",
         placeholder: "来源",
         options: [
           {
@@ -153,7 +152,6 @@ export default {
     selectPart,
     selectArea,
     selectImportant,
-    selectFrom,
     selectNormal,
     selectAll,
     selectTime,

@@ -167,7 +167,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$store
-            .dispatch("LoginByUsername", this.ruleForm)
+            .dispatch({ type:"user/LoginByUsername",value:this.ruleForm})
             .then(res => {
               // console.log(res);
               if (res.status.code === "200") {
