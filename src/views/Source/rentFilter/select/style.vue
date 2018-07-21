@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import Bus from "../bus.js"
 export default {
   name: "select-style",
   props: {
@@ -33,12 +34,22 @@ export default {
   },
   methods: {
     change() {
-      console.log(this.value)
-      let tableInfo = Object.assign({},{typeName:this.styleName,value:this.value})
+      // console.log(this.value)
+      if (this.styleName === "guSourceTypeId" || this.styleName === "guImportanceTypeId") {
+        let valueLabel = "";
+        this.styleOptions.filter(item => {
+          if (item.value === this.value) {
+            valueLabel = item.label
+            return
+          }
+        })
+        this.$store.commit({ type: "sourceRent/" + this.styleName.replace("Id", "Name"), value: valueLabel })
+      }
+      const tableInfo = Object.assign({}, { typeName: this.styleName, value: this.value })
       // this.$store.commit({ type: this.styleName, value: this.value })
-      this.$store.dispatch({type:"sourceRent/getTable", tableInfo })
-      .then( res => {
-        console.log(res)
+      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
+      .then(res => {
+        Bus.$emit("getTableData", res)
       })
       // console.log()
     }
