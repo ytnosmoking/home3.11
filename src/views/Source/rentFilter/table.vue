@@ -21,39 +21,97 @@
           <!-- <strong :class="liDatas.state.type">{{liDatas.state.value}}</strong> -->
         </span>
         <span>
+            <p>
+            <i class="importType" v-if="liDatas.guImportanceTypeName && liDatas.guImportanceTypeId.id">
+              {{liDatas.guImportanceTypeName}}
+            </i>
+            <i v-if="liDatas.guHouseUserId.nickname">
+              {{liDatas.guHouseUserId.nickname}}
+            </i>
+            <i v-if="liDatas.guHouseUserId.gender">
+              {{liDatas.guHouseUserId.gender===1? "男":"女"}}
+            </i>
+            <i v-if="liDatas.bStatus===2">
+              {{"☞"}}
+            </i>
+          </p>
+         
           <p>
+            {{liDatas.guHouseUserId.phone}}
+          </p>
+          <!-- <p>
             <i class="isType">{{liDatas.user.isType}}</i>
             <i>{{liDatas.user.name}}</i>
             <i>{{liDatas.user.gender}}</i>
             <i>{{liDatas.user.from}}</i>
           </p>
-          <p>{{liDatas.user.tel}}</p>
+          <p>{{liDatas.user.tel}}</p> -->
         </span>
         <span>
-          <p>接收价格：{{liDatas.detail.price}}</p>
-          <p>{{liDatas.detail.where}}</p>
+        
+          <p>接收价格：{{liDatas.guMinMoney ? liDatas.guMinMoney:"暂无" }}-{{liDatas.guMaxMoney? liDatas.guMaxMoney+"元":"暂无" }}</p>
+          <p>{{liDatas.guCityName}} {{liDatas.guXiaoquName | strParse}} {{liDatas.guTownName| strParse}}</p>
+          <!-- <p>接收价格：{{liDatas.detail.price}}</p>
+          <p>{{liDatas.detail.where}}</p> -->
         </span>
         <span>
-          <p>{{liDatas.from.net}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
-          <p>{{liDatas.from.time}}</p>
+          <p>
+            <i>
+              {{liDatas.guCustomerSource==="2"?"个人":"公司"}}
+            </i>
+            &nbsp;
+            <i>
+              {{liDatas.guSourceTypeId.key? liDatas.guSourceTypeId.key: "无"}}
+            </i>
+          </p>
+       
+          <p>
+            <i>
+              {{liDatas.guCt}}
+            </i>
+            <i>
+              {{liDatas.guCreateName}}
+            </i>
+          </p>
+          <!-- <p>{{liDatas.from.net}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
+          <p>{{liDatas.from.time}}</p> -->
         </span>
         <span>
-          <p v-for="(follow, fIndex) in liDatas.follow" :key="fIndex">{{follow}}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+          <p>
+            <i>{{liDatas.guFollowTime}}</i>
+            <i>{{liDatas.guFollowUserName}}-{{liDatas.guFollowTypeName}}</i>
+          </p>
+          <p>
+            {{liDatas.guFollowInfo| strParse}}
+          </p>
+          <!-- <p v-for="(follow, fIndex) in liDatas.follow" :key="fIndex">{{follow}}&nbsp;&nbsp;&nbsp;&nbsp;</p> -->
         </span>
         <span>
-          <ul class="selectChange">
+          <ul class="selectChange" @click.stop>
+            <li :data-value="liDatas.guId">跟进</li>
+            <li :data-value="liDatas.guId">指派</li>
+            <li :data-value="liDatas.guId" :data-name="liDatas.guHouseUserId.nickname">转为公客</li>
+            <li :data-value="liDatas.guId">编辑信息</li>
+            <li :data-value="liDatas.guId">无效</li>
+            <li :data-value="liDatas.guId">删除</li>
+          </ul>
+          <!-- <ul class="selectChange">
             <li :value="value.label" v-for="(value, vIndex) in liDatas.control" :key="vIndex" @click.stop>
               {{value.value}}
             </li>
-          </ul>
+          </ul> -->
         </span>
       </li>
-      <li v-show="!!tableData" style="height:100%;flex-direction: column;justify-content: center;">
+      <!-- <li v-show="tableData===[]" :style="{height:tableData?'100%': '0','overflow':'hidden','flex-direction': 'column','justify-content': 'center','margin-bottom':'0'}"> -->
+      <li v-show="tableData.length==0" style="height:100%;flex-direction: column;justify-content: center;margin-bottom:0">
         <i class="el-icon-warning" style="font-size:50px"></i>
         <br>
         <br> 没有匹配的信息!
       </li>
     </ul>
+    <!-- <div v-show="tableData.length===0">
+      1234
+    </div> -->
 
     <show-right :showState="showState"></show-right>
     <!-- <div class="showRight" :class="{'active':showState}" @click.stop>
@@ -97,129 +155,129 @@ export default {
         "来源类型/来源/录入时间/人",
         "跟进时间/人/方式/内容",
         "操作"
-      ],
-      tableData: [
-        {
-          bStatus: 1,
-          followCount: 1,
-          gcid: "0100099",
-          guAccessMode: "",
-          guChaoxiangId: "",
-          guChaoxiangName: "",
-          guCityId: "",
-          guCityName: "",
-          guCompanyId: "",
-          guCompanyName: "",
-          guCreateId: "3cf027ac0c5943458dcece86c4715d2d",
-          guCreateName: "张青",
-          guCt: "2018-07-20 11:17",
-          guCustomerSource: "",
-          guDepartmentId: "",
-          guDepartmentName: "",
-          guDistrictId: "",
-          guDistrictName: "",
-          guEt: "2018-07-20 11:17",
-          guFollowInfo: "",
-          guFollowTime: "",
-          guFollowTypeName: "",
-          guFollowUserName: "",
-          guFollowtypeId: "",
-          guGuestNote: "",
-          guHouseId: "",
-          guHouseTypeId: "",
-          guHouseTypeName: "",
-          guHouseUserId: {
-            age: 0,
-            cardName: "",
-            cardNo: "",
-            cardType: "",
-            cardTypeZhihang: "",
-            email: "",
-            emergencyPeo: "",
-            emergencyPeoPhone: "",
-            gender: 1,
-            id: "ddcd3926a6b4451c97e83bc5405fa5f1",
-            nickname: "abc",
-            phone: "13277054876",
-            qq: "",
-            sfzNo: "",
-            weiXin: ""
-          },
-          guHouseZhuanXiu: "",
-          guHuxingChanQuan: "",
-          guHuxingChu: "",
-          guHuxingLeixing: "",
-          guHuxingShi: "",
-          guHuxingTai: "",
-          guHuxingTing: "",
-          guHuxingWei: "",
-          guId: "c8e78992cbbf4f3480223d39632fdd7e",
-          guImportanceTypeId: {
-            id: "",
-            type: "",
-            value: "",
-            key: "",
-            mark: ""
-          },
-          guImportanceTypeName: "",
-          guInputTime: "",
-          guIp: "",
-          guIsDelete: 1,
-          guJiaoyiType: "",
-          guMaxArea: "",
-          guMaxMoney: "",
-          guMaxStorey: "",
-          guMinArea: "",
-          guMinMoney: "",
-          guMinStorey: "",
-          guMsgInfo: "",
-          guMsgTime: "",
-          guNeedType: "",
-          guNeedTypeId: "",
-          guNewStatus: 1,
-          guNowCompanyId: "",
-          guNowCompanyName: "",
-          guNowCreateId: "3cf027ac0c5943458dcece86c4715d2d",
-          guNowCreateName: "张青",
-          guNowDepartmentId: "",
-          guNowDepartmentName: "",
-          guNumber: "",
-          guPhone: "",
-          guPurposeId: "",
-          guPurposeName: "",
-          guRenterType: "2",
-          guRuZhuTime: "",
-          guSeeTime: "",
-          guSourceTypeId: {
-            id: "",
-            type: "",
-            value: "",
-            key: "",
-            mark: ""
-          },
-          guSourceTypeName: "",
-          guStatus: "",
-          guTownId: "",
-          guTownName: "",
-          guTypeNoteId: "",
-          guTypeNoteName: "",
-          guUserNote: "",
-          guXiaoquId: "",
-          guXiaoquLat: "",
-          guXiaoquLng: "",
-          guXiaoquName: "",
-          guXuqiuZhengZu: "",
-          guXuqiuZuqi: {
-            id: "",
-            type: "",
-            value: "",
-            key: "",
-            mark: ""
-          },
-          guprocessState: "",
-          isRed: 0
-        }
       ]
+      // tableData: [
+      //   {
+      //     bStatus: 1,
+      //     followCount: 1,
+      //     gcid: "0100099",
+      //     guAccessMode: "",
+      //     guChaoxiangId: "",
+      //     guChaoxiangName: "",
+      //     guCityId: "",
+      //     guCityName: "",
+      //     guCompanyId: "",
+      //     guCompanyName: "",
+      //     guCreateId: "3cf027ac0c5943458dcece86c4715d2d",
+      //     guCreateName: "张青",
+      //     guCt: "2018-07-20 11:17",
+      //     guCustomerSource: "",
+      //     guDepartmentId: "",
+      //     guDepartmentName: "",
+      //     guDistrictId: "",
+      //     guDistrictName: "",
+      //     guEt: "2018-07-20 11:17",
+      //     guFollowInfo: "",
+      //     guFollowTime: "",
+      //     guFollowTypeName: "",
+      //     guFollowUserName: "",
+      //     guFollowtypeId: "",
+      //     guGuestNote: "",
+      //     guHouseId: "",
+      //     guHouseTypeId: "",
+      //     guHouseTypeName: "",
+      //     guHouseUserId: {
+      //       age: 0,
+      //       cardName: "",
+      //       cardNo: "",
+      //       cardType: "",
+      //       cardTypeZhihang: "",
+      //       email: "",
+      //       emergencyPeo: "",
+      //       emergencyPeoPhone: "",
+      //       gender: 1,
+      //       id: "ddcd3926a6b4451c97e83bc5405fa5f1",
+      //       nickname: "abc",
+      //       phone: "13277054876",
+      //       qq: "",
+      //       sfzNo: "",
+      //       weiXin: ""
+      //     },
+      //     guHouseZhuanXiu: "",
+      //     guHuxingChanQuan: "",
+      //     guHuxingChu: "",
+      //     guHuxingLeixing: "",
+      //     guHuxingShi: "",
+      //     guHuxingTai: "",
+      //     guHuxingTing: "",
+      //     guHuxingWei: "",
+      //     guId: "c8e78992cbbf4f3480223d39632fdd7e",
+      //     guImportanceTypeId: {
+      //       id: "",
+      //       type: "",
+      //       value: "",
+      //       key: "",
+      //       mark: ""
+      //     },
+      //     guImportanceTypeName: "",
+      //     guInputTime: "",
+      //     guIp: "",
+      //     guIsDelete: 1,
+      //     guJiaoyiType: "",
+      //     guMaxArea: "",
+      //     guMaxMoney: "",
+      //     guMaxStorey: "",
+      //     guMinArea: "",
+      //     guMinMoney: "",
+      //     guMinStorey: "",
+      //     guMsgInfo: "",
+      //     guMsgTime: "",
+      //     guNeedType: "",
+      //     guNeedTypeId: "",
+      //     guNewStatus: 1,
+      //     guNowCompanyId: "",
+      //     guNowCompanyName: "",
+      //     guNowCreateId: "3cf027ac0c5943458dcece86c4715d2d",
+      //     guNowCreateName: "张青",
+      //     guNowDepartmentId: "",
+      //     guNowDepartmentName: "",
+      //     guNumber: "",
+      //     guPhone: "",
+      //     guPurposeId: "",
+      //     guPurposeName: "",
+      //     guRenterType: "2",
+      //     guRuZhuTime: "",
+      //     guSeeTime: "",
+      //     guSourceTypeId: {
+      //       id: "",
+      //       type: "",
+      //       value: "",
+      //       key: "",
+      //       mark: ""
+      //     },
+      //     guSourceTypeName: "",
+      //     guStatus: "",
+      //     guTownId: "",
+      //     guTownName: "",
+      //     guTypeNoteId: "",
+      //     guTypeNoteName: "",
+      //     guUserNote: "",
+      //     guXiaoquId: "",
+      //     guXiaoquLat: "",
+      //     guXiaoquLng: "",
+      //     guXiaoquName: "",
+      //     guXuqiuZhengZu: "",
+      //     guXuqiuZuqi: {
+      //       id: "",
+      //       type: "",
+      //       value: "",
+      //       key: "",
+      //       mark: ""
+      //     },
+      //     guprocessState: "",
+      //     isRed: 0
+      //   }
+      // ]
       // tableData: [
       //   {
       //     state: {
@@ -625,6 +683,7 @@ export default {
     Bus.$on("hideRight", function(e) {
       that.showState = false;
     });
+    console.log(this.tableData)
   },
   methods: {
     showRight(value) {
@@ -638,7 +697,13 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     }
+  },
+  watch: {
+    "tableData": function(newValue, oldValue) {
+      console.log(newValue)
+    }
   }
+
 };
 </script>
 <style lang="less" scoped>
@@ -651,7 +716,8 @@ export default {
   background-color: #fff;
   & > li {
     line-height: 40px;
-    text-align: center;
+    // text-align: center;
+    padding-left: 10px;
   }
 }
 .body {
@@ -682,6 +748,7 @@ export default {
 .body > li {
   height: 70px;
   width: 100%;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -695,7 +762,7 @@ export default {
     }
   }
   &:hover {
-    background-color: #f3f3f3;
+    background-color: #eef1f7;
 
     strong:before {
       border-color: transparent #f3f3f3 transparent transparent;
@@ -704,8 +771,8 @@ export default {
   & > span {
     display: flex;
     flex-wrap: wrap;
-    // justify-content: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
+    // justify-content: center; 
     align-items: center;
     padding: 0 10px;
     &:nth-child(n + 1) {
@@ -719,6 +786,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: 100%;
     }
     i {
       text-align: center;
@@ -818,5 +886,11 @@ export default {
       color: #ffffff;
     }
   }
+}
+.importType {
+  color: #fff;
+  background: #02CAB0;
+  border-radius: 3px;
+  padding: 0 5px;
 }
 </style>

@@ -15,6 +15,9 @@ import "assets/css/index.less"
 
 import "element-ui/lib/theme-chalk/index.css"
 
+// 过滤器
+import * as filters from "./filters"
+
 // 插件
 import NProgress from "nprogress"
 import "nprogress/nprogress.css" // progress bar style
@@ -55,6 +58,10 @@ router.afterEach(() => {
 })
 
 Vue.use(ElementUI)
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 

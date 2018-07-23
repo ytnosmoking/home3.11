@@ -112,7 +112,7 @@ export default {
         this.currentPage = res.pageNo
         this.totalPage = res.totalPage
         this.totalRecord = res.totalRecord
-        // this.tableData = res.list
+        this.tableData = res.list
       }).catch(err => {
         console.log(err)
       })
@@ -126,7 +126,8 @@ export default {
       that.currentPage = res.pageNo
       that.totalPage = res.totalPage
       that.totalRecord = res.totalRecord
-      // this.tableData = res.list
+      console.log(res.list)
+      that.tableData = res.list
     })
   }
 };
