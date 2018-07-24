@@ -9,18 +9,18 @@
 <script>
 export default {
   name: "",
-  props:{
-    price:{
+  props: {
+    price: {
       type: String,
-      default: '价格区间'
+      default: "价格区间"
     },
-    low:{
+    low: {
       type: String,
-      default: '最低价格'
+      default: "最低价格"
     },
-    up:{
+    up: {
       type: String,
-      default: '最高价格'
+      default: "最高价格"
     }
 
   },
@@ -33,7 +33,7 @@ export default {
     };
   },
   methods: {
-    
+
   }
 };
 </script>

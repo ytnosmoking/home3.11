@@ -87,7 +87,15 @@ export default {
     changeCom(value) {
       this.guRenterType = value;
       const tableInfo = Object.assign({}, { typeName: "guRenterType", value: this.guRenterType })
-      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
+      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo }).then(res => {
+        console.log(res)
+        this.currentPage = res.pageNo
+        this.totalPage = res.totalPage
+        this.totalRecord = res.totalRecord
+        this.tableData = res.list
+      }).catch(err => {
+        console.log(err)
+      })
     },
     changeMark(value) {
       this.mark = value;

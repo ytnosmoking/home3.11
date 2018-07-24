@@ -1,293 +1,252 @@
 <template>
-  <div>
-    <el-cascader placeholder="部门/人员" :options="options" v-model="value" filterable @change="getValue" change-on-select></el-cascader>
+  <div class="partCont">
+    <input type="text" placeholder="部门/人员" class="partVal" v-model="partMan" @click.stop="getFocus">
+    <div class="partList" v-show="showPart" @click.stop>
+      <input type="text" class="partSearch" placeholder="人员" v-model="partMan">
+      <i class="el-icon-search partSearch-icon"></i>
+      <div class="partUl">
+        <part-tree :list="list.children" class="partMent" :func="getValue"></part-tree>
+        <ul class="partStaff">
+
+        </ul>
+      </div>
+      <div class="partReset">
+        <span>双击选择部门,单击选择员工</span>
+        <el-button type="info" size="small">重置</el-button>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import partTree from "./tree";
 export default {
   name: "select-part",
+  components: {
+    partTree
+  },
   data() {
     return {
+      partMan: "",
+      showPart: false,
       value: [],
-
-      options: [
-        {
-          value: "zhinan",
-          label: "指南",
-          children: [
-            {
-              value: "shejiyuanze",
-              label: "设计原则",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致"
-                },
-                {
-                  value: "fankui",
-                  label: "反馈"
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率"
-                },
-                {
-                  value: "kekong",
-                  label: "可控"
-                }
-              ]
-            },
-            {
-              value: "daohang",
-              label: "导航",
-              children: [
-                {
-                  value: "cexiangdaohang",
-                  label: "侧向导航"
-                },
-                {
-                  value: "dingbudaohang",
-                  label: "顶部导航"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          value: "zujian",
-          label: "组件",
-          children: [
-            {
-              value: "basic",
-              label: "Basic",
-              children: [
-                {
-                  value: "layout",
-                  label: "Layout 布局"
-                },
-                {
-                  value: "color",
-                  label: "Color 色彩"
-                },
-                {
-                  value: "typography",
-                  label: "Typography 字体"
-                },
-                {
-                  value: "icon",
-                  label: "Icon 图标"
-                },
-                {
-                  value: "button",
-                  label: "Button 按钮"
-                }
-              ]
-            },
-            {
-              value: "form",
-              label: "Form",
-              children: [
-                {
-                  value: "radio",
-                  label: "Radio 单选框"
-                },
-                {
-                  value: "checkbox",
-                  label: "Checkbox 多选框"
-                },
-                {
-                  value: "input",
-                  label: "Input 输入框"
-                },
-                {
-                  value: "input-number",
-                  label: "InputNumber 计数器"
-                },
-                {
-                  value: "select",
-                  label: "Select 选择器"
-                },
-                {
-                  value: "cascader",
-                  label: "Cascader 级联选择器"
-                },
-                {
-                  value: "switch",
-                  label: "Switch 开关"
-                },
-                {
-                  value: "slider",
-                  label: "Slider 滑块"
-                },
-                {
-                  value: "time-picker",
-                  label: "TimePicker 时间选择器"
-                },
-                {
-                  value: "date-picker",
-                  label: "DatePicker 日期选择器"
-                },
-                {
-                  value: "datetime-picker",
-                  label: "DateTimePicker 日期时间选择器"
-                },
-                {
-                  value: "upload",
-                  label: "Upload 上传"
-                },
-                {
-                  value: "rate",
-                  label: "Rate 评分"
-                },
-                {
-                  value: "form",
-                  label: "Form 表单"
-                }
-              ]
-            },
-            {
-              value: "data",
-              label: "Data",
-              children: [
-                {
-                  value: "table",
-                  label: "Table 表格"
-                },
-                {
-                  value: "tag",
-                  label: "Tag 标签"
-                },
-                {
-                  value: "progress",
-                  label: "Progress 进度条"
-                },
-                {
-                  value: "tree",
-                  label: "Tree 树形控件"
-                },
-                {
-                  value: "pagination",
-                  label: "Pagination 分页"
-                },
-                {
-                  value: "badge",
-                  label: "Badge 标记"
-                }
-              ]
-            },
-            {
-              value: "notice",
-              label: "Notice",
-              children: [
-                {
-                  value: "alert",
-                  label: "Alert 警告"
-                },
-                {
-                  value: "loading",
-                  label: "Loading 加载"
-                },
-                {
-                  value: "message",
-                  label: "Message 消息提示"
-                },
-                {
-                  value: "message-box",
-                  label: "MessageBox 弹框"
-                },
-                {
-                  value: "notification",
-                  label: "Notification 通知"
-                }
-              ]
-            },
-            {
-              value: "navigation",
-              label: "Navigation",
-              children: [
-                {
-                  value: "menu",
-                  label: "NavMenu 导航菜单"
-                },
-                {
-                  value: "tabs",
-                  label: "Tabs 标签页"
-                },
-                {
-                  value: "breadcrumb",
-                  label: "Breadcrumb 面包屑"
-                },
-                {
-                  value: "dropdown",
-                  label: "Dropdown 下拉菜单"
-                },
-                {
-                  value: "steps",
-                  label: "Steps 步骤条"
-                }
-              ]
-            },
-            {
-              value: "others",
-              label: "Others",
-              children: [
-                {
-                  value: "dialog",
-                  label: "Dialog 对话框"
-                },
-                {
-                  value: "tooltip",
-                  label: "Tooltip 文字提示"
-                },
-                {
-                  value: "popover",
-                  label: "Popover 弹出框"
-                },
-                {
-                  value: "card",
-                  label: "Card 卡片"
-                },
-                {
-                  value: "carousel",
-                  label: "Carousel 走马灯"
-                },
-                {
-                  value: "collapse",
-                  label: "Collapse 折叠面板"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          value: "ziyuan",
-          label: "资源",
-          children: [
-            {
-              value: "axure",
-              label: "Axure Components"
-            },
-            {
-              value: "sketch",
-              label: "Sketch Templates"
-            },
-            {
-              value: "jiaohu",
-              label: "组件交互文档"
-            }
-          ]
-        }
-      ]
+      list: {
+        children: [
+          {
+            name: 1,
+            id: 1,
+            open: false,
+            children: [
+              {
+                name: 1.1,
+                id: 1.1
+              },
+              {
+                name: 1.2,
+                id: 1.2
+              },
+              {
+                name: 1.3,
+                id: 1.3
+              }
+            ]
+          },
+          {
+            name: 2,
+            id: 2,
+            open: false,
+            children: [
+              {
+                name: 2.1,
+                id: 2.1
+              },
+              {
+                name: 2.2,
+                id: 2.2
+              }
+            ]
+          },
+          {
+            name: 3,
+            id: 3,
+            open: false,
+            children: [
+              {
+                name: 3.1,
+                id: 3.1,
+                open: false,
+                children: [
+                  {
+                    name: 3.11,
+                    id: 3.11
+                  },
+                  {
+                    name: 3.12,
+                    id: 3.12,
+                    open: false,
+                    children: [
+                      {
+                        name: 3.121,
+                        id: 3.121
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 3.2,
+                id: 3.2,
+                open: false,
+                children: [
+                  {
+                    name: 3.21,
+                    id: 3.21
+                  },
+                  {
+                    name: 3.22,
+                    id: 3.22
+                  },
+                  {
+                    name: 3.23,
+                    id: 3.23
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     };
   },
+  computed: {
+
+  },
   methods: {
-    getValue() {
-      console.log(this.value);
+    getValue(value) {
+      console.log(value);
+      this.partMan = value.name;
+      this.showPart = false;
+      console.log(this.showPart);
+    },
+    getFocus() {
+      this.showPart = true;
+      console.log(this.showPart);
+    },
+    hideShowPart() {
+      this.showPart = false;
     }
+  },
+  mounted() {
+    const that = this;
+    document.onclick = function() {
+      console.log(that.showPart);
+      that.showPart = false;
+    };
   }
 };
 </script>
 
 <style lang='less' scoped>
+.partCont {
+  position: relative;
+}
+.partVal {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  color: #606266;
+  box-sizing: border-box;
+  &:hover {
+    border-color: #c0c4cc;
+  }
+}
+.partList {
+  width: 330px;
+  position: absolute;
+  left: 0;
+  top: 48px;
+  box-shadow: rgba(128, 128, 128, 0.3) 1px 1px 4px;
+  background: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(222, 223, 229);
+  border-image: initial;
+  padding: 8px;
+  .partSearch {
+    height: 30px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    background: rgb(239, 242, 248);
+    padding: 0px 10px;
+    padding-right: 30px;
+  }
+  .partSearch-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 20px;
+  }
+  .partUl {
+    display: flex;
+    // height: 250px;
+    margin-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    .partMent {
+      flex: 2;
+      border-right: 1px solid rgb(223, 230, 255);
+      & > li {
+        display: none;
+      }
+    }
+    .partStaff {
+      flex: 1;
+    }
+    .partMent,
+    .partStaff {
+      padding: 0 8px;
+      height: 250px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 10px;
+        height: 5px;
+      }
+      &::-webkit-scrollbar-corner,
+      &::-webkit-scrollbar-track {
+        background-color: #e2e2e2;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      &::-webkit-scrollbar-corner,
+      &::-webkit-scrollbar-track {
+        background-color: #e2e2e2;
+      }
+    }
+  }
+  .partReset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 8px 0;
+    border-top: 1px solid rgb(230, 230, 230);
+    margin-top: 15px;
+    font-size: 14px;
+    span {
+      color: rgb(179, 184, 202);
+    }
+  }
+}
 </style>

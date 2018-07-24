@@ -1,5 +1,5 @@
 <template>
-<div class="style">
+<div>
   <el-select v-model="value" :placeholder="placeholder" @change="change">
     <el-option v-for="item in styleOptions" :key="item.value" :label="item.label" :value="item.value">
     </el-option>

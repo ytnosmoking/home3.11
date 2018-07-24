@@ -827,11 +827,11 @@ export default {
   line-height: 30px;
   font-size: 14px;
   width: calc(100% - 20px);
-
+  width: 80px;
   position: relative;
   padding-left: 20px;
   box-sizing: border-box;
-
+  color: #fff;
   &:before {
     position: absolute;
     right: 0;

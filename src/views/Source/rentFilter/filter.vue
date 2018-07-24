@@ -1,12 +1,11 @@
 <template>
   <section class="filter">
-    <div v-show="list==='2'|| list==='1'">
+    <div v-show="list==='2'|| list==='1'" class="first">
       <!-- 筛选类型 -->
       <select-style class="style" :styleOptions="style.options" :placeholder="style.placeholder" :styleName="style.name"></select-style>
 
-      <!-- <select-part class="part"></select-part> -->
-
-      <!-- <select-area class="area"></select-area> -->
+      <!-- part -->
+      <select-part class="part"></select-part>
 
       <select-style class="important" :styleOptions="important.options" :placeholder="important.placeholder" :styleName="important.name"></select-style>
 
@@ -125,7 +124,7 @@ export default {
         placeholder: "来源类型",
         options: [
           {
-            value: "0",
+            value: "",
             label: "来源类型"
           },
           {
@@ -251,6 +250,15 @@ export default {
   // padding-bottom: 0;
   & > div {
     display: flex;
+    &.first {
+      &>div {
+        flex: 1;
+        // &.
+        &.important,&.origin {
+          flex :1.5;
+        }
+      }
+    }
     &:nth-child(2) {
       margin-top: 20px;
     }
