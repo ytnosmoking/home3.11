@@ -1,4 +1,4 @@
-<template>
+    <template>
   <section class="filter">
     <div v-show="list==='2'|| list==='1'" class="first">
       <!-- 筛选类型 -->

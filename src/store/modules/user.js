@@ -30,7 +30,7 @@ const user = {
     LoginByUsername({
       commit
     }, payload) {
-      let userinfo = payload.value
+      const userinfo = payload.value
       console.log(userinfo)
       // const username = userinfo.name.trim()
       return new Promise((resolve, reject) => {

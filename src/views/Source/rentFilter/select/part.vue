@@ -1,8 +1,8 @@
 <template>
   <div class="partCont">
-    <input type="text" placeholder="部门/人员" class="partVal" v-model="partMan" @click.stop="getFocus">
+    <div type="text" placeholder="部门/人员" class="partVal"  @click.stop="getFocus">{{partMan|| '部门/人员'}}</div>
     <div class="partList" v-show="showPart" @click.stop>
-      <input type="text" class="partSearch" placeholder="人员" v-model="partMan">
+      <input type="text" class="partSearch" placeholder="人员">
       <i class="el-icon-search partSearch-icon"></i>
       <div class="partUl">
         <part-tree :list="list.children" class="partMent" :func="getValue"></part-tree>
@@ -12,7 +12,7 @@
       </div>
       <div class="partReset">
         <span>双击选择部门,单击选择员工</span>
-        <el-button type="info" size="small">重置</el-button>
+        <el-button type="info" size="small" @click="reset">重置</el-button>
       </div>
     </div>
 
@@ -127,21 +127,27 @@ export default {
       console.log(value);
       this.partMan = value.name;
       this.showPart = false;
-      console.log(this.showPart);
     },
     getFocus() {
       this.showPart = true;
       console.log(this.showPart);
+      this.$store.dispatch("getPartMent", {}).then(res => {
+        console.log(res)
+      })
     },
     hideShowPart() {
       this.showPart = false;
+    },
+    reset() {
+      this.partMan = ""
     }
   },
   mounted() {
-    const that = this;
-    document.onclick = function() {
-      console.log(that.showPart);
-      that.showPart = false;
+    // const thatVue = this;
+    window.onclick = function(e) {
+      // that.showPart = false;
+
+      // console.log(that)
     };
   }
 };
@@ -161,6 +167,7 @@ export default {
   padding: 0 15px;
   color: #606266;
   box-sizing: border-box;
+  transition: all .3s ease;
   &:hover {
     border-color: #c0c4cc;
   }
@@ -177,6 +184,7 @@ export default {
   border-color: rgb(222, 223, 229);
   border-image: initial;
   padding: 8px;
+  overflow: hidden;
   .partSearch {
     height: 30px;
     font-size: 14px;
