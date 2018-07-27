@@ -74,7 +74,7 @@ module.exports = {
     }], 
     'new-parens': 2, //要求调用无参构造函数时有圆括号
     'no-array-constructor': 2, // 禁用 array 构造函数
-    'no-caller': 2, //禁用 arguments.caller 或 arguments.callee
+    // 'no-caller': 2, //禁用 arguments.caller 或 arguments.callee
     'no-class-assign': 2, // 禁止修改类(构造函数)声明的变量
     'no-cond-assign': 2, // 禁止条件语句中 出项赋值现象
     'no-const-assign': 2, //禁止修改 const 声明的变量
@@ -90,7 +90,7 @@ module.exports = {
     'no-ex-assign': 2, //禁止对 catch 子句中的异常重新赋值 
     'no-extend-native': 2, // 禁止扩展原生对象
     'no-extra-bind': 2, //
-    'no-extra-boolean-cast': 2, //禁止不必要的布尔类型转换
+    // 'no-extra-boolean-cast': 2, //禁止不必要的布尔类型转换
     'no-extra-parens': [2, 'functions'], // 禁止不必要的括号
     'no-fallthrough': 2, //禁止 case 语句落空
     'no-floating-decimal': 2, // 禁止浮点小数

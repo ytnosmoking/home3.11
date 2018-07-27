@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Bus from "../bus.js"
+// import Bus from "../bus.js"
 export default {
   name: "select-style",
   props: {
@@ -48,10 +48,9 @@ export default {
       const tableInfo = Object.assign({}, { typeName: this.styleName, value: this.value })
       // this.$store.commit({ type: this.styleName, value: this.value })
       this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
-      .then(res => {
-        Bus.$emit("getTableData", res)
-      })
-      // console.log()
+      // .then(res => {
+      //   Bus.$emit("getTableData", res)
+      // })
     }
   }
 };

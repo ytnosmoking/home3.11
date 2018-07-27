@@ -138,7 +138,9 @@ export default {
     },
     tableData: {
       type: Array,
-      default: []
+      default: function() {
+        return []
+      }
     }
   },
   components: {

@@ -1,8 +1,13 @@
 import { getTable } from "api/source"
 import { getItem } from "utils/auth"
 export default {
+
   namespaced: true,
   state: {
+    // currentPage: 1, // 当前页面
+    tableData: [],  // 表格数据
+    totalPage: 1, // 总页数
+    totalRecord: 1, // 总数
     tableInfo: {
       guRenterType: "2", // 私客 2 公客 1 预约 3
       peopleType: "", // 筛选类型 0 跟进人1  录入人2
@@ -28,20 +33,63 @@ export default {
       keyWords: "", // 输入 搜索
       sortType: "desc", // 倒序 desc 正序asc
       sortFields: "gu_ct_",
-      pageNo: "1",
+      pageNo: 1,
       pageSize: "10",
       userid: getItem("userid")
     }
   },
   getters: {
-
+    pageNo(state) {
+      return state.tableInfo.pageNo
+    },
+    tableData(state) {
+      return state.tableData
+    },
+    totalPage(state) {
+      return state.totalPage
+    }, totalRecord(state) {
+      return state.totalRecord
+    }
   },
   mutations: {
+    pageNo(state, payload) {
+      console.log(payload)
+      if (Object.prototype.toString.call(payload) === "[object Object]") {
+        state.tableInfo.pageNo = payload.val
+      } else {
+        state.tableInfo.pageNo = payload
+      }
+    },
+    tableData(state, payload) {
+      state.tableData = payload
+    },
+    totalPage(state, payload) {
+      state.totalPage = payload
+    },
+    totalRecord(state, payload) {
+      state.totalRecord = payload
+    },
     guRenterType(state, payload) { // 私客 2 公客 1 预约 3
       state.tableInfo.guRenterType = payload
     },
     peopleType(state, payload) { // 筛选类型 0 跟进人1  录入人2
       state.tableInfo.peopleType = payload
+    },
+    departmentId(state, payload) { // 部门
+      if (Object.prototype.toString.call(payload) === "[object Object]") {
+        state.tableInfo.departmentId = payload.value
+      } else {
+        state.tableInfo.departmentId = payload
+      }
+      // state.tableInfo.departmentId = payload
+    },
+    guNowCreateId(state, payload) { // 人员
+      state.tableInfo.guNowCreateId = payload
+      if (Object.prototype.toString.call(payload) === "[object Object]") {
+        state.tableInfo.guNowCreateId = payload.value
+      } else {
+        state.tableInfo.guNowCreateId = payload
+      }
     },
     guCustomerSource(state, payload) { // 来源类型 0 公司 1 个人2
       state.tableInfo.guCustomerSource = payload
@@ -64,53 +112,33 @@ export default {
     },
     guNewStatus(state, payload) { // 全部0 正常1 我租2 他租3 已退4 无效5
       state.tableInfo.guNewStatus = payload
-    },
-    pageNo(state, payload) { // 页数
-      state.tableInfo.pageNo = payload + ""
     }
+    // pageNo(state, payload) { // 页数
+    //   state.tableInfo.pageNo = payload + ""
+    // }
   },
   actions: {
     getTable({ commit, state }, tableInfo) {
       console.log(tableInfo)
+      if (tableInfo && !isEmpty(tableInfo.tableInfo)) {
+        console.log(11111)
+        commit(tableInfo.tableInfo.typeName, tableInfo.tableInfo.value)
+      }
 
-      commit(tableInfo.tableInfo.typeName, tableInfo.tableInfo.value)
       return new Promise((resolve, reject) => {
-        console.log(state)
-        // const data = Object.assign({}, { params: {
-        //   dateType:	2,
-        //   departmentId: "",
-        //   guCtEndDate: "",
-        //   guCtStartDate: "",
-        //   guCustomerSource: "",
-        //   guImportanceTypeId: "",
-        //   guImportanceTypeName:	"重视类型",
-        //   guMaxMoney: "",
-        //   guMinMoney: "",
-        //   guNewStatus: 1,
-        //   guNowCreateId: "",
-        //   guRenterType:	2,
-        //   guSourceTypeId: "",
-        //   guSourceTypeName:	"来源",
-        //   guXiaoquId: "",
-        //   guXuqiuZhengZu: "",
-        //   guXuqiuZuqi: "",
-        //   keyWords: "",
-        //   pageNo: 1,
-        //   pageSize:	10,
-        //   peopleType: "",
-        //   sortFields:	"gu_ct_",
-        //   sortType:	"desc",
-        //   userid: getItem("userid")
-        // }})
-        // const data = { params: this.state.sourceRent }
         console.log(state)
         const params = Object.assign({}, state.tableInfo)
         const data = Object.assign({}, { params })
-        // console.log(data)
+        console.log(data)
         getTable(data).then(res => {
           // console.log(res)
-          if (res.status.code === "200") {
+          if (res.status.code === "200" || res.status.code === 200) {
             resolve(res.result)
+            const tableList = res.result;
+            commit("pageNo", tableList.pageNo)
+            commit("totalPage", tableList.totalPage)
+            commit("totalRecord", tableList.totalRecord)
+            commit("tableData", tableList.list)
           }
         }).catch(err => {
           console.log(err)
@@ -118,4 +146,11 @@ export default {
       })
     }
   }
+}
+
+function isEmpty(obj) {
+  if (!obj && obj !== 0 && obj !== "") {
+    return true;
+  }
+  return false
 }

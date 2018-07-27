@@ -15,7 +15,7 @@
 
     <!--  分页条 -->
     <section class="pageCounts" v-if="totalRecord>10">
-      <el-pagination background :current-page="currentPage"
+      <el-pagination background :current-page="pageNo"
         layout="prev, pager, next"
         :page-count="totalPage"
         :total="totalRecord"
@@ -34,16 +34,12 @@
 
 import selectFilter from "./rentFilter/filter";
 import selectTable from "./rentFilter/table";
-import Bus from "./rentFilter/bus.js"
+import Bus from "./rentFilter/bus.js";
 export default {
   name: "rent",
   data() {
     return {
-      currentPage: 1,
       guRenterType: "2",
-      tableData: [],
-      totalPage: 1,
-      totalRecord: 1,
       navRoute: [
         {
           name: "私客",
@@ -79,6 +75,20 @@ export default {
       ]
     };
   },
+  computed: {
+    pageNo() {
+      return this.$store.getters["sourceRent/pageNo"]
+    },
+    tableData() {
+      return this.$store.getters["sourceRent/tableData"]
+    },
+    totalPage() {
+      return this.$store.getters["sourceRent/totalPage"]
+    },
+    totalRecord() {
+      return this.$store.getters["sourceRent/totalRecord"]
+    }
+  },
   components: {
     selectFilter,
     selectTable
@@ -86,57 +96,84 @@ export default {
   methods: {
     changeCom(value) {
       this.guRenterType = value;
-      const tableInfo = Object.assign({}, { typeName: "guRenterType", value: this.guRenterType })
-      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo }).then(res => {
-        console.log(res)
-        this.currentPage = res.pageNo
-        this.totalPage = res.totalPage
-        this.totalRecord = res.totalRecord
-        this.tableData = res.list
-      }).catch(err => {
-        console.log(err)
-      })
+      const tableInfo = Object.assign(
+        {},
+        { typeName: "guRenterType", value: this.guRenterType }
+      );
+      this.$store
+        .dispatch({ type: "sourceRent/getTable", tableInfo })
+        // .then(res => {
+        //   console.log(res);
+        //   this.currentPage = res.pageNo;
+        //   this.totalPage = res.totalPage;
+        //   this.totalRecord = res.totalRecord;
+        //   this.tableData = res.list;
+        // })
+        // .catch(err => {
+        //   console.log(err);
+        // });
     },
     changeMark(value) {
       this.mark = value;
     },
-    getCurrent(val) { // 点击页面 跳转
+    getCurrent(val) {
+      // 点击页面 跳转
       // console.log(`${val}页`)
-      this.currentPage = val
-      this.getTable()
+      // this.pageNo = val;
+
+      this.$store.commit({ type: "sourceRent/pageNo", val })
+      this.getTable();
     },
-    getNext(val) { // 下一页
-      this.currentPage = val
+    getNext(val) {
+      // 下一页
+      // this.pageNo = val;
+      this.$store.commit({ type: "sourceRent/pageNo", val })
       // this.getTable()
     },
-    getPrev(val) { // 上一页
-      this.currentPage = val
+    getPrev(val) {
+      // 上一页
+      // this.pageNo = val;
+      this.$store.commit({ type: "sourceRent/pageNo", val })
       // this.getTable()
     },
-    getTable() { // 刷新 table 表
-      const tableInfo = Object.assign({}, { typeName: "pageNo", value: this.currentPage })
-      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo }).then(res => {
-        console.log(res)
-        this.currentPage = res.pageNo
-        this.totalPage = res.totalPage
-        this.totalRecord = res.totalRecord
-        this.tableData = res.list
-      }).catch(err => {
-        console.log(err)
-      })
+    getTable() {
+      // 刷新 table 表
+      // const tableInfo = Object.assign(
+      //   {},
+      //   // { typeName: "pageNo", value: this.pageNo }
+      // );
+
+      this.$store
+        .dispatch({ type: "sourceRent/getTable" })
+        // .then(res => {
+        //   console.log(res);
+        //   this.currentPage = res.pageNo;
+        //   this.totalPage = res.totalPage;
+        //   this.totalRecord = res.totalRecord;
+        //   this.tableData = res.list;
+        // })
+        // .catch(err => {
+        //   console.log(err);
+        // });
     }
   },
+  created() {
+    console.log(this.pageNo)
+  },
   mounted() {
-    console.log("source rent");
-    this.getTable()
-    const that = this
-    Bus.$on("getTableData", function(res) {
-      that.currentPage = res.pageNo
-      that.totalPage = res.totalPage
-      that.totalRecord = res.totalRecord
-      console.log(res.list)
-      that.tableData = res.list
-    })
+    console.log(this.pageNo)
+    this.getTable();
+    // const that = this;
+    // Bus.$on("getTableData", function(res) {
+    //   that.currentPage = res.pageNo;
+    //   that.totalPage = res.totalPage;
+    //   that.totalRecord = res.totalRecord;
+    //   console.log(res.list);
+    //   that.tableData = res.list;
+    // });
+    window.onclick = function () {
+      Bus.$emit("hidePart")
+    }
   }
 };
 </script>

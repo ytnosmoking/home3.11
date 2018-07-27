@@ -1,10 +1,10 @@
 <template>
   <ul >
     <li v-for="(item, key) in list" :key="key" >
-      <div :data-id="item.id" :data-name="item.name" @dblclick.stop="func(item)" >
-        <i v-if="item.children" @click.stop="toggleItem(item,key)"  :ref="item.id"></i>{{item.name}}
+      <div :data-id="item.id" :data-name="item.name"  @click="getUser(item.id)" @dblclick.stop.prevent="func(item)" >
+        <i v-if="item.children" @click.stop="toggleItem(item,key)"  :ref="item.id" :class="{none:item.children.length===0}"></i>{{item.name}}
       </div>
-      <tree-menu v-show="item.open" v-if="item.children" :list="item.children" :func="func"></tree-menu>
+      <tree-menu v-show="item.open" v-if="item.children" :list="item.children" :func="func" :getUser="getUser"></tree-menu>
     </li>
   </ul>
 </template>
@@ -15,9 +15,14 @@ export default {
   props: {
     list: {
       type: Array,
-      default: []
+      default: function() {
+        return []
+      }
     },
     func: {
+      type: Function
+    },
+    getUser: {
       type: Function
     }
   },
@@ -56,9 +61,10 @@ export default {
 
 <style lang='less' scoped>
 li {
-  padding-bottom: 5px;
+  // padding-bottom: 5px;
   position: relative;
- 
+  font-size: 12px;
+  line-height: 27px;
   &:after {
     content: "";
     position: absolute;
@@ -91,16 +97,24 @@ i {
   height: 11px;
   margin-right: 10px;
   box-sizing: border-box;
-  border: 1px solid blue;
+  border: 1px solid #00cbb0;
+  border-radius: 2px;
   display: inline-block;
   position: relative;
+  vertical-align: middle;
+  &.none {
+    display: none;
+    &::before,&:after {
+      display: none;
+    }
+  }
   &::before,
   &:after {
     content: "";
     position: absolute;
     width: 100%;
     height: 1px;
-    background-color: blue;
+    background-color: #00cbb0;
     left: 0;
     top: 4px;
     transform-origin: center;

@@ -5,9 +5,11 @@
       <input type="text" class="partSearch" placeholder="人员">
       <i class="el-icon-search partSearch-icon"></i>
       <div class="partUl">
-        <part-tree :list="list.children" class="partMent" :func="getValue"></part-tree>
+        <part-tree :list="getPartMent" class="partMent" :func="getValue" :getUser="getUser"></part-tree>
         <ul class="partStaff">
-
+          <li v-for="(item, index) in getPartUser" :key="index" :data-id="item.id" @click="getUserid(item)">
+            {{item.nickName}}
+          </li>
         </ul>
       </div>
       <div class="partReset">
@@ -21,135 +23,91 @@
 
 <script>
 import partTree from "./tree";
+import Bus from "../bus";
+let time = null;
 export default {
   name: "select-part",
   components: {
     partTree
   },
+  props: {
+    styleName: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       partMan: "",
       showPart: false,
-      value: [],
-      list: {
-        children: [
-          {
-            name: 1,
-            id: 1,
-            open: false,
-            children: [
-              {
-                name: 1.1,
-                id: 1.1
-              },
-              {
-                name: 1.2,
-                id: 1.2
-              },
-              {
-                name: 1.3,
-                id: 1.3
-              }
-            ]
-          },
-          {
-            name: 2,
-            id: 2,
-            open: false,
-            children: [
-              {
-                name: 2.1,
-                id: 2.1
-              },
-              {
-                name: 2.2,
-                id: 2.2
-              }
-            ]
-          },
-          {
-            name: 3,
-            id: 3,
-            open: false,
-            children: [
-              {
-                name: 3.1,
-                id: 3.1,
-                open: false,
-                children: [
-                  {
-                    name: 3.11,
-                    id: 3.11
-                  },
-                  {
-                    name: 3.12,
-                    id: 3.12,
-                    open: false,
-                    children: [
-                      {
-                        name: 3.121,
-                        id: 3.121
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                name: 3.2,
-                id: 3.2,
-                open: false,
-                children: [
-                  {
-                    name: 3.21,
-                    id: 3.21
-                  },
-                  {
-                    name: 3.22,
-                    id: 3.22
-                  },
-                  {
-                    name: 3.23,
-                    id: 3.23
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+      value: []
     };
   },
   computed: {
-
+    getPartMent() {
+      return this.$store.getters.getPartMent
+    },
+    getPartUser() {
+      return this.$store.getters.getPartUser
+    }
   },
   methods: {
-    getValue(value) {
+    getValue(value) { // 拿到部门
+      clearTimeout(time)
+      // alert(1)
       console.log(value);
       this.partMan = value.name;
       this.showPart = false;
+      // departmentId
+      const tableInfo = Object.assign({}, {
+        typeName: this.styleName.ment,
+        value: value.id
+      })
+      this.$store.commit({ type: "sourceRent/" + this.styleName.userid, value: "" })
+      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
+    },
+    getUser(value) { // 拿到部门 请求人员
+      clearTimeout(time)
+      const that = this
+      time = setTimeout(() => {
+        that.$store.dispatch("getPartUser", value)
+      }, 300);
     },
     getFocus() {
       this.showPart = true;
-      console.log(this.showPart);
-      this.$store.dispatch("getPartMent", {}).then(res => {
-        console.log(res)
-      })
+      if (this.getPartMent.length === 0) {
+        this.$store.dispatch("getPartMent", {})
+      }
     },
     hideShowPart() {
       this.showPart = false;
+    },
+    getUserid(item) {
+      this.partMan = item.nickName
+      this.showPart = false
+      console.log(item.id)
+      // guNowCreateId
+      const tableInfo = Object.assign({}, {
+        typeName: this.styleName.userid,
+        value: item.id
+      })
+      this.$store.commit({ type: "sourceRent/" + this.styleName.ment, value: "" })
+      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
     },
     reset() {
       this.partMan = ""
     }
   },
-  mounted() {
-    // const thatVue = this;
-    window.onclick = function(e) {
-      // that.showPart = false;
 
-      // console.log(that)
-    };
+  mounted() {
+    const that = this;
+    Bus.$on("hidePart", function() {
+      that.showPart = false
+    })
   }
+
 };
 </script>
 
@@ -165,6 +123,7 @@ export default {
   line-height: 40px;
   outline: 0;
   padding: 0 15px;
+  font-size: 14px;
   color: #606266;
   box-sizing: border-box;
   transition: all .3s ease;
@@ -220,6 +179,9 @@ export default {
     }
     .partStaff {
       flex: 1;
+      line-height: 27px;
+      font-size: 12px;
+      color:#777a82;
     }
     .partMent,
     .partStaff {

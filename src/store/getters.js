@@ -5,7 +5,9 @@ const getters = {
   roles: state => state.user.roles,
   getChildRoutes: state => state.routes.childRoutes,
   commonCom: state => state.components.common,
-  commonShow: state => state.components.commonShow
+  commonShow: state => state.components.commonShow,
+  getPartMent: state => state.getPartMent,
+  getPartUser: state => state.getPartUser
 }
 
 export default getters;

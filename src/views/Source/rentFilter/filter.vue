@@ -5,7 +5,7 @@
       <select-style class="style" :styleOptions="style.options" :placeholder="style.placeholder" :styleName="style.name"></select-style>
 
       <!-- part -->
-      <select-part class="part"></select-part>
+      <select-part class="part" :styleName="partMent"></select-part>
 
       <select-style class="important" :styleOptions="important.options" :placeholder="important.placeholder" :styleName="important.name"></select-style>
 
@@ -97,6 +97,10 @@ export default {
           }
         ]
       }, // 筛选类型
+      partMent: {
+        ment: "departmentId",
+        userid: "guNowCreateId"
+      },
       important: {
         name: "guImportanceTypeId",
         placeholder: "重视类型",
@@ -118,7 +122,7 @@ export default {
             label: "重租金"
           }
         ]
-      }, // 来源
+      }, // 重视类型
       origin: {
         name: "guCustomerSource",
         placeholder: "来源类型",
