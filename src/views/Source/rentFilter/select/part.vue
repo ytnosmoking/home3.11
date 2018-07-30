@@ -144,6 +144,7 @@ export default {
   border-image: initial;
   padding: 8px;
   overflow: hidden;
+  z-index: 2;
   .partSearch {
     height: 30px;
     font-size: 14px;

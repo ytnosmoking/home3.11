@@ -1,10 +1,11 @@
 <template>
   <div class="priceRange">
     <span>{{price}}:</span>
-    <input type="text" v-model="value.start" :placeholder="low" class="el-input__inner">-
-    <input type="text" v-model="value.end" :placeholder="up" class="el-input__inner">
+    <input type="text" v-model="value.start" :placeholder="low" class="el-input__inner" @change="getPrice">-
+    <input type="text" v-model="value.end" :placeholder="up" class="el-input__inner" @change="getPrice">
   </div>
 </template>
+
 
 <script>
 export default {

@@ -1,4 +1,4 @@
-import { getTable } from "api/source"
+import { getTable, getFrom } from "api/source"
 import { getItem } from "utils/auth"
 export default {
 
@@ -47,7 +47,8 @@ export default {
     },
     totalPage(state) {
       return state.totalPage
-    }, totalRecord(state) {
+    },
+    totalRecord(state) {
       return state.totalRecord
     }
   },
@@ -112,13 +113,24 @@ export default {
     },
     guNewStatus(state, payload) { // 全部0 正常1 我租2 他租3 已退4 无效5
       state.tableInfo.guNewStatus = payload
+    },
+    getDatatype(state, payload) {
+      state.tableInfo.dataType = payload.dataType
+    },
+    guTime(state, payload) {
+      console.log(payload)
+      state.tableInfo.guCtStartDate = payload.time[0]
+      state.tableInfo.guCtEndDate = payload.time[1]
+    },
+    guXuqiuZuqi(state, payload) {
+      state.tableInfo.guXuqiuZuqi = payload
     }
     // pageNo(state, payload) { // 页数
     //   state.tableInfo.pageNo = payload + ""
     // }
   },
   actions: {
-    getTable({ commit, state }, tableInfo) {
+    getTable({ commit, state }, tableInfo) { // 获得表格数据
       console.log(tableInfo)
       if (tableInfo && !isEmpty(tableInfo.tableInfo)) {
         console.log(11111)
@@ -139,6 +151,47 @@ export default {
             commit("totalPage", tableList.totalPage)
             commit("totalRecord", tableList.totalRecord)
             commit("tableData", tableList.list)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      })
+    },
+    //  获得来源
+    getFrom({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        const params = { mark: value.mark }
+        const data = Object.assign({}, { params })
+        getFrom(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      })
+    },
+    //  获得重要类型
+    getImportant({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        const params = { mark: value.mark }
+        const data = Object.assign({}, { params })
+        getFrom(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      })
+    },
+    getRent({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        const params = { mark: value.mark }
+        const data = Object.assign({}, { params })
+        getFrom(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
           }
         }).catch(err => {
           console.log(err)

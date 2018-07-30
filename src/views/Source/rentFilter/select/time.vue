@@ -7,7 +7,7 @@
       <!-- 查询周期 -->
     </slot>
 
-    <el-date-picker v-model="value88" type="daterange" value-format="yyyy-MM-dd" @change="getValue88" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+    <el-date-picker v-model="dataTime" type="daterange" value-format="yyyy-MM-dd" @change="getValue88" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
     </el-date-picker>
   </div>
 </template>
@@ -17,12 +17,15 @@ export default {
   name: "select-time",
   data() {
     return {
-      value88: ""
+      dataTime: ""
     };
   },
   methods: {
     getValue88() {
-      console.log(this.value88);
+      // console.log(this.dataTime)
+      if (this.dataTime !== null) {
+        this.$store.commit({ type: "sourceRent/guTime", time: this.dataTime })
+      }
     }
   },
   mounted() {}
@@ -43,10 +46,10 @@ export default {
 }
 
 .time {
-  width: 34%;
+  width: 32%;
   
 }
 .el-date-editor {
-  width: 64%;
+  width: 66%;
 }
 </style>

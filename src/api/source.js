@@ -10,3 +10,14 @@ export function getTable(data) {
     data
   })
 }
+/**
+ * @desc 来源列表
+ * @param data  来源mark
+ */
+export function getFrom (data) {
+  return request({
+    url: "v2/sys/zi_dian/get_list_by_mark",
+    method: "post",
+    data
+  })
+}

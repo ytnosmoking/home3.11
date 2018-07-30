@@ -1,7 +1,7 @@
-<template>
+  <template>
 <div>
   <el-select v-model="value" :placeholder="placeholder" @change="change">
-    <el-option v-for="item in styleOptions" :key="item.value" :label="item.label" :value="item.value">
+    <el-option v-for="(item, index) in styleOptions" :key="index" :data-mark="item.mark" :label="item.key" :value="item.id">
     </el-option>
   </el-select>
   </div>

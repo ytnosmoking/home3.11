@@ -24,18 +24,19 @@
     </div>
     <div v-show="list==='2'|| list==='1'">
 
-      <!-- <select-time style="flex:5">
-        <el-select v-model="value" placeholder="录入时间" class="time" slot="time">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+      <select-time style="flex:6">
+        <el-select v-model="datatype" placeholder="录入时间" class="time" slot="time" @change="getDatatype">
+          <el-option v-for="item in options" :key="item.id" :label="item.key" :value="item.id">
           </el-option>
         </el-select>
       </select-time>
 
-      <select-rent class="rent" style="flex:2"></select-rent>
+      <select-style class="rent" style="flex:2" :styleOptions="rentTime.options" :placeholder="rentTime.placeholder" :styleName="rentTime.name"></select-style>
+      <!-- <select-rent class="rent" style="flex:2"></select-rent> -->
 
       <select-price class="price" style="flex:3" price="价格区间" low="最低价格" up="最高价格"></select-price>
 
-      <select-search class="search" style="flex:5"></select-search> -->
+      <select-search class="search" style="flex:5"></select-search>
 
     </div>
     <div v-show="list==='3'">
@@ -62,10 +63,8 @@ import selectStyle from "./select/style"; // filter select
 import selectPart from "./select/part";
 import selectArea from "./select/area";
 import selectImportant from "./select/important";
-// import selectNormal from "./select/normal";
 import selectAll from "./select/all";
 import selectTime from "./select/time";
-import selectRent from "./select/rent";
 import selectPrice from "./select/price";
 import selectSearch from "./select/search"; // filter search
 
@@ -84,43 +83,29 @@ export default {
         placeholder: "筛选类型",
         options: [
           {
-            value: "0",
-            label: "筛选类型"
+            id: "0",
+            key: "筛选类型"
           },
           {
-            value: "1",
-            label: "跟进人"
+            id: "1",
+            key: "跟进人"
           },
           {
-            value: "2",
-            label: "录入人"
+            id: "2",
+            key: "录入人"
           }
         ]
       }, // 筛选类型
       partMent: {
         ment: "departmentId",
         userid: "guNowCreateId"
-      },
+      }, //  部门
       important: {
         name: "guImportanceTypeId",
         placeholder: "重视类型",
+        mark: "97efd4f6-c163-4b6d-8bf1-7b4887f45930",
         options: [
-          {
-            value: "",
-            label: "重视类型"
-          },
-          {
-            value: "388dd699-580c-4c83-a78e-8aa8e11f2a9c",
-            label: "重环境"
-          },
-          {
-            value: "433d45c9-288d-42bb-a46d-1a50615ef42e",
-            label: "重交通"
-          },
-          {
-            value: "8cf32d38-f432-4971-ad1a-3901a5f9bfe3",
-            label: "重租金"
-          }
+
         ]
       }, // 重视类型
       origin: {
@@ -128,39 +113,24 @@ export default {
         placeholder: "来源类型",
         options: [
           {
-            value: "",
-            label: "来源类型"
+            id: "",
+            key: "来源类型"
           },
           {
-            value: "1",
-            label: "公司"
+            id: "1",
+            key: "公司"
           },
           {
-            value: "2",
-            label: "个人"
+            id: "2",
+            key: "个人"
           }
         ]
       }, // 来源类型
       from: {
         name: "guSourceTypeId",
         placeholder: "来源",
+        mark: "44d8d93e-73f2-475e-a854-ec0a0cf513ad",
         options: [
-          {
-            value: "",
-            label: "来源"
-          },
-          {
-            value: "2e447f7b-b362-48b4-9523-9f5cac3fd117",
-            label: "委托"
-          },
-          {
-            value: "377de888-b8bf-4be9-8a53-aa61e509001e",
-            label: "网络"
-          },
-          {
-            value: "48e628ef-cc06-4674-8cf9-8e8f748d20e2",
-            label: "客户介绍"
-          }
         ]
       }, // 来源
       normal: {
@@ -168,28 +138,28 @@ export default {
         placeholder: "正常",
         options: [
           {
-            value: "0",
-            label: "全部"
+            id: "0",
+            key: "全部"
           },
           {
-            value: "1",
-            label: "正常"
+            id: "1",
+            key: "正常"
           },
           {
-            value: "2",
-            label: "我租"
+            id: "2",
+            key: "我租"
           },
           {
-            value: "3",
-            label: "他租"
+            id: "3",
+            key: "他租"
           },
           {
-            value: "4",
-            label: "已退"
+            id: "4",
+            key: "已退"
           },
           {
-            value: "5",
-            label: "无效"
+            id: "5",
+            key: "无效"
           }
         ]
       }, // 正常 我租 他租 已退 无效
@@ -198,38 +168,46 @@ export default {
         placeholder: "整租",
         options: [
           {
-            value: "",
-            label: "全部"
+            id: "",
+            key: "全部"
           },
           {
-            value: "1",
-            label: "整租"
+            id: "1",
+            key: "整租"
           },
           {
-            value: "2",
-            label: "合租"
+            id: "2",
+            key: "合租"
           },
           {
-            value: "3",
-            label: "床位"
+            id: "3",
+            key: "床位"
           }
         ]
       }, // 整租 合租 床位
-      value: "",
+      datatype: "", // 录入时间 跟进时间 入住时间
       options: [
         {
-          value: "0",
-          label: "跟进时间"
+          id: "0",
+          key: "跟进时间"
         },
         {
-          value: "1",
-          label: "入住时间"
+          id: "1",
+          key: "入住时间"
         },
         {
-          value: "2",
-          label: "录入时间"
+          id: "2",
+          key: "录入时间"
         }
-      ]
+      ],
+      rentTime: {
+        name: "guXuqiuZuqi",
+        placeholder: "租期",
+        mark: "df5ac7e8-e0d8-4345-83cd-ed30317cca3f",
+        options: [
+
+        ]
+      }
     };
   },
   components: {
@@ -239,11 +217,41 @@ export default {
     selectImportant,
     selectAll,
     selectTime,
-    selectRent,
     selectPrice,
     selectSearch
   },
-  methods: {}
+  methods: {
+    getFrom() {
+      this.$store.dispatch({ type: "sourceRent/getFrom", mark: this.from.mark })
+      .then(res => {
+        console.log(res.list)
+        this.from.options = res.list
+      })
+    },
+    getImportant() {
+      this.$store.dispatch({ type: "sourceRent/getImportant", mark: this.important.mark })
+      .then(res => {
+        console.log(res.list)
+        this.important.options = res.list
+      })
+    },
+    getRent() {
+      this.$store.dispatch({ type: "sourceRent/getRent", mark: this.rentTime.mark })
+      .then(res => {
+        console.log(res.list)
+        res.list.unshift({ mark: "", key: "租期", id: "" })
+        this.rentTime.options = res.list
+      })
+    },
+    getDatatype() {
+      this.$store.commit({ type: "sourceRent/getDatatype", dataType: this.datatype })
+    }
+  },
+  mounted() {
+    this.getFrom()
+    this.getImportant()
+    this.getRent()
+  }
 };
 </script>
 
@@ -257,10 +265,6 @@ export default {
     &.first {
       &>div {
         flex: 1;
-        // &.
-        &.important,&.origin {
-          flex :1.5;
-        }
       }
     }
     &:nth-child(2) {
@@ -273,7 +277,7 @@ export default {
 }
 .time {
   .el-input__inner {
-    border: none;
+    border: none!important;
   }
 }
 </style>
