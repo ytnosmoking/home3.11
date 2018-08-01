@@ -1,8 +1,8 @@
 <template>
   <div class="priceRange">
     <span>{{price}}:</span>
-    <input type="text" v-model="value.start" :placeholder="low" class="el-input__inner" @change="getPrice">-
-    <input type="text" v-model="value.end" :placeholder="up" class="el-input__inner" @change="getPrice">
+    <input type="text" v-model="guMinMoney" :placeholder="low" class="el-input__inner" @keyup="getPrice('guMinMoney')">-
+    <input type="text" v-model="guMaxMoney" :placeholder="up" class="el-input__inner" @keyup="getPrice('guMaxMoney')">
   </div>
 </template>
 
@@ -27,14 +27,15 @@ export default {
   },
   data() {
     return {
-      value: {
-        start: "",
-        end: ""
-      }
+      guMaxMoney: "",
+      guMinMoney: ""
     };
   },
   methods: {
-
+    getPrice(value) {
+      console.log(this[value])
+      this.$store.commit({ type: `sourceRent/${value}`, value: this[value] })
+    }
   }
 };
 </script>

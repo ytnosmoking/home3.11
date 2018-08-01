@@ -1,11 +1,18 @@
-import { getTable, getFrom } from "api/source"
-import { getItem } from "utils/auth"
+import {
+  getTable,
+  getFrom,
+  getCity,
+  getTown
+} from "api/source"
+import {
+  getItem
+} from "utils/auth"
 export default {
 
   namespaced: true,
   state: {
     // currentPage: 1, // 当前页面
-    tableData: [],  // 表格数据
+    tableData: [], // 表格数据
     totalPage: 1, // 总页数
     totalRecord: 1, // 总数
     tableInfo: {
@@ -24,7 +31,7 @@ export default {
       guSourceTypeId: "", // 来源Id
       guXuqiuZhengZu: "", // 整租 1 合租 2 床位 3
       guNewStatus: "1", // 全部0 正常1 我租2 他租3 已退4 无效5
-      dataType: "2",  // 入住 1 录入 2 跟进3
+      dataType: "2", // 入住 1 录入 2 跟进3
       guCtStartDate: "", // 开始
       guCtEndDate: "", // 结束
       guXuqiuZuqi: "", // 租期
@@ -124,23 +131,36 @@ export default {
     },
     guXuqiuZuqi(state, payload) {
       state.tableInfo.guXuqiuZuqi = payload
+    },
+    guMaxMoney(state, payload) {
+      console.log(payload)
+      state.tableInfo.guMaxMoney = payload.value
+      console.log(state.tableInfo)
+    },
+    guMinMoney(state, payload) {
+      state.tableInfo.guMinMoney = payload.value
+      console.log(state.tableInfo)
     }
     // pageNo(state, payload) { // 页数
     //   state.tableInfo.pageNo = payload + ""
     // }
   },
   actions: {
-    getTable({ commit, state }, tableInfo) { // 获得表格数据
+    getTable({
+      commit,
+      state
+    }, tableInfo) { // 获得表格数据
       console.log(tableInfo)
       if (tableInfo && !isEmpty(tableInfo.tableInfo)) {
         console.log(11111)
         commit(tableInfo.tableInfo.typeName, tableInfo.tableInfo.value)
       }
-
       return new Promise((resolve, reject) => {
         console.log(state)
         const params = Object.assign({}, state.tableInfo)
-        const data = Object.assign({}, { params })
+        const data = Object.assign({}, {
+          params
+        })
         console.log(data)
         getTable(data).then(res => {
           // console.log(res)
@@ -158,10 +178,17 @@ export default {
       })
     },
     //  获得来源
-    getFrom({ commit, state }, value) {
+    getFrom({
+      commit,
+      state
+    }, value) {
       return new Promise((resolve, reject) => {
-        const params = { mark: value.mark }
-        const data = Object.assign({}, { params })
+        const params = {
+          mark: value.mark
+        }
+        const data = Object.assign({}, {
+          params
+        })
         getFrom(data).then(res => {
           if (res.status.code === "200") {
             resolve(res.result)
@@ -172,10 +199,17 @@ export default {
       })
     },
     //  获得重要类型
-    getImportant({ commit, state }, value) {
+    getImportant({
+      commit,
+      state
+    }, value) {
       return new Promise((resolve, reject) => {
-        const params = { mark: value.mark }
-        const data = Object.assign({}, { params })
+        const params = {
+          mark: value.mark
+        }
+        const data = Object.assign({}, {
+          params
+        })
         getFrom(data).then(res => {
           if (res.status.code === "200") {
             resolve(res.result)
@@ -185,10 +219,17 @@ export default {
         })
       })
     },
-    getRent({ commit, state }, value) {
+    getRent({
+      commit,
+      state
+    }, value) {
       return new Promise((resolve, reject) => {
-        const params = { mark: value.mark }
-        const data = Object.assign({}, { params })
+        const params = {
+          mark: value.mark
+        }
+        const data = Object.assign({}, {
+          params
+        })
         getFrom(data).then(res => {
           if (res.status.code === "200") {
             resolve(res.result)
@@ -196,6 +237,31 @@ export default {
         }).catch(err => {
           console.log(err)
         })
+      })
+    },
+    getCity({
+      commit,
+      state
+    }) {
+      return new Promise((resolve, reject) => {
+        const data = Object.assign({
+          params: {
+            gcid: getItem("gcid")
+          }
+        })
+        getCity(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    getTown({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        console.log(value)
+        getTown(value)
       })
     }
   }

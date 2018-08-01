@@ -4,3 +4,12 @@ export function strParse(str, length = 10) {
   }
   return str
 }
+
+//  转化 公客 私客户
+export function changeCode (code) {
+  if (code === "1") {
+    return "转为私客"
+  } else {
+    return "转为公客"
+  }
+}

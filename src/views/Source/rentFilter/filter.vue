@@ -1,12 +1,16 @@
-    <template>
+<template>
   <section class="filter">
-    <div v-show="list==='2'|| list==='1'" class="first">
+    <div v-show="list!=='3'" class="first">
       <!-- 筛选类型 -->
       <select-style class="style" :styleOptions="style.options" :placeholder="style.placeholder" :styleName="style.name"></select-style>
 
       <!-- part -->
       <select-part class="part" :styleName="partMent"></select-part>
 
+      <!-- area -->
+      <select-area class="area" ></select-area>
+
+      <!-- important 重视类型 -->
       <select-style class="important" :styleOptions="important.options" :placeholder="important.placeholder" :styleName="important.name"></select-style>
 
       <!--  来源类型  公司 个人 -->
@@ -16,14 +20,13 @@
       <select-style class="from" :styleOptions="from.options" :placeholder="from.placeholder" :styleName="from.name"></select-style>
 
       <!-- 全部 正常 我租 他租  -->
-      <select-style class="normal" :styleOptions="normal.options" :placeholder="normal.placeholder" :styleName="normal.name" ></select-style>
+      <select-style class="normalRent" :styleOptions="normal.options" :placeholder="normal.placeholder" :styleName="normal.name"></select-style>
 
       <!-- 需求类型 整租 合租 床位 -->
       <select-style class="all" :styleOptions="all.options" :placeholder="all.placeholder" :styleName="all.name"></select-style>
 
     </div>
-    <div v-show="list==='2'|| list==='1'">
-
+    <div v-show="list!=='3'">
       <select-time style="flex:6">
         <el-select v-model="datatype" placeholder="录入时间" class="time" slot="time" @change="getDatatype">
           <el-option v-for="item in options" :key="item.id" :label="item.key" :value="item.id">
@@ -104,9 +107,7 @@ export default {
         name: "guImportanceTypeId",
         placeholder: "重视类型",
         mark: "97efd4f6-c163-4b6d-8bf1-7b4887f45930",
-        options: [
-
-        ]
+        options: []
       }, // 重视类型
       origin: {
         name: "guCustomerSource",
@@ -130,8 +131,7 @@ export default {
         name: "guSourceTypeId",
         placeholder: "来源",
         mark: "44d8d93e-73f2-475e-a854-ec0a0cf513ad",
-        options: [
-        ]
+        options: []
       }, // 来源
       normal: {
         name: "guNewStatus",
@@ -204,9 +204,7 @@ export default {
         name: "guXuqiuZuqi",
         placeholder: "租期",
         mark: "df5ac7e8-e0d8-4345-83cd-ed30317cca3f",
-        options: [
-
-        ]
+        options: []
       }
     };
   },
@@ -222,35 +220,44 @@ export default {
   },
   methods: {
     getFrom() {
-      this.$store.dispatch({ type: "sourceRent/getFrom", mark: this.from.mark })
-      .then(res => {
-        console.log(res.list)
-        this.from.options = res.list
-      })
+      this.$store
+        .dispatch({ type: "sourceRent/getFrom", mark: this.from.mark })
+        .then(res => {
+          console.log(res.list);
+          this.from.options = res.list;
+        });
     },
     getImportant() {
-      this.$store.dispatch({ type: "sourceRent/getImportant", mark: this.important.mark })
-      .then(res => {
-        console.log(res.list)
-        this.important.options = res.list
-      })
+      this.$store
+        .dispatch({
+          type: "sourceRent/getImportant",
+          mark: this.important.mark
+        })
+        .then(res => {
+          console.log(res.list);
+          this.important.options = res.list;
+        });
     },
     getRent() {
-      this.$store.dispatch({ type: "sourceRent/getRent", mark: this.rentTime.mark })
-      .then(res => {
-        console.log(res.list)
-        res.list.unshift({ mark: "", key: "租期", id: "" })
-        this.rentTime.options = res.list
-      })
+      this.$store
+        .dispatch({ type: "sourceRent/getRent", mark: this.rentTime.mark })
+        .then(res => {
+          console.log(res.list);
+          res.list.unshift({ mark: "", key: "租期", id: "" });
+          this.rentTime.options = res.list;
+        });
     },
     getDatatype() {
-      this.$store.commit({ type: "sourceRent/getDatatype", dataType: this.datatype })
+      this.$store.commit({
+        type: "sourceRent/getDatatype",
+        dataType: this.datatype
+      });
     }
   },
   mounted() {
-    this.getFrom()
-    this.getImportant()
-    this.getRent()
+    this.getFrom();
+    this.getImportant();
+    this.getRent();
   }
 };
 </script>
@@ -263,7 +270,7 @@ export default {
   & > div {
     display: flex;
     &.first {
-      &>div {
+      & > div {
         flex: 1;
       }
     }
@@ -277,7 +284,12 @@ export default {
 }
 .time {
   .el-input__inner {
-    border: none!important;
+    border: none !important;
   }
+}
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 </style>

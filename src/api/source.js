@@ -21,3 +21,24 @@ export function getFrom (data) {
     data
   })
 }
+
+/**
+ * @desc getCity_by_gcid
+ */
+export function getCity(data) {
+  return request({
+    url: "/v2/location/city/get_ctiy_by_gcid",
+    method: "post",
+    data
+  })
+}
+
+/**
+ * @desc  getTown_by_city_id
+ * @param {cityid}
+ */
+export function getTown(cityId) {
+  return request({
+    url: ""
+  })
+}

@@ -90,7 +90,7 @@
           <ul class="selectChange" @click.stop>
             <li :data-value="liDatas.guId">跟进</li>
             <li :data-value="liDatas.guId">指派</li>
-            <li :data-value="liDatas.guId" :data-name="liDatas.guHouseUserId.nickname">转为公客</li>
+            <li :data-value="liDatas.guId" :data-name="liDatas.guHouseUserId.nickname">{{liDatas.guRenterType| changeCode}}</li>
             <li :data-value="liDatas.guId">编辑信息</li>
             <li :data-value="liDatas.guId">无效</li>
             <li :data-value="liDatas.guId">删除</li>

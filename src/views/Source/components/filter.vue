@@ -14,7 +14,7 @@
 
       <select-from class="from"></select-from>
 
-      <select-normal class="normal"></select-normal>
+      <select-normal class="normalRent"></select-normal>
 
       <select-all class="all"></select-all>
 
