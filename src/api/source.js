@@ -35,10 +35,24 @@ export function getCity(data) {
 
 /**
  * @desc  getTown_by_city_id
- * @param {cityid}
+ * @param {data}
  */
-export function getTown(cityId) {
+export function getTown(data) {
   return request({
-    url: ""
+    url: "/v2/location/town/get_list",
+    method: "post",
+    data
+  })
+}
+
+/**
+ * @desc  getTown_by_city_id
+ * @param {data}
+ */
+export function getCountry(data) {
+  return request({
+    url: "/v2/location/district/get_list",
+    method: "post",
+    data
   })
 }

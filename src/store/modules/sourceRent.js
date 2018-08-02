@@ -2,7 +2,8 @@ import {
   getTable,
   getFrom,
   getCity,
-  getTown
+  getTown,
+  getCountry
 } from "api/source"
 import {
   getItem
@@ -258,10 +259,79 @@ export default {
         })
       })
     },
-    getTown({ commit, state }, value) {
+    getTown({
+      commit,
+      state
+    }, value) {
       return new Promise((resolve, reject) => {
         console.log(value)
-        getTown(value)
+        const params = {
+          cityCode: "",
+          cityId: value.value,
+          cityName: "",
+          ct: "",
+          ctId: "",
+          et: "",
+          etId: "",
+          gcid: "",
+          id: "",
+          isDelete: "",
+          lat: "",
+          lng: "",
+          name: "",
+          pageNo: "",
+          pageSize: "",
+          showIndex: "",
+          sortFields: "",
+          sortType: "",
+          targerName: ""
+        }
+        const data = Object.assign({}, {
+          params
+        })
+        getTown(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
+          }
+          reject(res)
+        })
+      })
+    },
+    getCountry({
+      state,
+      commit
+    }, value) {
+      return new Promise((resolve, reject) => {
+        console.log(value)
+        const params = {
+          cityCode: "",
+          cityId: "",
+          cityName: "",
+          ct: "",
+          ctId: "",
+          et: "",
+          etId: "",
+          gcid: "",
+          id: "",
+          isDelete: "",
+          lat: "",
+          lng: "",
+          name: "",
+          pageNo: "",
+          pageSize: "",
+          sortFields: "",
+          sortType: "",
+          townId: value.value
+        }
+        const data = Object.assign({}, {
+          params
+        })
+        getCountry(data).then(res => {
+          if (res.status.code === "200") {
+            resolve(res.result)
+          }
+          reject(res)
+        })
       })
     }
   }

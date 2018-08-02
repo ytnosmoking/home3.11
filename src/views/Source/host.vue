@@ -28,8 +28,8 @@
 // import gongke from "./Rent/gongke";
 // import yuyue from "./Rent/yuyue";
 
-import selectFilter from "./components/filter";
-import selectTable from "./components/table";
+import selectFilter from "./rentFilter/filter";
+import selectTable from "./rentFilter/table";
 
 export default {
   name: "rent",

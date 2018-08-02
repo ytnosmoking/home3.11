@@ -10,6 +10,9 @@
       <ul class="fl">
         <li v-for="(item, key) in town" :key="key" @click="getCountry(item)">{{item.name}}</li>
       </ul>
+       <ul class="fl">
+        <li v-for="(item, key) in country" :key="key" >{{item.name}}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -20,7 +23,9 @@ export default {
   data() {
     return {
       value: "",
-      city: []
+      city: [],
+      town: [],
+      country: []
     };
   },
   methods: {
@@ -34,7 +39,18 @@ export default {
     },
     getTown(item) {
       this.$store.dispatch({ type: "sourceRent/getTown", value: item.id }).then(res => {
-
+        console.log(res)
+        this.town = res.list
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getCountry(item) {
+      this.$store.dispatch({ type: "sourceRent/getCountry", value: item.id }).then(res => {
+        console.log(res)
+        this.country = res.list
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
@@ -58,14 +74,13 @@ export default {
   transition: all 0.3s ease;
   position: relative;
   .areaPart {
+    width: 510px;
     position: absolute;
     z-index: 3;
     top: 120%;
     left: 0;
     height: 240px;
-    
     background-color: #fff;
-
     box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.4);
     overflow: hidden;
     ul {
