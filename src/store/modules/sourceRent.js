@@ -141,10 +141,24 @@ export default {
     guMinMoney(state, payload) {
       state.tableInfo.guMinMoney = payload.value
       console.log(state.tableInfo)
+    },
+    guCityId(state, payload) {
+      alert(1)
+      state.tableInfo.guCityId = payload
+      state.tableInfo.getTownTable = ""
+      state.tableInfo.getCountryTable = ""
+    },
+    guTownId(state, payload) {
+      state.tableInfo.guCityId = ""
+      state.tableInfo.getTownTable = payload
+      state.tableInfo.getCountryTable = ""
+    },
+    guDistrictId(state, payload) {
+      state.tableInfo.guCityId = ""
+      state.tableInfo.getTownTable = ""
+      state.tableInfo.getCountryTable = payload
     }
-    // pageNo(state, payload) { // 页数
-    //   state.tableInfo.pageNo = payload + ""
-    // }
+
   },
   actions: {
     getTable({

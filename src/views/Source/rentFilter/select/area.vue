@@ -1,57 +1,93 @@
 <template>
   <div class="areaCont">
-    <section class="area" @click="getValue">
+    <section class="area" @click="getCity">
       区域
     </section>
-    <div class="areaPart clearfix">
+    <div class="areaPart clearfix" :class="{areaTown:town.length!==0,areaCountry:country.length!==0,areaCity:city.length!==0}">
       <ul class="fl">
-        <li v-for="(item, key) in city" :key="key" @click="getTown(item)">{{item.name}}</li>
+        <li v-for="(item, key) in city" :key="key" @dblclick="getCityTable(item.id)" @click="getTown(item,key)" :class="{active:cityActive===key}">{{item.name}}</li>
       </ul>
       <ul class="fl">
-        <li v-for="(item, key) in town" :key="key" @click="getCountry(item)">{{item.name}}</li>
+        <li v-for="(item, key) in town" :key="key" @dblclick="getTownTable(item.id)" @click="getCountry(item,key)" :class="{active:townActive===key}">{{item.name}}</li>
       </ul>
        <ul class="fl">
-        <li v-for="(item, key) in country" :key="key" >{{item.name}}</li>
+        <li v-for="(item, key) in country" :key="key" @click="getCountryTable(item.id)">{{item.name}}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+
+var time = null; // 控制单机双击事件
 export default {
   name: "",
   data() {
     return {
       value: "",
       city: [],
+      cityActive: 0,
       town: [],
+      townActive: 0,
       country: []
     };
   },
   methods: {
-    getValue() {
+    //  获取 City 列表
+    getCity() {
       if (this.city.length === 0) {
         this.$store.dispatch({ type: "sourceRent/getCity" }).then(res => {
           this.city = res.list;
+          this.town = []
         });
       }
       console.log(this.value);
     },
-    getTown(item) {
-      this.$store.dispatch({ type: "sourceRent/getTown", value: item.id }).then(res => {
-        console.log(res)
-        this.town = res.list
-      }).catch(err => {
-        console.log(err)
-      })
+    //  获取Town列表
+    getTown(item, key) {
+      clearTimeout(time)
+      var that = this
+      time = setTimeout(function() {
+        that.$store.dispatch({ type: "sourceRent/getTown", value: item.id }).then(res => {
+          console.log(res)
+          that.cityActive = key
+          that.town = res.list
+          that.country = []
+        }).catch(err => {
+          console.log(err)
+        })
+      }, 300)
     },
-    getCountry(item) {
-      this.$store.dispatch({ type: "sourceRent/getCountry", value: item.id }).then(res => {
-        console.log(res)
-        this.country = res.list
-      }).catch(err => {
-        console.log(err)
-      })
+    //  获取 Country 列表
+    getCountry(item, key) {
+      clearTimeout(time)
+      var that = this
+      time = setTimeout(function() {
+        that.$store.dispatch({ type: "sourceRent/getCountry", value: item.id }).then(res => {
+          console.log(res)
+          that.townActive = key
+          that.country = res.list
+        }).catch(err => {
+          console.log(err)
+        })
+      }, 300)
+    },
+    getCityTable(cityId) {
+      alert(111)
+      clearTimeout(time)
+      alert(2222)
+      const tableInfo = Object.assign({}, { typeName: "guCityId", value: cityId })
+      this.$store.dispatch({ type: "sourceRent/getCity", tableInfo })
+    },
+    getTownTable(townId) {
+      clearTimeout(time)
+      const tableInfo = Object.assign({}, { typeName: "guTownId", value: townId })
+      this.$store.dispatch({ type: "sourceRent/getTown", tableInfo })
+    },
+    getCountryTable(coutryId) {
+      clearTimeout(time)
+      const tableInfo = Object.assign({}, { typeName: "guDistrictId", value: coutryId })
+      this.$store.dispatch({ type: "sourceRent/getCountry", tableInfo })
     }
   }
 };
@@ -74,7 +110,8 @@ export default {
   transition: all 0.3s ease;
   position: relative;
   .areaPart {
-    width: 510px;
+    // width: 510px;
+    width: 0;
     position: absolute;
     z-index: 3;
     top: 120%;
@@ -83,10 +120,21 @@ export default {
     background-color: #fff;
     box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.4);
     overflow: hidden;
+    transition: all .3s ease;
+    &.areaCity {
+      width: 170px;
+    }
+    &.areaTown {
+      width: 340px;
+    }
+    &.areaCountry {
+      width: 510px;
+    }
     ul {
       padding: 4px 0px;
       height: 100%;
       overflow-y: auto;
+      // display: inline-block;
       &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
