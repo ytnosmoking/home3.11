@@ -9,7 +9,7 @@
 <script>
   const delta = 15;
   export default {
-    name: 'ScrollBar',
+    name: "ScrollBar",
     data() {
       return {
         top: 10
@@ -17,18 +17,18 @@
     },
     methods: {
       handleScroll(e) {
-        const eventDelta = e.wheelDelta || -e.deltaY*3,
-        $container = this.$refs.scrollContainer,
-        $containerHeight = $container.offsetHeight,
-        $wrapper = this.$refs.scrollWrapper,
-        $wrapperHeight = $wrapper.offsetHeight;
-        if (eventDelta>0) {
+        const eventDelta = e.wheelDelta || -e.deltaY * 3;
+        const $container = this.$refs.scrollContainer;
+        const $containerHeight = $container.offsetHeight;
+        const $wrapper = this.$refs.scrollWrapper;
+        const $wrapperHeight = $wrapper.offsetHeight;
+        if (eventDelta > 0) {
           this.top = Math.min(0, this.top + eventDelta)
-        }else {
+        } else {
           if ($containerHeight - delta < $wrapperHeight) {
-            if(this.top < -($wrapperHeight - $containerHeight +delta)) {
+            if (this.top < -($wrapperHeight - $containerHeight + delta)) {
               this.top = this.top
-            }else {
+            } else {
               this.top = Math.max(this.top + eventDelta, $containerHeight - $wrapperHeight - delta)
             }
           } else {

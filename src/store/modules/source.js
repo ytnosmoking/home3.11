@@ -143,7 +143,6 @@ export default {
       console.log(state.tableInfo)
     },
     guCityId(state, payload) {
-      alert(1)
       state.tableInfo.guCityId = payload
       state.tableInfo.getTownTable = ""
       state.tableInfo.getCountryTable = ""
@@ -161,10 +160,11 @@ export default {
 
   },
   actions: {
+    // 获得表格数据
     getTable({
       commit,
       state
-    }, tableInfo) { // 获得表格数据
+    }, tableInfo) {
       console.log(tableInfo)
       if (tableInfo && !isEmpty(tableInfo.tableInfo)) {
         console.log(11111)
@@ -180,12 +180,12 @@ export default {
         getTable(data).then(res => {
           // console.log(res)
           if (res.status.code === "200" || res.status.code === 200) {
-            resolve(res.result)
             const tableList = res.result;
             commit("pageNo", tableList.pageNo)
             commit("totalPage", tableList.totalPage)
             commit("totalRecord", tableList.totalRecord)
             commit("tableData", tableList.list)
+            resolve(res.result)
           }
         }).catch(err => {
           console.log(err)
@@ -193,7 +193,7 @@ export default {
       })
     },
     //  获得来源
-    getFrom({
+    guSourceTypeId({
       commit,
       state
     }, value) {
@@ -214,7 +214,7 @@ export default {
       })
     },
     //  获得重要类型
-    getImportant({
+    guImportanceTypeId({
       commit,
       state
     }, value) {
@@ -234,7 +234,7 @@ export default {
         })
       })
     },
-    getRent({
+    guXuqiuZuqi({
       commit,
       state
     }, value) {

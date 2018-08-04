@@ -23,7 +23,7 @@
 
 <script>
 import partTree from "./tree";
-import Bus from "../bus";
+import Bus from "@/StaticBus";
 let time = null;
 export default {
   name: "select-part",
@@ -65,8 +65,8 @@ export default {
         typeName: this.styleName.ment,
         value: value.id
       })
-      this.$store.commit({ type: "sourceRent/" + this.styleName.userid, value: "" })
-      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
+      this.$store.commit({ type: "source/" + this.styleName.userid, value: "" })
+      this.$store.dispatch({ type: "source/getTable", tableInfo })
     },
     getUser(value) { // 拿到部门 请求人员
       clearTimeout(time)
@@ -93,8 +93,8 @@ export default {
         typeName: this.styleName.userid,
         value: item.id
       })
-      this.$store.commit({ type: "sourceRent/" + this.styleName.ment, value: "" })
-      this.$store.dispatch({ type: "sourceRent/getTable", tableInfo })
+      this.$store.commit({ type: "source/" + this.styleName.ment, value: "" })
+      this.$store.dispatch({ type: "source/getTable", tableInfo })
     },
     reset() {
       this.partMan = ""

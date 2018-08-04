@@ -68,12 +68,12 @@ export default {
           iconName: "添加记账"
         }
       ],
-      isShow:false
+      isShow: false
     };
   },
   methods: {
     handleCommand(command) {
-      if (command == "out") {
+      if (command === "out") {
         removeItem("token");
         removeItem("navRoutes");
         this.$router.push({ path: "/login" });
@@ -86,8 +86,8 @@ export default {
     handleCommand1(command) {
       // console.log(command)
       this.isShow = !this.isShow
-     
-       this.$store.commit("SET_COMMON", command);
+
+      this.$store.commit("SET_COMMON", command);
       // let isShow =!this.isShow
       this.$store.commit("CHANGE_COMMON", this.isShow);
     }

@@ -28,7 +28,7 @@
 
 import selectFilter from "./rentFilter/filter";
 import selectTable from "./rentFilter/table";
-import Bus from "./rentFilter/bus.js";
+import Bus from "@/StaticBus";
 export default {
   name: "rent",
   data() {
@@ -71,16 +71,16 @@ export default {
   },
   computed: {
     pageNo() {
-      return this.$store.getters["sourceRent/pageNo"];
+      return this.$store.getters["source/pageNo"];
     },
     tableData() {
-      return this.$store.getters["sourceRent/tableData"];
+      return this.$store.getters["source/tableData"];
     },
     totalPage() {
-      return this.$store.getters["sourceRent/totalPage"];
+      return this.$store.getters["source/totalPage"];
     },
     totalRecord() {
-      return this.$store.getters["sourceRent/totalRecord"];
+      return this.$store.getters["source/totalRecord"];
     }
   },
   components: {
@@ -93,7 +93,7 @@ export default {
       if (value !== "3") {
         const tableInfo = Object.assign({}, { typeName: "guRenterType", value: this.guRenterType }
         );
-        this.$store.dispatch({ type: "sourceRent/getTable", tableInfo });
+        this.$store.dispatch({ type: "source/getTable", tableInfo });
       }
     },
     changeMark(value) {
@@ -101,23 +101,23 @@ export default {
     },
     getCurrent(val) {
       if (this.value !== "3") {
-        this.$store.commit({ type: "sourceRent/pageNo", val });
+        this.$store.commit({ type: "source/pageNo", val });
         this.getTable();
       }
     },
     getNext(val) {
       if (this.value !== "3") {
-        this.$store.commit({ type: "sourceRent/pageNo", val });
+        this.$store.commit({ type: "source/pageNo", val });
       }
     },
     getPrev(val) {
       if (this.value !== "3") {
-        this.$store.commit({ type: "sourceRent/pageNo", val });
+        this.$store.commit({ type: "source/pageNo", val });
       }
     },
     getTable() {
       if (this.value !== "3") {
-        this.$store.dispatch({ type: "sourceRent/getTable" });
+        this.$store.dispatch({ type: "source/getTable" });
       }
     }
   },

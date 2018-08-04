@@ -24,7 +24,7 @@ export default {
     getValue88() {
       // console.log(this.dataTime)
       if (this.dataTime !== null) {
-        this.$store.commit({ type: "sourceRent/guTime", time: this.dataTime })
+        this.$store.commit({ type: "source/guTime", time: this.dataTime })
       }
     }
   },

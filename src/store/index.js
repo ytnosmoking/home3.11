@@ -4,7 +4,7 @@ import Vuex from "vuex"
 import user from "./modules/user"
 import routes from "./modules/routes"
 import components from "./modules/components"
-import sourceRent from "./modules/sourceRent"
+import source from "./modules/source"
 import actions from "./actions"
 import mutations from "./mutations"
 import getters from "./getters"
@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     user,
     routes,
     components,
-    sourceRent
+    source
   },
   state,
   getters,

@@ -34,7 +34,7 @@ export default {
   methods: {
     getPrice(value) {
       console.log(this[value])
-      this.$store.commit({ type: `sourceRent/${value}`, value: this[value] })
+      this.$store.commit({ type: `source/${value}`, value: this[value] })
     }
   }
 };

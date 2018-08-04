@@ -1,17 +1,17 @@
 <template>
   <div class="areaCont">
     <section class="area" @click="getCity">
-      区域
+      {{areaName}}
     </section>
     <div class="areaPart clearfix" :class="{areaTown:town.length!==0,areaCountry:country.length!==0,areaCity:city.length!==0}">
       <ul class="fl">
-        <li v-for="(item, key) in city" :key="key" @dblclick="getCityTable(item.id)" @click="getTown(item,key)" :class="{active:cityActive===key}">{{item.name}}</li>
+        <li v-for="(item, key) in city" :key="key" @dblclick.stop.prevent="getCityTable(item)" @click.stop="getTown(item,key)" :class="{active:cityActive===key}">{{item.name}}</li>
       </ul>
       <ul class="fl">
-        <li v-for="(item, key) in town" :key="key" @dblclick="getTownTable(item.id)" @click="getCountry(item,key)" :class="{active:townActive===key}">{{item.name}}</li>
+        <li v-for="(item, key) in town" :key="key" @dblclick="getTownTable(item)" @click="getCountry(item,key)" :class="{active:townActive===key}">{{item.name}}</li>
       </ul>
        <ul class="fl">
-        <li v-for="(item, key) in country" :key="key" @click="getCountryTable(item.id)">{{item.name}}</li>
+        <li v-for="(item, key) in country" :key="key" @click="getCountryTable(item)">{{item.name}}</li>
       </ul>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   name: "",
   data() {
     return {
-      value: "",
+      areaName: "区域",
       city: [],
       cityActive: 0,
       town: [],
@@ -36,19 +36,19 @@ export default {
     //  获取 City 列表
     getCity() {
       if (this.city.length === 0) {
-        this.$store.dispatch({ type: "sourceRent/getCity" }).then(res => {
+        this.$store.dispatch({ type: "source/getCity" }).then(res => {
           this.city = res.list;
           this.town = []
         });
       }
-      console.log(this.value);
+      console.log(this.areaName);
     },
     //  获取Town列表
     getTown(item, key) {
       clearTimeout(time)
       var that = this
       time = setTimeout(function() {
-        that.$store.dispatch({ type: "sourceRent/getTown", value: item.id }).then(res => {
+        that.$store.dispatch({ type: "source/getTown", value: item.id }).then(res => {
           console.log(res)
           that.cityActive = key
           that.town = res.list
@@ -63,7 +63,7 @@ export default {
       clearTimeout(time)
       var that = this
       time = setTimeout(function() {
-        that.$store.dispatch({ type: "sourceRent/getCountry", value: item.id }).then(res => {
+        that.$store.dispatch({ type: "source/getCountry", value: item.id }).then(res => {
           console.log(res)
           that.townActive = key
           that.country = res.list
@@ -72,22 +72,29 @@ export default {
         })
       }, 300)
     },
-    getCityTable(cityId) {
-      alert(111)
+    getCityTable(city) {
       clearTimeout(time)
-      alert(2222)
-      const tableInfo = Object.assign({}, { typeName: "guCityId", value: cityId })
-      this.$store.dispatch({ type: "sourceRent/getCity", tableInfo })
+      const tableInfo = Object.assign({}, { typeName: "guCityId", value: city.id })
+      const that = this
+      this.$store.dispatch({ type: "source/getTable", tableInfo }).then(res => {
+        that.areaName = city.name
+      })
     },
-    getTownTable(townId) {
+    getTownTable(town) {
       clearTimeout(time)
-      const tableInfo = Object.assign({}, { typeName: "guTownId", value: townId })
-      this.$store.dispatch({ type: "sourceRent/getTown", tableInfo })
+      const tableInfo = Object.assign({}, { typeName: "guTownId", value: town.id })
+      const that = this
+      this.$store.dispatch({ type: "source/getTable", tableInfo }).then(res => {
+        that.areaName = town.name
+      })
     },
-    getCountryTable(coutryId) {
+    getCountryTable(country) {
       clearTimeout(time)
-      const tableInfo = Object.assign({}, { typeName: "guDistrictId", value: coutryId })
-      this.$store.dispatch({ type: "sourceRent/getCountry", tableInfo })
+      const that = this
+      const tableInfo = Object.assign({}, { typeName: "guDistrictId", value: country.id })
+      this.$store.dispatch({ type: "source/getTable", tableInfo }).then(res => {
+        that.areaName = country.name
+      })
     }
   }
 };

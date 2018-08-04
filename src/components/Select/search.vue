@@ -22,7 +22,7 @@ export default {
       this.sort = !this.sort;
     },
     getTable() {
-      this.$store.dispatch({ type: "sourceRent/getTable" });
+      this.$store.dispatch({ type: "source/getTable" });
     }
   }
 };

@@ -10,6 +10,7 @@
         v-for="(liDatas, key) in tableData"
         :key="key" 
         @click.stop="showRight(liDatas.guId, liDatas.guHouseUserId.phone, liDatas.guHouseUserId.nickname, liDatas.guHouseId, liDatas.guXiaoquName)">
+        <!-- 状态 -->
         <span>
           <strong v-if="liDatas.guNewStatus=== 1" class="normal">正常</strong>
           <strong v-else-if="liDatas.guNewStatus=== 2" class="wozu">我租</strong>
@@ -17,11 +18,10 @@
           <strong v-else-if="liDatas.guNewStatus=== 4" class="yitui">已退</strong>
           <strong v-else-if="liDatas.guNewStatus=== 5" class="wuxiao">无效</strong>
           <strong v-else class="normal">正常</strong>
-          
-          <!-- <strong :class="liDatas.state.type">{{liDatas.state.value}}</strong> -->
         </span>
+        <!-- 姓名 电话 -->
         <span>
-            <p>
+          <p>
             <i class="importType" v-if="liDatas.guImportanceTypeName && liDatas.guImportanceTypeId.id">
               {{liDatas.guImportanceTypeName}}
             </i>
@@ -35,25 +35,16 @@
               {{"☞"}}
             </i>
           </p>
-         
           <p>
             {{liDatas.guHouseUserId.phone}}
           </p>
-          <!-- <p>
-            <i class="isType">{{liDatas.user.isType}}</i>
-            <i>{{liDatas.user.name}}</i>
-            <i>{{liDatas.user.gender}}</i>
-            <i>{{liDatas.user.from}}</i>
-          </p>
-          <p>{{liDatas.user.tel}}</p> -->
         </span>
+        <!-- 接受价格 地址 -->
         <span>
-        
           <p>接收价格：{{liDatas.guMinMoney ? liDatas.guMinMoney:"暂无" }}-{{liDatas.guMaxMoney? liDatas.guMaxMoney+"元":"暂无" }}</p>
           <p>{{liDatas.guCityName}} {{liDatas.guXiaoquName | strParse}} {{liDatas.guTownName| strParse}}</p>
-          <!-- <p>接收价格：{{liDatas.detail.price}}</p>
-          <p>{{liDatas.detail.where}}</p> -->
         </span>
+        <!-- 来源类型 来源 录入时间 人 -->
         <span>
           <p>
             <i>
@@ -64,7 +55,6 @@
               {{liDatas.guSourceTypeId.key? liDatas.guSourceTypeId.key: "无"}}
             </i>
           </p>
-       
           <p>
             <i>
               {{liDatas.guCt}}
@@ -73,9 +63,8 @@
               {{liDatas.guCreateName}}
             </i>
           </p>
-          <!-- <p>{{liDatas.from.net}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
-          <p>{{liDatas.from.time}}</p> -->
         </span>
+        <!-- 跟进时间 人 方式 内容 -->
         <span>
           <p>
             <i>{{liDatas.guFollowTime}}</i>
@@ -84,8 +73,8 @@
           <p>
             {{liDatas.guFollowInfo| strParse}}
           </p>
-          <!-- <p v-for="(follow, fIndex) in liDatas.follow" :key="fIndex">{{follow}}&nbsp;&nbsp;&nbsp;&nbsp;</p> -->
         </span>
+        <!-- 操作 -->
         <span>
           <ul class="selectChange" @click.stop>
             <li :data-value="liDatas.guId">跟进</li>
@@ -95,39 +84,23 @@
             <li :data-value="liDatas.guId">无效</li>
             <li :data-value="liDatas.guId">删除</li>
           </ul>
-          <!-- <ul class="selectChange">
-            <li :value="value.label" v-for="(value, vIndex) in liDatas.control" :key="vIndex" @click.stop>
-              {{value.value}}
-            </li>
-          </ul> -->
         </span>
       </li>
-      <!-- <li v-show="tableData===[]" :style="{height:tableData?'100%': '0','overflow':'hidden','flex-direction': 'column','justify-content': 'center','margin-bottom':'0'}"> -->
+    
       <li v-show="tableData.length==0" style="height:100%;flex-direction: column;justify-content: center;margin-bottom:0">
         <i class="el-icon-warning" style="font-size:50px"></i>
         <br>
         <br> 没有匹配的信息!
       </li>
     </ul>
-    <!-- <div v-show="tableData.length===0">
-      1234
-    </div> -->
 
     <show-right :showState="showState"></show-right>
-    <!-- <div class="showRight" :class="{'active':showState}" @click.stop>
-      <div class="slide-head">
-        <span>查看</span>
-        <span @click="showRight">X</span>
-      </div>
-      <div class="slide-nav"></div>
-      <div class="slide-content"></div>
-      <div class="slide-foot"></div>
-    </div> -->
+  
   </section>
 </template>
 
 <script>
-import Bus from "./bus";
+import Bus from "@/StaticBus";
 import showRight from "./showRight";
 export default {
   name: "filter-table",
@@ -158,522 +131,6 @@ export default {
         "跟进时间/人/方式/内容",
         "操作"
       ]
-      // tableData: [
-      //   {
-      //     bStatus: 1,
-      //     followCount: 1,
-      //     gcid: "0100099",
-      //     guAccessMode: "",
-      //     guChaoxiangId: "",
-      //     guChaoxiangName: "",
-      //     guCityId: "",
-      //     guCityName: "",
-      //     guCompanyId: "",
-      //     guCompanyName: "",
-      //     guCreateId: "3cf027ac0c5943458dcece86c4715d2d",
-      //     guCreateName: "张青",
-      //     guCt: "2018-07-20 11:17",
-      //     guCustomerSource: "",
-      //     guDepartmentId: "",
-      //     guDepartmentName: "",
-      //     guDistrictId: "",
-      //     guDistrictName: "",
-      //     guEt: "2018-07-20 11:17",
-      //     guFollowInfo: "",
-      //     guFollowTime: "",
-      //     guFollowTypeName: "",
-      //     guFollowUserName: "",
-      //     guFollowtypeId: "",
-      //     guGuestNote: "",
-      //     guHouseId: "",
-      //     guHouseTypeId: "",
-      //     guHouseTypeName: "",
-      //     guHouseUserId: {
-      //       age: 0,
-      //       cardName: "",
-      //       cardNo: "",
-      //       cardType: "",
-      //       cardTypeZhihang: "",
-      //       email: "",
-      //       emergencyPeo: "",
-      //       emergencyPeoPhone: "",
-      //       gender: 1,
-      //       id: "ddcd3926a6b4451c97e83bc5405fa5f1",
-      //       nickname: "abc",
-      //       phone: "13277054876",
-      //       qq: "",
-      //       sfzNo: "",
-      //       weiXin: ""
-      //     },
-      //     guHouseZhuanXiu: "",
-      //     guHuxingChanQuan: "",
-      //     guHuxingChu: "",
-      //     guHuxingLeixing: "",
-      //     guHuxingShi: "",
-      //     guHuxingTai: "",
-      //     guHuxingTing: "",
-      //     guHuxingWei: "",
-      //     guId: "c8e78992cbbf4f3480223d39632fdd7e",
-      //     guImportanceTypeId: {
-      //       id: "",
-      //       type: "",
-      //       value: "",
-      //       key: "",
-      //       mark: ""
-      //     },
-      //     guImportanceTypeName: "",
-      //     guInputTime: "",
-      //     guIp: "",
-      //     guIsDelete: 1,
-      //     guJiaoyiType: "",
-      //     guMaxArea: "",
-      //     guMaxMoney: "",
-      //     guMaxStorey: "",
-      //     guMinArea: "",
-      //     guMinMoney: "",
-      //     guMinStorey: "",
-      //     guMsgInfo: "",
-      //     guMsgTime: "",
-      //     guNeedType: "",
-      //     guNeedTypeId: "",
-      //     guNewStatus: 1,
-      //     guNowCompanyId: "",
-      //     guNowCompanyName: "",
-      //     guNowCreateId: "3cf027ac0c5943458dcece86c4715d2d",
-      //     guNowCreateName: "张青",
-      //     guNowDepartmentId: "",
-      //     guNowDepartmentName: "",
-      //     guNumber: "",
-      //     guPhone: "",
-      //     guPurposeId: "",
-      //     guPurposeName: "",
-      //     guRenterType: "2",
-      //     guRuZhuTime: "",
-      //     guSeeTime: "",
-      //     guSourceTypeId: {
-      //       id: "",
-      //       type: "",
-      //       value: "",
-      //       key: "",
-      //       mark: ""
-      //     },
-      //     guSourceTypeName: "",
-      //     guStatus: "",
-      //     guTownId: "",
-      //     guTownName: "",
-      //     guTypeNoteId: "",
-      //     guTypeNoteName: "",
-      //     guUserNote: "",
-      //     guXiaoquId: "",
-      //     guXiaoquLat: "",
-      //     guXiaoquLng: "",
-      //     guXiaoquName: "",
-      //     guXuqiuZhengZu: "",
-      //     guXuqiuZuqi: {
-      //       id: "",
-      //       type: "",
-      //       value: "",
-      //       key: "",
-      //       mark: ""
-      //     },
-      //     guprocessState: "",
-      //     isRed: 0
-      //   }
-      // ]
-      // tableData: [
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "wozu",
-      //       value: "我租"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "tazu",
-      //       value: "他租"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "yitui",
-      //       value: "已退"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "wuxiao",
-      //       value: "无效"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     state: {
-      //       type: "normal",
-      //       value: "正常"
-      //     },
-      //     user: {
-      //       isType: "重交通",
-      //       name: "222",
-      //       gender: "男",
-      //       tel: "13995694465 ",
-      //       from: "111"
-      //     },
-      //     detail: {
-      //       price: "3000-5000",
-      //       place: "北京市 海淀 中海枫涟山庄"
-      //     },
-      //     from: {
-      //       net: "个人 网络",
-      //       time: "2018-07-04 15:47  宿元豪"
-      //     },
-      //     follow: ["2018-07-10 15:08 高勇 带看", "1234"],
-      //     control: [
-      //       {
-      //         label: 0,
-      //         value: "跟进"
-      //       },
-      //       {
-      //         label: 1,
-      //         value: "指派"
-      //       },
-      //       {
-      //         label: 2,
-      //         value: "指派1"
-      //       },
-      //       {
-      //         label: 3,
-      //         value: "指派2"
-      //       }
-      //     ]
-      //   }
-      // ]
     };
   },
   mounted() {

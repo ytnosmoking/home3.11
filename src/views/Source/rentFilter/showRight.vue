@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import Bus from "./bus";
+import Bus from "@/StaticBus";
 export default {
   name: "show-right",
   props: {

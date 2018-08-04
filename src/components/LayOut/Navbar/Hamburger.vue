@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      if (command == "out") {
+      if (command === "out") {
         removeItem("token");
         removeItem("navRoutes");
         this.$router.push({ path: "/login" });

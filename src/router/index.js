@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-import layOut from "com/layout" // common  layout Components
+import layOut from "components/layout" // common  layout Components
 
 // const _import_com = file => () =>
 //   import ("com/" + file);

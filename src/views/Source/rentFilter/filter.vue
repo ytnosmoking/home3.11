@@ -1,32 +1,64 @@
 <template>
   <section class="filter">
     <div v-show="list!=='3'" class="first">
-      <!-- 筛选类型 -->
-      <select-style class="style" :styleOptions="style.options" :placeholder="style.placeholder" :styleName="style.name"></select-style>
+      <!-- 筛选类型 style-->
+      <select-style class="style" 
+        :styleOptions="peopleType.options" 
+        :placeholder="peopleType.placeholder"
+        :styleName="peopleType.name" 
+        :getChange="getChange">
+      </select-style>
 
-      <!-- part -->
-      <select-part class="part" :styleName="partMent"></select-part>
+      <!-- 部门/人员 part -->
+      <select-part class="part" :styleName="partMent">
+      </select-part>
 
-      <!-- area -->
-      <select-area class="area" ></select-area>
+      <!-- 区域 area -->
+      <select-area class="area"></select-area>
 
-      <!-- important 重视类型 -->
-      <select-style class="important" :styleOptions="important.options" :placeholder="important.placeholder" :styleName="important.name"></select-style>
+      <!-- 重视类型 important -->
+      <select-style class="important" 
+        :styleOptions="guImportanceTypeId.options" 
+        :placeholder="guImportanceTypeId.placeholder" 
+        :styleName="guImportanceTypeId.name" 
+        :getChange="getChange">
+      </select-style>
 
-      <!--  来源类型  公司 个人 -->
-      <select-style class="origin" :styleOptions="origin.options" :placeholder="origin.placeholder" :styleName="origin.name"></select-style>
+      <!--  来源类型  公司 个人 origin -->
+      <select-style class="origin" 
+        :styleOptions="guCustomerSource.options" 
+        :placeholder="guCustomerSource.placeholder" 
+        :styleName="guCustomerSource.name" :getChange="getChange">
+      </select-style>
 
-      <!-- 来源  委托  网络  -->
-      <select-style class="from" :styleOptions="from.options" :placeholder="from.placeholder" :styleName="from.name"></select-style>
+      <!-- 来源  委托  网络  from -->
+      <select-style class="from" 
+        :styleOptions="guSourceTypeId.options" 
+        :placeholder="guSourceTypeId.placeholder" 
+        :styleName="guSourceTypeId.name" 
+        :getChange="getChange">
+      </select-style>
 
-      <!-- 全部 正常 我租 他租  -->
-      <select-style class="normalRent" :styleOptions="normal.options" :placeholder="normal.placeholder" :styleName="normal.name"></select-style>
+      <!-- 全部 正常 我租 他租 normal-->
+      <select-style class="normalRent" 
+        :styleOptions="guNewStatus.options" 
+        :placeholder="guNewStatus.placeholder" 
+        :styleName="guNewStatus.name" 
+        :getChange="getChange">
+      </select-style>
 
       <!-- 需求类型 整租 合租 床位 -->
-      <select-style class="all" :styleOptions="all.options" :placeholder="all.placeholder" :styleName="all.name"></select-style>
+      <select-style class="all" 
+        :styleOptions="guXuqiuZhengZu.options" 
+        :placeholder="guXuqiuZhengZu.placeholder" 
+        :styleName="guXuqiuZhengZu.name" 
+        :getChange="getChange">
+      </select-style>
 
     </div>
     <div v-show="list!=='3'">
+
+      <!-- 录入时间 datatype -->
       <select-time style="flex:6">
         <el-select v-model="datatype" placeholder="录入时间" class="time" slot="time" @change="getDatatype">
           <el-option v-for="item in options" :key="item.id" :label="item.key" :value="item.id">
@@ -34,8 +66,14 @@
         </el-select>
       </select-time>
 
-      <select-style class="rent" style="flex:2" :styleOptions="rentTime.options" :placeholder="rentTime.placeholder" :styleName="rentTime.name"></select-style>
-      <!-- <select-rent class="rent" style="flex:2"></select-rent> -->
+      <!-- 租期 rent -->
+      <select-style class="rent"
+        style="flex:2" 
+        :styleOptions="guXuqiuZuqi.options" 
+        :placeholder="guXuqiuZuqi.placeholder" 
+        :styleName="guXuqiuZuqi.name" 
+        :getChange="getChange">
+      </select-style>
 
       <select-price class="price" style="flex:3" price="价格区间" low="最低价格" up="最高价格"></select-price>
 
@@ -62,14 +100,14 @@
 </template>
 
 <script>
-import selectStyle from "./select/style"; // filter select
-import selectPart from "./select/part";
-import selectArea from "./select/area";
-import selectImportant from "./select/important";
-import selectAll from "./select/all";
-import selectTime from "./select/time";
-import selectPrice from "./select/price";
-import selectSearch from "./select/search"; // filter search
+import selectStyle from "components/Select/style"; //
+import selectPart from "components/Select/part";
+import selectArea from "components/Select/area";
+import selectImportant from "components/Select/important";
+import selectAll from "components/Select/all";
+import selectTime from "components/Select/time";
+import selectPrice from "components/Select/price";
+import selectSearch from "components/Select/search"; // filter search
 
 export default {
   name: "select-filter",
@@ -81,7 +119,9 @@ export default {
   },
   data() {
     return {
-      style: {
+      actionType: "source",
+      // 筛选类型
+      peopleType: {
         name: "peopleType",
         placeholder: "筛选类型",
         options: [
@@ -98,18 +138,21 @@ export default {
             key: "录入人"
           }
         ]
-      }, // 筛选类型
+      },
+      //  部门
       partMent: {
         ment: "departmentId",
         userid: "guNowCreateId"
-      }, //  部门
-      important: {
+      },
+      // 重视类型
+      guImportanceTypeId: {
         name: "guImportanceTypeId",
         placeholder: "重视类型",
         mark: "97efd4f6-c163-4b6d-8bf1-7b4887f45930",
         options: []
-      }, // 重视类型
-      origin: {
+      },
+      // 来源类型
+      guCustomerSource: {
         name: "guCustomerSource",
         placeholder: "来源类型",
         options: [
@@ -126,14 +169,16 @@ export default {
             key: "个人"
           }
         ]
-      }, // 来源类型
-      from: {
+      },
+      // 来源
+      guSourceTypeId: {
         name: "guSourceTypeId",
         placeholder: "来源",
         mark: "44d8d93e-73f2-475e-a854-ec0a0cf513ad",
         options: []
-      }, // 来源
-      normal: {
+      },
+      // 正常 我租 他租 已退 无效
+      guNewStatus: {
         name: "guNewStatus",
         placeholder: "正常",
         options: [
@@ -162,8 +207,9 @@ export default {
             key: "无效"
           }
         ]
-      }, // 正常 我租 他租 已退 无效
-      all: {
+      },
+      // 整租 合租 床位
+      guXuqiuZhengZu: {
         name: "guXuqiuZhengZu",
         placeholder: "整租",
         options: [
@@ -184,8 +230,9 @@ export default {
             key: "床位"
           }
         ]
-      }, // 整租 合租 床位
-      datatype: "", // 录入时间 跟进时间 入住时间
+      },
+      datatype: "",
+      // 录入时间 跟进时间 入住时间
       options: [
         {
           id: "0",
@@ -200,7 +247,8 @@ export default {
           key: "录入时间"
         }
       ],
-      rentTime: {
+      // 租期
+      guXuqiuZuqi: {
         name: "guXuqiuZuqi",
         placeholder: "租期",
         mark: "df5ac7e8-e0d8-4345-83cd-ed30317cca3f",
@@ -219,45 +267,54 @@ export default {
     selectSearch
   },
   methods: {
-    getFrom() {
-      this.$store
-        .dispatch({ type: "sourceRent/getFrom", mark: this.from.mark })
-        .then(res => {
-          console.log(res.list);
-          this.from.options = res.list;
-        });
-    },
-    getImportant() {
+    getData(data) {
       this.$store
         .dispatch({
-          type: "sourceRent/getImportant",
-          mark: this.important.mark
+          type: `${this.actionType}/${data.name}`,
+          mark: data.mark
         })
         .then(res => {
           console.log(res.list);
-          this.important.options = res.list;
+          if (data.mark === "guXuqiuZuqi") {
+            res.list.unshift({ mark: "", key: "租期", id: "" });
+          }
+          this[data.name].options = res.list;
         });
     },
-    getRent() {
-      this.$store
-        .dispatch({ type: "sourceRent/getRent", mark: this.rentTime.mark })
-        .then(res => {
-          console.log(res.list);
-          res.list.unshift({ mark: "", key: "租期", id: "" });
-          this.rentTime.options = res.list;
-        });
-    },
+    // 时间
     getDatatype() {
       this.$store.commit({
-        type: "sourceRent/getDatatype",
+        type: this.actionType + "/getDatatype",
         dataType: this.datatype
       });
+    },
+    // select-style Function
+    getChange(styleName, styleOptions, value) {
+      console.log(value);
+      if (
+        styleName === "guSourceTypeId" ||
+        styleName === "guImportanceTypeId"
+      ) {
+        let valueLabel = "";
+        styleOptions.filter(item => {
+          if (item.value === this.value) {
+            valueLabel = item.label;
+            return;
+          }
+        });
+        this.$store.commit({
+          type: this.actionType + "/" + styleName.replace("Id", "Name"),
+          value: valueLabel
+        });
+      }
+      const tableInfo = Object.assign({}, { typeName: styleName, value });
+      this.$store.dispatch({ type: this.actionType + "/getTable", tableInfo });
     }
   },
   mounted() {
-    this.getFrom();
-    this.getImportant();
-    this.getRent();
+    this.getData(this.guSourceTypeId)
+    this.getData(this.guImportanceTypeId)
+    this.getData(this.guXuqiuZuqi)
   }
 };
 </script>

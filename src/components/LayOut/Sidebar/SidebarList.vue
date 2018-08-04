@@ -20,12 +20,12 @@ export default {
     return {};
   },
   mounted() {},
-  methods:{
+  methods: {
      //  左侧点击 保存 子路由
     saveRoutes(params, index) {
       // if (this.routes[index].path == params) {
         // console.log(this.routes[index].children);
-        this.$store.commit("SAVE_CHILD_ROUTES", this.routes);
+      this.$store.commit("SAVE_CHILD_ROUTES", this.routes);
       // }
     }
   }
