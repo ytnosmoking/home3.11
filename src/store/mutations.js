@@ -14,7 +14,7 @@ const mutations = {
 
 export default mutations
 
-function resetObject(children, parent = "") {
+function resetObject(children, parent = '') {
   const newChildren = []
   children.forEach(item => {
     if (item.parent === parent) {

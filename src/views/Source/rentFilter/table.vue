@@ -100,19 +100,19 @@
 </template>
 
 <script>
-import Bus from "@/StaticBus";
-import showRight from "./showRight";
+import Bus from '@/StaticBus';
+import showRight from './showRight';
 export default {
-  name: "filter-table",
+  name: 'filter-table',
   props: {
     guRenterType: {
       type: String,
-      default: "2"
+      default: '2'
     },
     tableData: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     }
   },
@@ -124,25 +124,25 @@ export default {
       currentPage: 1,
       showState: false,
       headState: [
-        "状态",
-        "姓名/电话",
-        "接受价格/地址",
-        "来源类型/来源/录入时间/人",
-        "跟进时间/人/方式/内容",
-        "操作"
+        '状态',
+        '姓名/电话',
+        '接受价格/地址',
+        '来源类型/来源/录入时间/人',
+        '跟进时间/人/方式/内容',
+        '操作'
       ]
     };
   },
   mounted() {
-    console.log(this.guRenterType);
+    // console.log(this.guRenterType);
     const that = this;
     window.onclick = function(e) {
       that.showState = false;
     };
-    Bus.$on("hideRight", function(e) {
+    Bus.$on('hideRight', function(e) {
       that.showState = false;
     });
-    console.log(this.tableData)
+    // console.log(this.tableData);
   },
   methods: {
     showRight(value) {
@@ -158,11 +158,10 @@ export default {
     }
   },
   watch: {
-    "tableData": function(newValue, oldValue) {
-      console.log(newValue)
+    tableData: function(newValue, oldValue) {
+      // console.log(newValue);
     }
   }
-
 };
 </script>
 <style lang="less" scoped>
@@ -231,7 +230,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    // justify-content: center; 
+    // justify-content: center;
     align-items: center;
     padding: 0 10px;
     &:nth-child(n + 1) {
@@ -348,7 +347,7 @@ export default {
 }
 .importType {
   color: #fff;
-  background: #02CAB0;
+  background: #02cab0;
   border-radius: 3px;
   padding: 0 5px;
 }

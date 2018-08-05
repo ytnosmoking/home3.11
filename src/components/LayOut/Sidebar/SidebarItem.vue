@@ -13,10 +13,10 @@
   </ul>
 </template>
 <script>
-import SidebarList from "./SidebarList";
+import SidebarList from './SidebarList';
 // import { getItem } from "@/utils/auth";
 export default {
-  name: "sidebar-item",
+  name: 'sidebar-item',
   props: {
     routes: {
       type: Array,
@@ -31,21 +31,19 @@ export default {
       isShow: false,
       childStyle: {},
       childRoutes: [],
-      fatherRoute: ""
+      fatherRoute: ''
     };
   },
-  computed: {
-
-  },
+  computed: {},
   mounted() {
-    console.log(this.routes);
+    // console.log(this.routes);
     // this.$store.commit("SAVE_CHILD_ROUTES", this.routes[0].children)
   },
   methods: {
     showChild(item, ref) {
       this.isShow = true;
       // const $dom = this.$refs[ref][0].$el;
-      const chilldTop = (ref - 1) * 40 + "px";
+      const chilldTop = (ref - 1) * 40 + 'px';
       this.childStyle = { top: chilldTop };
       this.childRoutes = this.routes[ref].children;
     },
@@ -56,7 +54,7 @@ export default {
     saveRoutes(params, index) {
       if (this.routes[index].path === params) {
         // console.log(this.routes[index].children);
-        this.$store.commit("SAVE_CHILD_ROUTES", this.routes[index].children);
+        this.$store.commit('SAVE_CHILD_ROUTES', this.routes[index].children);
       }
     }
   }
@@ -104,15 +102,15 @@ li.router-link-active::before {
 }
 
 .sidebarStatic {
-   position: absolute;
+  position: absolute;
   width: 0;
   left: 100px;
   transform-origin: left;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   overflow: hidden;
-  background-color: #263E4A;
+  background-color: #263e4a;
 }
 .sidebarShow {
- width: 115px;
+  width: 115px;
 }
 </style>

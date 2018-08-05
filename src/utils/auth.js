@@ -58,4 +58,3 @@ console.log(add.apply([], [1, 2]))
 //     //        arguments.caller()
 //   }
 // }
-

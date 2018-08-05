@@ -1,5 +1,9 @@
-import { defaultRouter } from "@/router";
-import { setItem } from "@/utils/auth"
+import {
+  defaultRouter
+} from '@/router';
+import {
+  setItem
+} from '@/utils/auth'
 export default {
   state: {
     userRouter: [],
@@ -13,7 +17,7 @@ export default {
     SAVE_CHILD_ROUTES: (state, childRoutes) => {
       state.childRoutes = childRoutes
       if (childRoutes !== []) {
-        setItem("navRoutes", JSON.stringify(childRoutes))
+        setItem('navRoutes', JSON.stringify(childRoutes))
       }
     }
   }

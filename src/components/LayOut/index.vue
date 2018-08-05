@@ -12,11 +12,11 @@
 
 </template>
 <script>
-import SideBar from "./Sidebar/SideBar";
-import NavBar from "./Navbar/NavBar";
-import AppMain from "./AppMain";
+import SideBar from './Sidebar/SideBar';
+import NavBar from './Navbar/NavBar';
+import AppMain from './AppMain';
 export default {
-  name: "layout",
+  name: 'layout',
   components: {
     SideBar,
     NavBar,
@@ -28,7 +28,7 @@ export default {
   computed: {
     commonShow() {
       // alert(1)
-      console.log(this.$store.getters.commonShow)
+      console.log(this.$store.getters.commonShow);
       return this.$store.getters.commonShow;
     }
   }
@@ -79,7 +79,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
 }
 </style>

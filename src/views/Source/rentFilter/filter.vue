@@ -100,158 +100,158 @@
 </template>
 
 <script>
-import selectStyle from "components/Select/style"; //
-import selectPart from "components/Select/part";
-import selectArea from "components/Select/area";
-import selectImportant from "components/Select/important";
-import selectAll from "components/Select/all";
-import selectTime from "components/Select/time";
-import selectPrice from "components/Select/price";
-import selectSearch from "components/Select/search"; // filter search
+import selectStyle from 'components/Select/style'; //
+import selectPart from 'components/Select/part';
+import selectArea from 'components/Select/area';
+import selectImportant from 'components/Select/important';
+import selectAll from 'components/Select/all';
+import selectTime from 'components/Select/time';
+import selectPrice from 'components/Select/price';
+import selectSearch from 'components/Select/search'; // filter search
 
 export default {
-  name: "select-filter",
+  name: 'select-filter',
   props: {
     list: {
-      default: "2",
+      default: '2',
       type: String
     }
   },
   data() {
     return {
-      actionType: "source",
+      actionType: 'source',
       // 筛选类型
       peopleType: {
-        name: "peopleType",
-        placeholder: "筛选类型",
+        name: 'peopleType',
+        placeholder: '筛选类型',
         options: [
           {
-            id: "0",
-            key: "筛选类型"
+            id: '0',
+            key: '筛选类型'
           },
           {
-            id: "1",
-            key: "跟进人"
+            id: '1',
+            key: '跟进人'
           },
           {
-            id: "2",
-            key: "录入人"
+            id: '2',
+            key: '录入人'
           }
         ]
       },
       //  部门
       partMent: {
-        ment: "departmentId",
-        userid: "guNowCreateId"
+        ment: 'departmentId',
+        userid: 'guNowCreateId'
       },
       // 重视类型
       guImportanceTypeId: {
-        name: "guImportanceTypeId",
-        placeholder: "重视类型",
-        mark: "97efd4f6-c163-4b6d-8bf1-7b4887f45930",
+        name: 'guImportanceTypeId',
+        placeholder: '重视类型',
+        mark: '97efd4f6-c163-4b6d-8bf1-7b4887f45930',
         options: []
       },
       // 来源类型
       guCustomerSource: {
-        name: "guCustomerSource",
-        placeholder: "来源类型",
+        name: 'guCustomerSource',
+        placeholder: '来源类型',
         options: [
           {
-            id: "",
-            key: "来源类型"
+            id: '',
+            key: '来源类型'
           },
           {
-            id: "1",
-            key: "公司"
+            id: '1',
+            key: '公司'
           },
           {
-            id: "2",
-            key: "个人"
+            id: '2',
+            key: '个人'
           }
         ]
       },
       // 来源
       guSourceTypeId: {
-        name: "guSourceTypeId",
-        placeholder: "来源",
-        mark: "44d8d93e-73f2-475e-a854-ec0a0cf513ad",
+        name: 'guSourceTypeId',
+        placeholder: '来源',
+        mark: '44d8d93e-73f2-475e-a854-ec0a0cf513ad',
         options: []
       },
       // 正常 我租 他租 已退 无效
       guNewStatus: {
-        name: "guNewStatus",
-        placeholder: "正常",
+        name: 'guNewStatus',
+        placeholder: '正常',
         options: [
           {
-            id: "0",
-            key: "全部"
+            id: '0',
+            key: '全部'
           },
           {
-            id: "1",
-            key: "正常"
+            id: '1',
+            key: '正常'
           },
           {
-            id: "2",
-            key: "我租"
+            id: '2',
+            key: '我租'
           },
           {
-            id: "3",
-            key: "他租"
+            id: '3',
+            key: '他租'
           },
           {
-            id: "4",
-            key: "已退"
+            id: '4',
+            key: '已退'
           },
           {
-            id: "5",
-            key: "无效"
+            id: '5',
+            key: '无效'
           }
         ]
       },
       // 整租 合租 床位
       guXuqiuZhengZu: {
-        name: "guXuqiuZhengZu",
-        placeholder: "整租",
+        name: 'guXuqiuZhengZu',
+        placeholder: '整租',
         options: [
           {
-            id: "",
-            key: "全部"
+            id: '',
+            key: '全部'
           },
           {
-            id: "1",
-            key: "整租"
+            id: '1',
+            key: '整租'
           },
           {
-            id: "2",
-            key: "合租"
+            id: '2',
+            key: '合租'
           },
           {
-            id: "3",
-            key: "床位"
+            id: '3',
+            key: '床位'
           }
         ]
       },
-      datatype: "",
+      datatype: '',
       // 录入时间 跟进时间 入住时间
       options: [
         {
-          id: "0",
-          key: "跟进时间"
+          id: '0',
+          key: '跟进时间'
         },
         {
-          id: "1",
-          key: "入住时间"
+          id: '1',
+          key: '入住时间'
         },
         {
-          id: "2",
-          key: "录入时间"
+          id: '2',
+          key: '录入时间'
         }
       ],
       // 租期
       guXuqiuZuqi: {
-        name: "guXuqiuZuqi",
-        placeholder: "租期",
-        mark: "df5ac7e8-e0d8-4345-83cd-ed30317cca3f",
+        name: 'guXuqiuZuqi',
+        placeholder: '租期',
+        mark: 'df5ac7e8-e0d8-4345-83cd-ed30317cca3f',
         options: []
       }
     };
@@ -274,9 +274,9 @@ export default {
           mark: data.mark
         })
         .then(res => {
-          console.log(res.list);
-          if (data.mark === "guXuqiuZuqi") {
-            res.list.unshift({ mark: "", key: "租期", id: "" });
+          // console.log(res.list);
+          if (data.mark === 'guXuqiuZuqi') {
+            res.list.unshift({ mark: '', key: '租期', id: '' });
           }
           this[data.name].options = res.list;
         });
@@ -284,7 +284,7 @@ export default {
     // 时间
     getDatatype() {
       this.$store.commit({
-        type: this.actionType + "/getDatatype",
+        type: this.actionType + '/getDatatype',
         dataType: this.datatype
       });
     },
@@ -292,10 +292,10 @@ export default {
     getChange(styleName, styleOptions, value) {
       console.log(value);
       if (
-        styleName === "guSourceTypeId" ||
-        styleName === "guImportanceTypeId"
+        styleName === 'guSourceTypeId' ||
+        styleName === 'guImportanceTypeId'
       ) {
-        let valueLabel = "";
+        let valueLabel = '';
         styleOptions.filter(item => {
           if (item.value === this.value) {
             valueLabel = item.label;
@@ -303,18 +303,18 @@ export default {
           }
         });
         this.$store.commit({
-          type: this.actionType + "/" + styleName.replace("Id", "Name"),
+          type: this.actionType + '/' + styleName.replace('Id', 'Name'),
           value: valueLabel
         });
       }
       const tableInfo = Object.assign({}, { typeName: styleName, value });
-      this.$store.dispatch({ type: this.actionType + "/getTable", tableInfo });
+      this.$store.dispatch({ type: this.actionType + '/getTable', tableInfo });
     }
   },
   mounted() {
-    this.getData(this.guSourceTypeId)
-    this.getData(this.guImportanceTypeId)
-    this.getData(this.guXuqiuZuqi)
+    this.getData(this.guSourceTypeId);
+    this.getData(this.guImportanceTypeId);
+    this.getData(this.guXuqiuZuqi);
   }
 };
 </script>

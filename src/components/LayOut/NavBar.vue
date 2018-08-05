@@ -9,37 +9,33 @@
   </div>
 </template>
 <script>
-import { setItem, getItem } from "@/utils/auth"
-import Hamburger from "@/components/Hamburger";
+import { setItem, getItem } from '@/utils/auth';
+import Hamburger from '@/components/Hamburger';
 export default {
-  name: "navbar",
+  name: 'navbar',
   components: {
     Hamburger
   },
   data() {
     return {
-      headPath: ""
+      headPath: ''
       // getChildRoutes:[]
     };
   },
-  created() {
-
-  },
+  created() {},
   computed: {
     getChildRoutes() {
       var localRoutes = this.$store.getters.getChildRoutes;
-      console.log(localRoutes)
+      // console.log(localRoutes);
       if (localRoutes.length !== 0) {
-        setItem("navRoutes", JSON.stringify(localRoutes))
+        setItem('navRoutes', JSON.stringify(localRoutes));
       } else {
-        localRoutes = JSON.parse(getItem("navRoutes"))
+        localRoutes = JSON.parse(getItem('navRoutes'));
       }
       return localRoutes;
     }
   },
-  watch: {
-
-  },
+  watch: {},
   mounted() {
     // this.getChildRoutes()
   }

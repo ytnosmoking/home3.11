@@ -1,6 +1,6 @@
 const components = {
   state: {
-    common: "",
+    common: '',
     commonShow: false
   },
   mutations: {

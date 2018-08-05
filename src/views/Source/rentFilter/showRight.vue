@@ -122,9 +122,9 @@
 </template>
 
 <script>
-import Bus from "@/StaticBus";
+import Bus from '@/StaticBus';
 export default {
-  name: "show-right",
+  name: 'show-right',
   props: {
     showState: {
       type: Boolean,
@@ -133,12 +133,12 @@ export default {
   },
   data() {
     return {
-      activeName: "basic"
+      activeName: 'basic'
     };
   },
   methods: {
     hideRight() {
-      Bus.$emit("hideRight");
+      Bus.$emit('hideRight');
     },
     handleClick(tab, event) {
       console.log(tab, event);

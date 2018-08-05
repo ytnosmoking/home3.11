@@ -26,61 +26,62 @@
 // import gongke from "./Rent/gongke";
 // import yuyue from "./Rent/yuyue";
 
-import selectFilter from "./rentFilter/filter";
-import selectTable from "./rentFilter/table";
-import Bus from "@/StaticBus";
+import selectFilter from './rentFilter/filter';
+import selectTable from './rentFilter/table';
+import Bus from '@/StaticBus';
 export default {
-  name: "rent",
+  name: 'rent',
   data() {
     return {
-      guRenterType: "2",
+      guRenterType: '2',
       navRoute: [
         {
-          name: "私客",
-          to: "2"
+          name: '私客',
+          to: '2'
         },
         {
-          name: "公客",
-          to: "1"
+          name: '公客',
+          to: '1'
         },
         {
-          name: "预约",
-          to: "3"
+          name: '预约',
+          to: '3'
         }
       ],
-      mark: "全部",
+      mark: '全部',
       bookMark: [
         {
-          value: "全部",
-          number: "(134)"
+          value: '全部',
+          number: '(134)'
         },
         {
-          value: "待受理",
-          number: "(134)"
+          value: '待受理',
+          number: '(134)'
         },
         {
-          value: "已受理",
-          number: "(134)"
+          value: '已受理',
+          number: '(134)'
         },
         {
-          value: "无效",
-          number: "(134)"
+          value: '无效',
+          number: '(134)'
         }
       ]
     };
   },
   computed: {
     pageNo() {
-      return this.$store.getters["source/pageNo"];
+      console.log(this.$store);
+      return this.$store.getters['source/pageNo'];
     },
     tableData() {
-      return this.$store.getters["source/tableData"];
+      return this.$store.getters['source/tableData'];
     },
     totalPage() {
-      return this.$store.getters["source/totalPage"];
+      return this.$store.getters['source/totalPage'];
     },
     totalRecord() {
-      return this.$store.getters["source/totalRecord"];
+      return this.$store.getters['source/totalRecord'];
     }
   },
   components: {
@@ -90,45 +91,47 @@ export default {
   methods: {
     changeCom(value) {
       this.guRenterType = value;
-      if (value !== "3") {
-        const tableInfo = Object.assign({}, { typeName: "guRenterType", value: this.guRenterType }
+      if (value !== '3') {
+        const tableInfo = Object.assign(
+          {},
+          { typeName: 'guRenterType', value: this.guRenterType }
         );
-        this.$store.dispatch({ type: "source/getTable", tableInfo });
+        this.$store.dispatch({ type: 'source/getTable', tableInfo });
       }
     },
     changeMark(value) {
       this.mark = value;
     },
     getCurrent(val) {
-      if (this.value !== "3") {
-        this.$store.commit({ type: "source/pageNo", val });
+      if (this.value !== '3') {
+        this.$store.commit({ type: 'source/pageNo', val });
         this.getTable();
       }
     },
     getNext(val) {
-      if (this.value !== "3") {
-        this.$store.commit({ type: "source/pageNo", val });
+      if (this.value !== '3') {
+        this.$store.commit({ type: 'source/pageNo', val });
       }
     },
     getPrev(val) {
-      if (this.value !== "3") {
-        this.$store.commit({ type: "source/pageNo", val });
+      if (this.value !== '3') {
+        this.$store.commit({ type: 'source/pageNo', val });
       }
     },
     getTable() {
-      if (this.value !== "3") {
-        this.$store.dispatch({ type: "source/getTable" });
+      if (this.value !== '3') {
+        this.$store.dispatch({ type: 'source/getTable' });
       }
     }
   },
   created() {
-    console.log(this.pageNo);
+    // console.log(this.pageNo);
   },
   mounted() {
-    console.log(this.pageNo);
+    // console.log(this.pageNo);
     this.getTable();
     window.onclick = function() {
-      Bus.$emit("hidePart");
+      Bus.$emit('hidePart');
     };
   }
 };
@@ -173,7 +176,7 @@ export default {
   & > li {
     margin-right: 10px;
     cursor: pointer;
-     padding: 0 15px;
+    padding: 0 15px;
     float: left;
     cursor: pointer;
     transition: all 0.3s ease;

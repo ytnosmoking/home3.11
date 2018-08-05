@@ -6,10 +6,10 @@
   </scroll-bar>
 </template>
 <script>
-import ScrollBar from "@/components/ScrollBar";
-import SidebarItem from "./SidebarItem";
+import ScrollBar from '@/components/ScrollBar';
+import SidebarItem from './SidebarItem';
 export default {
-  name: "sidebar",
+  name: 'sidebar',
   components: {
     ScrollBar,
     SidebarItem
@@ -24,15 +24,15 @@ export default {
       return false;
     },
     getRouter() {
-      console.log(this.$store.state);
+      // console.log(this.$store.state);
       return this.$store.state.routes.userRouter;
     }
   },
   created() {
-    this.getRouters()
+    this.getRouters();
   },
   mounted() {
-    console.log(this.getRouter);
+    // console.log(this.getRouter);
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -42,7 +42,7 @@ export default {
       console.log(key, keyPath);
     },
     getRouters() {
-      this.$store.commit("getRouters");
+      this.$store.commit('getRouters');
     }
   }
 };
