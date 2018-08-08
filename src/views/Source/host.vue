@@ -28,45 +28,45 @@
 // import gongke from "./Rent/gongke";
 // import yuyue from "./Rent/yuyue";
 
-import selectFilter from "./rentFilter/filter";
-import selectTable from "./rentFilter/table";
+import selectFilter from './rentFilter/filter';
+import selectTable from './rentFilter/table';
 
 export default {
-  name: "rent",
+  name: 'rent',
   data() {
     return {
-      com: "sipan",
+      com: 'sipan',
       navRoute: [
         {
-          name: "私盘",
-          to: "sipan"
+          name: '私盘',
+          to: 'sipan'
         },
         {
-          name: "公盘",
-          to: "gongpan"
+          name: '公盘',
+          to: 'gongpan'
         },
         {
-          name: "线上委托",
-          to: "weituo"
+          name: '线上委托',
+          to: 'weituo'
         }
       ],
-      mark: "全部",
+      mark: '全部',
       bookMark: [
         {
-          value: "全部",
-          number: "(134)"
+          value: '全部',
+          number: '(134)'
         },
         {
-          value: "待受理",
-          number: "(134)"
+          value: '待受理',
+          number: '(134)'
         },
         {
-          value: "已受理",
-          number: "(134)"
+          value: '已受理',
+          number: '(134)'
         },
         {
-          value: "无效",
-          number: "(134)"
+          value: '无效',
+          number: '(134)'
         }
       ]
     };

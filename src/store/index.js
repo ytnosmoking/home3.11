@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import work from './modules/work' // work
+
 import user from './modules/user'
 import routes from './modules/routes'
 import components from './modules/components'
@@ -13,6 +15,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
+    work,
     user,
     routes,
     components,

@@ -75,17 +75,17 @@
   </section>
 </template>
 <script>
-const echarts = require("echarts/lib/echarts");
+const echarts = require('echarts/lib/echarts');
 // 引入柱状图组件
-require("echarts/lib/chart/pie");
+require('echarts/lib/chart/pie');
 // 引入提示框和title组件
-require("echarts/lib/component/tooltip");
-require("echarts/lib/component/title");
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
 export default {
-  name: "kongzhi",
+  name: 'kongzhi',
   data() {
     return {
-      charts: "",
+      charts: '',
       vacant: []
     };
   },
@@ -93,60 +93,60 @@ export default {
     this.vacant = [
       {
         value: 139,
-        percent: "9.94%",
-        name: "0-7天",
+        percent: '9.94%',
+        name: '0-7天',
         itemStyle: {
           normal: {
-            color: "#33c575",
-            borderColor: "#fff",
+            color: '#33c575',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
       },
       {
         value: 23,
-        percent: "1.64%",
-        name: "8-15天",
+        percent: '1.64%',
+        name: '8-15天',
         itemStyle: {
           normal: {
-            color: "#39b6fc",
-            borderColor: "#fff",
+            color: '#39b6fc',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
       },
       {
-        percent: "0.36%",
+        percent: '0.36%',
         value: 5,
-        name: "16-20天",
+        name: '16-20天',
         itemStyle: {
           normal: {
-            color: "#ba4deb",
-            borderColor: "#fff",
+            color: '#ba4deb',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
       },
       {
         value: 18,
-        percent: "1.29%",
-        name: "21-30天",
+        percent: '1.29%',
+        name: '21-30天',
         itemStyle: {
           normal: {
-            color: "#fdab3d",
-            borderColor: "#fff",
+            color: '#fdab3d',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
       },
       {
         value: 95,
-        percent: "6.79%",
-        name: "31-50天",
+        percent: '6.79%',
+        name: '31-50天',
         itemStyle: {
           normal: {
-            color: "#f67135",
-            borderColor: "#fff",
+            color: '#f67135',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
@@ -154,12 +154,12 @@ export default {
       {
         total: 1399,
         value: 1119,
-        percent: "79.99%",
-        name: "51天以上",
+        percent: '79.99%',
+        name: '51天以上',
         itemStyle: {
           normal: {
-            color: "#f05155",
-            borderColor: "#fff",
+            color: '#f05155',
+            borderColor: '#fff',
             borderWidth: 3
           }
         }
@@ -168,26 +168,26 @@ export default {
     const options = {
       title: {},
       tooltip: {
-        trigger: "item",
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
       },
       series: [
         {
-          name: "空置房",
-          type: "pie",
-          radius: ["35%", "95%"],
+          name: '空置房',
+          type: 'pie',
+          radius: ['35%', '95%'],
           data: this.vacant,
           animation: !1,
           label: {
             normal: {
               show: !1,
-              position: "center"
+              position: 'center'
             }
           }
         }
       ]
     };
-    this.charts = echarts.init(document.getElementById("circle"));
+    this.charts = echarts.init(document.getElementById('circle'));
     this.charts.setOption(options);
   }
 };

@@ -34,9 +34,9 @@ service.interceptors.request.use(config => {
     config.headers['gcid'] = store.getters.getGcid
     config.headers['userid'] = store.getters.getUserId
 
-    config.data['token'] = store.geDtters.getToken
-    config.data['gcid'] = store.geDtters.getGcid
-    config.data['userid'] = store.geDtters.getUserId
+    config.data['token'] = store.getters.getToken
+    config.data['gcid'] = store.getters.getGcid
+    config.data['userid'] = store.getters.getUserId
   } else if (getItem('token') && getItem('gcid') && getItem('userid')) {
     //  请求头 带上 token gcid userid
     config.headers['token'] = getItem('token')

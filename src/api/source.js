@@ -1,12 +1,12 @@
-import request from "@/utils/request"
+import request from '@/utils/request'
 /**
  * @desc 获得资源 租客
  * @param  data
  */
 export function getTable(data) {
   return request({
-    url: "v2/meet/guest_source_pools/get_list",
-    method: "post",
+    url: 'v2/meet/guest_source_pools/get_list',
+    method: 'post',
     data
   })
 }
@@ -16,8 +16,8 @@ export function getTable(data) {
  */
 export function getFrom (data) {
   return request({
-    url: "v2/sys/zi_dian/get_list_by_mark",
-    method: "post",
+    url: 'v2/sys/zi_dian/get_list_by_mark',
+    method: 'post',
     data
   })
 }
@@ -27,8 +27,8 @@ export function getFrom (data) {
  */
 export function getCity(data) {
   return request({
-    url: "/v2/location/city/get_ctiy_by_gcid",
-    method: "post",
+    url: '/v2/location/city/get_ctiy_by_gcid',
+    method: 'post',
     data
   })
 }
@@ -39,8 +39,8 @@ export function getCity(data) {
  */
 export function getTown(data) {
   return request({
-    url: "/v2/location/town/get_list",
-    method: "post",
+    url: '/v2/location/town/get_list',
+    method: 'post',
     data
   })
 }
@@ -51,8 +51,8 @@ export function getTown(data) {
  */
 export function getCountry(data) {
   return request({
-    url: "/v2/location/district/get_list",
-    method: "post",
+    url: '/v2/location/district/get_list',
+    method: 'post',
     data
   })
 }

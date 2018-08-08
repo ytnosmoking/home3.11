@@ -270,7 +270,7 @@
 </template>
 <script>
 export default {
-  name: "quanju",
+  name: 'quanju',
   data() {
     return {
       timePicker: new Date()

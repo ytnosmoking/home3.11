@@ -9,27 +9,27 @@
   </div>
 </template>
 <script>
-import kongzhi from "./datas/kongzhi";
-import quanju from "./datas/quanju";
-import yewu from "./datas/yewu";
+import kongzhi from './datas/kongzhi';
+import quanju from './datas/quanju';
+import yewu from './datas/yewu';
 
 export default {
-  name: "workDatas",
+  name: 'workDatas',
   data() {
     return {
-      com: "quanju",
+      com: 'quanju',
       navRoute: [
         {
-          name: "全局数据",
-          to: "quanju"
+          name: '全局数据',
+          to: 'quanju'
         },
         {
-          name: "业务统计",
-          to: "yewu"
+          name: '业务统计',
+          to: 'yewu'
         },
         {
-          name: "空置统计",
-          to: "kongzhi"
+          name: '空置统计',
+          to: 'kongzhi'
         }
       ]
     };
