@@ -34,35 +34,35 @@
           <ul>
             <li>
               <span>今日出房</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.chengzu.num}}</strong>
+              <strong>{{forSale.chengzu&&forSale.chengzu.num}}</strong>
             </li>
             <li>
               <span>本月出房</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.chengzu.monthNum}}</strong>
+              <strong>{{forSale.chengzu&&forSale.chengzu.monthNum}}</strong>
             </li>
             <li>
               <span>今日收房</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.qianyue.num}}</strong>
+              <strong>{{forSale.qianyue&&forSale.qianyue.num}}</strong>
             </li>
             <li>
               <span>本月收房</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.qianyue.monthNum}}</strong>
+              <strong>{{forSale.qianyue&&forSale.qianyue.monthNum}}</strong>
             </li>
             <li>
               <span>今日预定</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.renewObject.num}}</strong>
+              <strong>{{forSale.renewObject&&forSale.renewObject.num}}</strong>
             </li>
             <li>
               <span>本月预定</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.renewObject.monthNum}}</strong>
+              <strong>{{forSale.renewObject&&forSale.renewObject.monthNum}}</strong>
             </li>
             <li>
               <span>今日续约</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.shouding.num}}</strong>
+              <strong>{{forSale.shouding&&forSale.shouding.num}}</strong>
             </li>
             <li>
               <span>本月续约</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>{{forSale.shouding.monthNum}}</strong>
+              <strong>{{forSale.shouding&&forSale.shouding.monthNum}}</strong>
             </li>
           </ul>
         </div>
@@ -118,14 +118,16 @@ export default {
         .dispatch({ type: 'work/getSale', value: this.Sale })
         .then(res => {
           this.forSale = res;
+          console.log(res);
         });
     }
   },
-  mounted() {
+  created() {
     this.getSth();
     this.getProduce();
     this.getSale();
-  }
+  },
+  mounted() {}
 };
 </script>
 
@@ -185,8 +187,10 @@ export default {
           li {
             height: 50px;
             line-height: 50px;
-
             border-bottom: 1px dashed #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
         .more {

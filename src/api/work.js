@@ -23,3 +23,43 @@ export function getSale(data) {
     data
   })
 }
+
+export function getBill(data) {
+  return request({
+    url: 'v2/balance/table_balance_sheet/get_compact_count',
+    method: 'post',
+    data
+  })
+}
+
+export function getMove(data) {
+  return request({
+    url: 'v2/compact/chengzu/status_count',
+    method: 'post',
+    data
+  })
+}
+
+export function getClean(data) {
+  return request({
+    url: 'v2/rentservice/table_clean/get_status_count',
+    method: 'post',
+    data
+  })
+}
+
+export function getFix(data) {
+  return request({
+    url: 'v2/rentservice/table_web_repair/get_status_count',
+    method: 'post',
+    data
+  })
+}
+
+export function getComplain(data) {
+  return request({
+    url: 'v2/rentservice/complaint_letter/get_status_count',
+    method: 'post',
+    data
+  })
+}
