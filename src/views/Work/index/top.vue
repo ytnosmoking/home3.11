@@ -11,7 +11,7 @@
             </li>
           </ul>
           <div class="more">
-            <span> more</span>
+            <span @click="showSth"> more</span>
           </div>
         </div>
       </li>
@@ -98,6 +98,11 @@ export default {
     };
   },
   methods: {
+    showSth() {
+      this.$store.commit({ type: 'work/getWindow', window: 'common' })
+      this.$store.commit({ type: 'work/showFlag' })
+    },
+    //
     getSth() {
       console.log(this.$store);
       this.$store

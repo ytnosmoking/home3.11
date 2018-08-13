@@ -1,21 +1,38 @@
 <template>
   <div class="lists">
     <ul>
-      <li>
+      <li v-for="(item, index) in rentList" :key="index">
+        <ul>
+          <li>{{item.type}}</li>
+          <li>
+            <strong class="f67">{{item.daiZuCount}}</strong>可租</li>
+          <li>
+            <strong class="ffa">{{item.kongZhi}}</strong>空置</li>
+          <li>
+            <strong class="f56">{{item.zhuanZu}}</strong>转租</li>
+          <li>
+            <strong class="f61">{{item.shenTui}}</strong>申退</li>
+          <li>
+            <strong class="b0fc">{{item.yuDaoQi}}</strong>预到期</li>
+          <li>
+            <strong class="f67">{{item.vacancyRate}}</strong>空置率</li>
+        </ul>
+      </li>
+      <!-- <li>
         <ul>
           <li>合租</li>
           <li>
-            <strong class="f67">472</strong>合租</li>
+            <strong class="f67">{{joinRent.daiZuCount}}</strong>可租</li>
           <li>
-            <strong class="ffa">472</strong>合租</li>
+            <strong class="ffa">{{joinRent.kongZhi}}</strong>空置</li>
           <li>
-            <strong class="f56">472</strong>合租</li>
+            <strong class="f56">{{joinRent.zhuanZu}}</strong>转租</li>
           <li>
-            <strong class="f61">472</strong>合租</li>
+            <strong class="f61">{{joinRent.shenTui}}</strong>申退</li>
           <li>
-            <strong class="b0fc">472</strong>合租</li>
+            <strong class="b0fc">{{joinRent.yuDaoQi}}</strong>预到期</li>
           <li>
-            <strong class="f67">472</strong>合租</li>
+            <strong class="f67">{{joinRent.vacancyRate}}</strong>空置率</li>
         </ul>
       </li>
       <li>
@@ -51,7 +68,7 @@
           <li>
             <strong class="f67">472</strong>合租</li>
         </ul>
-      </li>
+      </li> -->
     </ul>
     <div class="time">
       <v-calendar :attributes="dateNow"></v-calendar>
@@ -64,7 +81,7 @@ export default {
   name: 'vfooter',
   data() {
     return {
-      value12: '',
+      rentList: [],
       dateNow: [
         {
           key: 'today',
@@ -78,6 +95,31 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    getJoinRent() {
+      return this.$store.dispatch({ type: 'work/getJoinRent' }).then(res => {
+        const list = Object.assign({ type: '合租' }, res);
+        this.rentList.push(list);
+      });
+    },
+    getWholeRent() {
+      return this.$store.dispatch({ type: 'work/getWholeRent' }).then(res => {
+        const list = Object.assign({ type: '整租' }, res);
+        this.rentList.push(list);
+      });
+    },
+    getCentralizeRent() {
+      this.$store.dispatch({ type: 'work/getCentralizeRent' }).then(res => {
+        const list = Object.assign({ type: '集中' }, res);
+        this.rentList.push(list);
+      });
+    }
+  },
+  mounted() {
+    this.getJoinRent()
+    .then(res => this.getWholeRent())
+    .then(res => this.getCentralizeRent())
   }
 };
 </script>

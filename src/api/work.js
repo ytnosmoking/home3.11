@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+// top
 export function getSth(data) {
   return request({
     url: 'v2/employee/time_manager/get_list',
@@ -23,7 +23,7 @@ export function getSale(data) {
     data
   })
 }
-
+// center
 export function getBill(data) {
   return request({
     url: 'v2/balance/table_balance_sheet/get_compact_count',
@@ -59,6 +59,31 @@ export function getFix(data) {
 export function getComplain(data) {
   return request({
     url: 'v2/rentservice/complaint_letter/get_status_count',
+    method: 'post',
+    data
+  })
+}
+
+// footer
+export function getJoinRent(data) {
+  return request({
+    url: 'v2/house/part_house/get_count_by_status',
+    method: 'post',
+    data
+  })
+}
+
+export function getWholeRent(data) {
+  return request({
+    url: 'v2/house/full_house/get_count_by_status',
+    method: 'post',
+    data
+  })
+}
+
+export function getCentralizeRent(data) {
+  return request({
+    url: 'v2/house/focus_house/get_count_by_status',
     method: 'post',
     data
   })

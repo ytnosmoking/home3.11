@@ -1,24 +1,39 @@
 import {
-  getSth,
+  getSth, // top
   getProduce,
   getSale,
-  getBill,
+  getBill, // center
   getMove,
   getClean,
   getFix,
-  getComplain
+  getComplain,
+  getJoinRent, // footer
+  getWholeRent,
+  getCentralizeRent
 } from 'api/work'
 import { getTime } from 'utils/common'
 const work = {
   namespaced: true,
   state: {
-
+    showFlag: false,
+    window: 'common'
   },
   getters: {
-
+    showFlag(state) {
+      return state.showFlag
+    },
+    window(state) {
+      return state.window
+    }
   },
   mutations: {
-
+    showFlag(state) {
+      state.showFlag = !state.showFlag
+    },
+    getWindow(state, payload) {
+      console.log(payload)
+      state.window = payload.window
+    }
   },
   actions: {
     // top
@@ -129,6 +144,42 @@ const work = {
         let params = { sendData: new Date() }
         params = Object.assign({}, { params })
         getComplain(params).then(res => {
+          if (res.status.code === '200') {
+            resolve(res.result)
+          }
+          reject(res)
+        }).catch(err => reject(err))
+      })
+    },
+    getJoinRent({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        let params = { sendData: new Date() }
+        params = Object.assign({}, { params })
+        getJoinRent(params).then(res => {
+          if (res.status.code === '200') {
+            resolve(res.result)
+          }
+          reject(res)
+        }).catch(err => reject(err))
+      })
+    },
+    getWholeRent({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        let params = { sendData: new Date() }
+        params = Object.assign({}, { params })
+        getWholeRent(params).then(res => {
+          if (res.status.code === '200') {
+            resolve(res.result)
+          }
+          reject(res)
+        }).catch(err => reject(err))
+      })
+    },
+    getCentralizeRent({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        let params = { sendData: Date.now() }
+        params = Object.assign({}, { params })
+        getCentralizeRent(params).then(res => {
           if (res.status.code === '200') {
             resolve(res.result)
           }
