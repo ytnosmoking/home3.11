@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul class="tips">
+      <!-- showCommission -->
       <li class="">
         <div class="tipsForsth">
           <div class="title"> 今日代办</div>
@@ -11,10 +12,11 @@
             </li>
           </ul>
           <div class="more">
-            <span @click="showSth"> more</span>
+            <span @click="showCommission"> more</span>
           </div>
         </div>
       </li>
+      <!-- showNotice -->
       <li>
         <div class="tipsProduce">
           <div class="title"> 今日公告</div>
@@ -24,10 +26,11 @@
             </li>
           </ul>
           <div class="more">
-            <span> more</span>
+            <span @click="showNotice"> more</span>
           </div>
         </div>
       </li>
+      <!-- showSale -->
       <li>
         <div class="tipsSale">
           <div class="title"> 今日经营</div>
@@ -98,9 +101,18 @@ export default {
     };
   },
   methods: {
-    showSth() {
-      this.$store.commit({ type: 'work/getWindow', window: 'common' })
-      this.$store.commit({ type: 'work/showFlag' })
+    // 代办 弹窗
+    showCommission() {
+      this.$store.commit({ type: 'work/showCommission', block: 'commission' })
+      setTimeout(() => {
+        this.$store.commit({ type: 'work/showFlag' })
+      }, 200)
+    },
+    showNotice() {
+      this.$store.commit({ type: 'work/showNotice', block: 'notice' })
+      setTimeout(() => {
+        this.$store.commit({ type: 'work/showFlag' })
+      }, 200)
     },
     //
     getSth() {

@@ -3,19 +3,26 @@
     <v-top></v-top>
     <v-center></v-center>
     <v-footer></v-footer>
-    <component :is="window" :v-show="showFlag"></component>
+    <transition mode="out-in">
+      <component :is="block" :v-show="showFlag"></component>
+    </transition>
+    
   </section>
 
 </template>
 <script>
-import common from './common/index'
+import commission from './common/commission'
+import notice from './common/notice'
 import vTop from './index/top'
 import vCenter from './index/center'
 import vFooter from './index/footer'
 export default {
   name: 'workIndex1',
   components: {
-    common,
+    // openBlock
+    notice,
+    commission,
+    //
     vTop,
     vCenter,
     vFooter
@@ -32,9 +39,9 @@ export default {
       // this.$store.getters.work.showFlag
       return this.$store.getters['work/showFlag']
     },
-    window() {
-      console.log(this.$store.getters['work/window'])
-      return this.$store.getters['work/window']
+    block() {
+      console.log(this.$store.getters['work/block'])
+      return this.$store.getters['work/block']
     }
   },
   mounted() {

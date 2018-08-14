@@ -16,23 +16,27 @@ const work = {
   namespaced: true,
   state: {
     showFlag: false,
-    window: 'common'
+    block: 'commission'
   },
   getters: {
     showFlag(state) {
       return state.showFlag
     },
-    window(state) {
-      return state.window
+    block(state) {
+      return state.block
     }
   },
   mutations: {
     showFlag(state) {
+      // let promise = new Promise)_
       state.showFlag = !state.showFlag
     },
-    getWindow(state, payload) {
+    showCommission(state, payload) {
       console.log(payload)
-      state.window = payload.window
+      state.block = payload.block
+    },
+    showNotice(state, payload) {
+      state.block = payload.block
     }
   },
   actions: {
