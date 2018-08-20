@@ -13,6 +13,7 @@
 <script>
 import commission from './common/commission'
 import notice from './common/notice'
+import allNotice from './common/allNotice'
 import vTop from './index/top'
 import vCenter from './index/center'
 import vFooter from './index/footer'
@@ -20,6 +21,7 @@ export default {
   name: 'workIndex1',
   components: {
     // openBlock
+    allNotice,
     notice,
     commission,
     //
@@ -34,13 +36,13 @@ export default {
   },
   computed: {
     showFlag() {
-      console.log(this.$store.getters)
-      console.log(this.$store.getters['work/showFlag'])
+      // console.log(this.$store.getters)
+      // console.log(this.$store.getters['work/showFlag'])
       // this.$store.getters.work.showFlag
       return this.$store.getters['work/showFlag']
     },
     block() {
-      console.log(this.$store.getters['work/block'])
+      // console.log(this.$store.getters['work/block'])
       return this.$store.getters['work/block']
     }
   },

@@ -21,12 +21,12 @@
         <div class="tipsProduce">
           <div class="title"> 今日公告</div>
           <ul>
-            <li v-for="(item, index) in forProduce" :key="index" :data-id="item.id">
+            <li v-for="(item, index) in forProduce" :key="index" :data-id="item.id" @click="showNotice(item.id)">
               <span style="margin-right:10px;color:#02CAB0">• [通知]</span> {{item.title}}
             </li>
           </ul>
           <div class="more">
-            <span @click="showNotice"> more</span>
+            <span @click="showMoreNotice"> 更多</span>
           </div>
         </div>
       </li>
@@ -108,8 +108,15 @@ export default {
         this.$store.commit({ type: 'work/showFlag' })
       }, 200)
     },
-    showNotice() {
-      this.$store.commit({ type: 'work/showNotice', block: 'notice' })
+    showNotice(id) {
+      console.log(id)
+      this.$store.commit({ type: 'work/showNotice', block: 'notice', id })
+      setTimeout(() => {
+        this.$store.commit({ type: 'work/showFlag' })
+      }, 200)
+    },
+    showMoreNotice() {
+      this.$store.commit({ type: 'work/showAllNotice', block: 'allNotice' })
       setTimeout(() => {
         this.$store.commit({ type: 'work/showFlag' })
       }, 200)
@@ -144,7 +151,9 @@ export default {
     this.getProduce();
     this.getSale();
   },
-  mounted() {}
+  mounted() {
+
+  }
 };
 </script>
 

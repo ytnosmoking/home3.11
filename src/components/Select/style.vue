@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "select-style",
+  name: 'select-style',
   props: {
     styleOptions: {
       type: Array,
@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      value: "0"
+      value: '0'
     };
   },
   computed: {

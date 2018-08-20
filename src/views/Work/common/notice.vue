@@ -3,22 +3,20 @@
   <el-dialog title="公告详情" :visible.sync="dialogTableVisible" :before-close="handleClose" width="70%">
     <div class="noticeBody">
       <h3 class="titleText">
-        下载最新版本（iOS版）
+        {{title}}
       </h3>
-      <p class="titleTime">2018-07-30 09:18</p>
-      <p class="titleTips">
-        注意：苹果版本2.7.6维护截至日期为7月30日,请及时安装以下最新管家助手(如已安装最新版本2.8.0,请忽略)
+      <p class="titleTime">{{time}}</p>
+      <p class="titleTips" v-html="content">
+      
       </p>
     </div>
     <div class="noticeFooter">
       <ul class="noticeObj clearfix">
-        <li>产品部</li>
-        <li>产品部</li>
-        <li>产品部</li>
+       <li v-for="(item, index) in departNames" :key="index">{{item}}</li>
       </ul>
       <div class="noticePage">
-        <el-button type="primary">＜上一篇</el-button>
-        <el-button type="primary">下一篇＞</el-button>
+        <el-button type="primary" @click="goPrev(id)">＜上一篇</el-button>
+        <el-button type="primary" @click="goNext(id)">下一篇＞</el-button>
       </div>
     </div>
   </el-dialog>
@@ -26,22 +24,66 @@
 </template>
 
 <script>
+import { getItem } from 'utils/auth'
 export default {
   name: 'common',
   data() {
-    return {};
+    return {
+      title: 'gonggao',
+      time: '2018',
+      content: '1234',
+      departNames: ['1', '2', '3'],
+      id: ''
+    };
   },
   computed: {
     dialogTableVisible() {
       return this.$store.getters['work/showFlag'];
+    },
+    noticeId() {
+      console.log(this.$store.getters['work/getNoticeId'])
+      return this.$store.getters['work/getNoticeId']
     }
   },
   methods: {
     handleClose(done) {
       this.$store.commit({ type: 'work/showFlag' });
+    },
+    getNotice() {
+      this.$store
+    .dispatch({ type: 'work/getNotice' })
+    .then(res => {
+      this.title = res.title
+      this.id = res.id
+      this.time = res.et
+      this.content = res.content
+      this.departNames = res.deptNames
+    })
+    },
+    goPrev(id) {
+      const noticeList = JSON.parse(getItem('noticeList'))
+      const index = noticeList.indexOf(id)
+      if (index > 0 && index <= noticeList.length - 1) {
+        this.$store.commit({ type: 'work/showNotice', id: noticeList[index - 1] })
+      }
+    },
+    goNext(id) {
+      const noticeList = JSON.parse(getItem('noticeList'))
+      const index = noticeList.indexOf(id)
+      if (index >= 0 && index < noticeList.length - 1) {
+        this.$store.commit({ type: 'work/showNotice', id: noticeList[index + 1] })
+      }
     }
   },
-  mounted() {}
+  mounted() {
+    this.getNotice()
+  },
+  watch: {
+    noticeId: function (oldValue, newVale) {
+      console.log(oldValue)
+      this.getNotice()
+    }
+  }
 };
 </script>
 

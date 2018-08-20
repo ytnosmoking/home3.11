@@ -23,6 +23,22 @@ export function getSale(data) {
     data
   })
 }
+
+export function getNotice(data) {
+  return request({
+    url: 'v2/company/company_notice/get_by_id',
+    method: 'post',
+    data
+  })
+}
+
+export function getAllNoticeStyle(data) {
+  return request({
+    url: 'v2/sys/zi_dian/get_list_by_mark',
+    method: 'post',
+    data
+  })
+}
 // center
 export function getBill(data) {
   return request({

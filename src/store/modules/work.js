@@ -2,6 +2,8 @@ import {
   getSth, // top
   getProduce,
   getSale,
+  getNotice,
+  getAllNoticeStyle,
   getBill, // center
   getMove,
   getClean,
@@ -12,11 +14,13 @@ import {
   getCentralizeRent
 } from 'api/work'
 import { getTime } from 'utils/common'
+import { setItem } from 'utils/auth'
 const work = {
   namespaced: true,
   state: {
     showFlag: false,
-    block: 'commission'
+    block: 'commission',
+    noticeId: ''
   },
   getters: {
     showFlag(state) {
@@ -24,6 +28,9 @@ const work = {
     },
     block(state) {
       return state.block
+    },
+    getNoticeId(state) {
+      return state.noticeId
     }
   },
   mutations: {
@@ -36,6 +43,15 @@ const work = {
       state.block = payload.block
     },
     showNotice(state, payload) {
+      if (payload.block) {
+        state.block = payload.block
+      }
+      if (payload.id) {
+        state.noticeId = payload.id
+      }
+    },
+    showAllNotice(state, payload) {
+      console.log(payload)
       state.block = payload.block
     }
   },
@@ -63,6 +79,12 @@ const work = {
       return new Promise((resolve, reject) => {
         getProduce(params).then(res => {
           if (res.status.code === '200') {
+            const list = res.result.list
+            if (list.length > 0) {
+              const noticeList = []
+              list.forEach(item => noticeList.push(item.id))
+              setItem('noticeList', JSON.stringify(noticeList));
+            }
             resolve(res.result.list)
           }
           reject(res)
@@ -84,6 +106,36 @@ const work = {
         }).catch(err => {
           reject(err)
         })
+      })
+    },
+    getNotice({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        const params = Object.assign({}, { id: state.noticeId })
+        console.log(params)
+        getNotice(params).then(res => {
+          if (res.status.code === '200') {
+            resolve(res.result)
+          }
+          reject(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    getAllNoticeStyle({ state, commit }, mark) {
+      return new Promise((resolve, reject) => {
+        let params = {
+          mark: mark.mark
+        }
+        params = Object.assign({}, { params })
+        console.log(params)
+        getAllNoticeStyle(params).then(res => {
+          console.log(res)
+          if (res.status.code === '200') {
+            resolve(res.result)
+          }
+          reject(res)
+        }).catch(err => reject(err))
       })
     },
     // center
