@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'common',
+  name: 'common11234',
   data() {
     return {
       gridData: [{
