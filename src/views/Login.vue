@@ -90,14 +90,14 @@
   </div>
 </template>
 <script>
-import { setItem } from "@/utils/auth"
-import { Message } from "element-ui"
+import { setItem } from '@/utils/auth'
+import { Message } from 'element-ui'
 export default {
-  name: "login",
+  name: 'login',
   data () {
     const checkGcid = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("gcid不能为空"))
+        return callback(new Error('gcid不能为空'))
       }
       setTimeout(() => {
         callback()
@@ -105,7 +105,7 @@ export default {
     }
     const checkName = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("用户名不能为空"))
+        return callback(new Error('用户名不能为空'))
       }
       setTimeout(() => {
         callback()
@@ -113,7 +113,7 @@ export default {
     }
     const checkPassword = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("密码不能为空"))
+        return callback(new Error('密码不能为空'))
       }
       setTimeout(() => {
         callback()
@@ -123,42 +123,42 @@ export default {
     return {
       lunbo: [
         {
-          title: "房乾PMS正在为公寓解决房屋运营管理问题",
-          title1: "PMS IS WORKING TO SOLVE THE HOUSING",
-          title2: "OPERATION AND MANAGEMENT PROBLEMS FOR THE APARTMENT",
-          class: "img-wraper",
-          bg: "bg1",
-          shadow: "",
-          id: "lunbo_img1"
+          title: '房乾PMS正在为公寓解决房屋运营管理问题',
+          title1: 'PMS IS WORKING TO SOLVE THE HOUSING',
+          title2: 'OPERATION AND MANAGEMENT PROBLEMS FOR THE APARTMENT',
+          class: 'img-wraper',
+          bg: 'bg1',
+          shadow: '',
+          id: 'lunbo_img1'
         },
         {
-          title: "数据驱动业绩 闭环创造价值",
-          title1: "DATA-DRIVEN PERFORMANCE CLOSED-LOOP CREATES VALUE",
-          title2: "",
-          class: "img-wraper2",
-          bg: "bg2",
-          shadow: "shadow2",
-          id: "lunbo_img2"
+          title: '数据驱动业绩 闭环创造价值',
+          title1: 'DATA-DRIVEN PERFORMANCE CLOSED-LOOP CREATES VALUE',
+          title2: '',
+          class: 'img-wraper2',
+          bg: 'bg2',
+          shadow: 'shadow2',
+          id: 'lunbo_img2'
         },
         {
-          title: "执行力提升、知识创新、自助高效办公",
-          title1: "EXECUTIVE POWER IMPROVEMENT",
-          title2: "OPERATION AND MANAGEMENT PROBLEMS FOR THE APARTMENT",
-          class: "img-wraper3",
-          bg: "bg3",
-          shadow: "shadow3",
-          id: "lunbo_img3"
+          title: '执行力提升、知识创新、自助高效办公',
+          title1: 'EXECUTIVE POWER IMPROVEMENT',
+          title2: 'OPERATION AND MANAGEMENT PROBLEMS FOR THE APARTMENT',
+          class: 'img-wraper3',
+          bg: 'bg3',
+          shadow: 'shadow3',
+          id: 'lunbo_img3'
         }
       ],
       ruleForm: {
-        gcid: "",
-        accountName: "",
-        accountPwd: ""
+        gcid: '',
+        accountName: '',
+        accountPwd: ''
       },
       rules: {
-        gcid: [{ validator: checkGcid, trigger: "blur" }],
-        accountName: [{ validator: checkName, trigger: "blur" }],
-        accountPwd: [{ validator: checkPassword, trigger: "blur" }]
+        gcid: [{ validator: checkGcid, trigger: 'blur' }],
+        accountName: [{ validator: checkName, trigger: 'blur' }],
+        accountPwd: [{ validator: checkPassword, trigger: 'blur' }]
       }
     }
   },
@@ -167,22 +167,22 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$store
-            .dispatch({ type:"user/LoginByUsername",value:this.ruleForm})
+            .dispatch({ type: 'user/LoginByUsername', value: this.ruleForm })
             .then(res => {
               // console.log(res);
-              if (res.status.code === "200") {
-                this.$router.push("/layout")
+              if (res.status.code === '200') {
+                this.$router.push('/layout')
                 setItem(
-                  "navRoutes",
+                  'navRoutes',
                   JSON.stringify([
-                    { path: "/layout/index", name: "代办" },
-                    { path: "/layout/datas", name: "数据" }
+                    { path: '/layout/index', name: '代办' },
+                    { path: '/layout/datas', name: '数据' }
                   ])
                 )
               } else {
                 Message({
                   message: res.status.msg,
-                  type: "error",
+                  type: 'error',
                   duration: 3 * 1000
                 })
               }
@@ -190,13 +190,13 @@ export default {
             .catch(err => {
               console.log(err)
               Message({
-                message: "网络开了一会小差~~~",
-                type: "error",
+                message: '网络开了一会小差~~~',
+                type: 'error',
                 duration: 3 * 1000
               })
             })
         } else {
-          console.log("error submit")
+          console.log('error submit')
           return false
         }
       })

@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import partTree from "./tree";
-import Bus from "@/StaticBus";
+import partTree from './tree';
+import Bus from '@/StaticBus';
 let time = null;
 export default {
-  name: "select-part",
+  name: 'select-part',
   components: {
     partTree
   },
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      partMan: "",
+      partMan: '',
       showPart: false,
       value: []
     };
@@ -65,20 +65,20 @@ export default {
         typeName: this.styleName.ment,
         value: value.id
       })
-      this.$store.commit({ type: "source/" + this.styleName.userid, value: "" })
-      this.$store.dispatch({ type: "source/getTable", tableInfo })
+      this.$store.commit({ type: 'source/' + this.styleName.userid, value: '' })
+      this.$store.dispatch({ type: 'source/getTable', tableInfo })
     },
     getUser(value) { // 拿到部门 请求人员
       clearTimeout(time)
       const that = this
       time = setTimeout(() => {
-        that.$store.dispatch("getPartUser", value)
+        that.$store.dispatch('getPartUser', value)
       }, 300);
     },
     getFocus() {
       this.showPart = true;
       if (this.getPartMent.length === 0) {
-        this.$store.dispatch("getPartMent", {})
+        this.$store.dispatch('getPartMent', {})
       }
     },
     hideShowPart() {
@@ -93,17 +93,17 @@ export default {
         typeName: this.styleName.userid,
         value: item.id
       })
-      this.$store.commit({ type: "source/" + this.styleName.ment, value: "" })
-      this.$store.dispatch({ type: "source/getTable", tableInfo })
+      this.$store.commit({ type: 'source/' + this.styleName.ment, value: '' })
+      this.$store.dispatch({ type: 'source/getTable', tableInfo })
     },
     reset() {
-      this.partMan = ""
+      this.partMan = ''
     }
   },
 
   mounted() {
     const that = this;
-    Bus.$on("hidePart", function() {
+    Bus.$on('hidePart', function() {
       that.showPart = false
     })
   }
